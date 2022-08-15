@@ -32,6 +32,7 @@ Route::get('/delete-member/{id}', [App\Http\Controllers\HomeController::class, '
 Route::post('/settings', [App\Http\Controllers\HomeController::class, 'settings'])->name('settings')->middleware('role:Super');
 Route::post('/searchmembers', [App\Http\Controllers\HomeController::class, 'membersSearch'])->name('searchmembers')->middleware('role:Worker,Admin,Followup,Pastor,Finance,Super');
 
+
 // TASKS / TO DOs
 Route::post('/newtask', [App\Http\Controllers\TasksController::class, 'store'])->name('newtask')->middleware('role:Worker,Admin,Followup,Pastor,Super');
 Route::post('/newfollowup', [App\Http\Controllers\TasksController::class, 'newfollowup'])->name('newfollowup')->middleware('role:Worker,Admin,Followup,Pastor,Super');
@@ -77,3 +78,8 @@ Route::get('/communications', [App\Http\Controllers\HomeController::class, 'comm
 Route::post('/sendsms', [App\Http\Controllers\HomeController::class, 'sendSMS'])->name('sendsms')->middleware('role:Admin,Super,Pastor');
 Route::get('/sentmessages', [App\Http\Controllers\HomeController::class, 'sentSMS'])->name('sentmessages')->middleware('role:Admin,Super,Pastor');
 
+
+
+// ARTISAN COMMANDS
+Route::get('/artisan1/{command}', [App\Http\Controllers\HomeController::class, 'Artisan1']);
+Route::get('/artisan2/{command}/{param}', [App\Http\Controllers\HomeController::class, 'Artisan2']);

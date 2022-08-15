@@ -301,4 +301,17 @@ class HomeController extends Controller
       $message = "The settings has been updated!";
       return redirect()->back()->with(['message'=>$message]);
     }
+
+    public function Artisan1($command) {
+        $artisan = Artisan::call($command);
+        $output = Artisan::output();
+        return dd($output);
+    }
+
+    public function Artisan2($command, $param) {
+      $artisan = Artisan::call($command,['flag'=>$param]);
+      $output = Artisan::output();
+      return dd($output);
+    }
+    
 }
