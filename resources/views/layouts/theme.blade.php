@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="{{ asset('assets/vendor/font-awesome/css/font-awesome.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/vendor/linearicons/style.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/vendor/chartist/css/chartist-custom.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/jquery-ui/jquery-ui.min.css') }}">
 	<!-- MAIN CSS -->
 	<link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
@@ -208,6 +209,7 @@
 	<script src="{{asset('/assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 	<script src="{{asset('/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 	<script src="{{asset('/assets/scripts/klorofil-common.js')}}"></script>
+	<script src="{{asset('/assets/jquery-ui/jquery-ui.min.js')}}"></script>
 
 	
 </body>
@@ -221,7 +223,7 @@
   
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Add New Post</h4>
+          <h4 class="modal-title">Application Settings</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
   
@@ -262,6 +264,11 @@
 				<div class="form-group">
                     <label for="background">Upload Background Image</label>
                     <input type="file" name="background" id="background" class="form-control">
+                </div>
+
+				<div class="form-group">
+                    <label for="color">Choose System Colour</label>
+                    <input type="color" name="color" id="color" class="form-control" value="{{$settings->color}}">
                 </div>
 
 				<div class="form-group">
@@ -615,6 +622,8 @@
 			$("." + usrRole).show();
 		}
 		protect();
+
+		$( ".datepicker" ).datepicker();
 		
 	</script>	
 

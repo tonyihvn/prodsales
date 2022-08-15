@@ -16,6 +16,7 @@ use App\Http\Controllers\HomeController;
 
 
 Auth::routes();
+Auth::routes(['verify' => true]);
 // ->middleware('role:editor,approver');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);

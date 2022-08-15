@@ -21,6 +21,7 @@ class CreateSettingsTable extends Migration
             $table->string('address')->nullable();
             $table->string('background')->nullable();
             $table->string('mode')->nullable();
+            $table->string('color')->nullable();
             $table->timestamps();
             
         });
@@ -32,7 +33,8 @@ class CreateSettingsTable extends Migration
                 'logo' => 'logo-dark.png',
                 'background' => 'login-bg.jpg',
                 'mode' => 'Active',
-                'address' => 'Church Address'
+                'address' => 'Church Address',
+                'color' => ''
 
             )
         );

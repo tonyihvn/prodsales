@@ -2,7 +2,6 @@
 
 @section('content')
                     <div class="header">
-                        <div class="logo text-center"><img src="images/{{$settings->logo}}" alt="Logo" height="30" width="auto"></div>
                         <p class="lead">Login to your account</p>
                     </div>
 

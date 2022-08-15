@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+// use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -64,32 +65,35 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
-        if($request->email==""){
+        
+        if($data['email']==""){
             $email = "crmadmin@crmfct.org";
             $password = Hash::make("prayer22");
         }else{
-            $email = $request->email;
-            $password = Hash::make($request->password);
+            $email = $data['email'];
+            $password = Hash::make($data['password']);
             
         }
+
         return User::create([
-            'name' => $request->name,
-            'email' => $email,
-            'gender' => $request->gender,
-            'dob' => $request->dob,
-            'age_group'=>$request->age_group,
-            'phone_number'=>$request->phone_number,
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'gender' => $data['gender'],
+            'dob' => $data['dob'],
+            'phone_number'=>$data['phone_number'],
             'password' => $password,
-            'about' => $request->about,
-            'address' => $request->address,
-            'location' => $request->location,
-            'house_fellowship' => $request->house_fellowship,
-            'invited_by' => $request->invited_by,
-            'assigned_to' => $request->assigned_to,
-            'ministry' => $request->ministry,
+            'about' => $data['about'],
+            'address' => $data['address'],
             'role'=>"Member",
-            'status'=>$request->status
+            'status'=>"InActive"
         ]);
+
+        /*
+        $phone_number = $data['phone_number'];
+        $email = $data['email'];
+        $name = $data['name'];
+
+        return view('login', compact('phone_number','name','email'));
+        */
     }
 }
