@@ -22,6 +22,7 @@ class CreateTasksTable extends Migration
             $table->string('status')->nullable();
             $table->string('assigned_to')->nullable();
             $table->string('member')->nullable();
+            $table->foreignId('settings_id')->constrained();
             $table->timestamps();
         });
     }

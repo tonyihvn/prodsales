@@ -21,6 +21,7 @@ class CreateHousefellowhipsTable extends Migration
             $table->string('leader')->nullable();
             $table->text('about')->nullable();
             $table->text('activities')->nullable();
+            $table->foreignId('settings_id')->constrained();
             $table->timestamps();
         });
     }

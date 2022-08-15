@@ -19,6 +19,7 @@ class CreateMinistriesTable extends Migration
             $table->string('details')->nullable();
             $table->string('leader')->nullable();
             $table->text('activities')->nullable();
+            $table->foreignId('settings_id')->constrained();               
             $table->timestamps();
         });
     }

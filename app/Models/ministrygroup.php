@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class followups extends Model
+class ministrygroup extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
-
-    public function ministry()
+    
+    public function user()
     {
-        return $this->belongsTo(settings::class, 'id', 'ministry_id');
+        return $this->belongsTo(user::class, 'id', 'user_id');
     }
 }

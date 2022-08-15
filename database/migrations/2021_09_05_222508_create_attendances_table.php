@@ -22,6 +22,7 @@ class CreateAttendancesTable extends Migration
             $table->string('children')->nullable();
             $table->string('total')->nullable();
             $table->string('remarks')->nullable();
+            $table->foreignId('settings_id')->constrained();
             $table->timestamps();
         });
     }

@@ -23,7 +23,8 @@ class CreateFollowupsTable extends Migration
             $table->string('nextaction')->nullable();
             $table->date('nextactiondate')->nullable();
             $table->string('status')->nullable();
-            $table->string('assigned_to')->nullable();            
+            $table->string('assigned_to')->nullable();
+            $table->foreignId('settings_id')->constrained();           
             $table->timestamps();
         });
     }

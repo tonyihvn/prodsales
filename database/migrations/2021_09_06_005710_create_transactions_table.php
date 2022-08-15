@@ -26,6 +26,7 @@ class CreateTransactionsTable extends Migration
             $table->string('to')->nullable();
             $table->string('approved_by')->nullable();
             $table->string('recorded_by')->nullable();
+            $table->foreignId('settings_id')->constrained();
             $table->timestamps();
         });
     }

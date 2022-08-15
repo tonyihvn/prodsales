@@ -23,6 +23,7 @@ class CreateProgrammesTable extends Migration
             $table->string('category')->nullable();
             $table->string('picture')->nullable();
             $table->string('ministry')->nullable();
+            $table->foreignId('settings_id')->constrained();
             $table->timestamps();
         });
     }

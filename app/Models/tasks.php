@@ -10,4 +10,9 @@ class tasks extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function ministry()
+    {
+        return $this->belongsTo(settings::class, 'id', 'ministry_id');
+    }
 }

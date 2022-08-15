@@ -19,6 +19,7 @@ class CreateAccountheadsTable extends Migration
             $table->string('category')->nullable();
             $table->string('type')->nullable();
             $table->string('description')->nullable();
+            $table->foreignId('settings_id')->constrained();
             $table->timestamps();
         });
     }

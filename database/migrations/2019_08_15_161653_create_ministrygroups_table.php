@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSettingsTable extends Migration
+class CreateMinistrygroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,31 +13,24 @@ class CreateSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('ministrygroups', function (Blueprint $table) {
             $table->id();
-            $table->string('ministry_name')->nullable();
+            $table->string('ministry_group_name')->nullable();
             $table->string('motto')->nullable();
             $table->string('logo')->nullable();
             $table->string('address')->nullable();
             $table->string('background')->nullable();
             $table->string('mode')->nullable();
             $table->string('color')->nullable();
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
-            
         });
 
-        DB::table('settings')->insert(
+        DB::table('ministrygroups')->insert(
             array(
-                'ministry_name' => 'Ministry Manager',
-                'motto' => 'Ministry Management System',
-                'logo' => 'logo-dark.png',
-                'background' => 'login-bg.jpg',
-                'mode' => 'Active',
-                'address' => 'Church Address',
-                'color' => ''
-
-            )
-        );
+                'ministry_group_name' => 'Ministry Manager',
+                'user_id' => 1
+            ));
 
     }
 
@@ -48,6 +41,6 @@ class CreateSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('ministrygroups');
     }
 }

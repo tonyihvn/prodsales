@@ -54,5 +54,24 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    
+    // USER OWNS MINISTRIES
+    public function ministry()
+    {
+        return $this->belongsToMany(settings::class, 'user_id', 'id');
+    }
+
+    // USER OWNS MINISTRY GROUPS
+    public function ministrygroup()
+    {
+        return $this->hasMany(ministrygroup::class, 'user_id', 'id');
+    }
+
+    // USER BELONGS TO ONE MINISTRY
+    /*
+    public function ministry()
+    {
+        return $this->belongsTo(settings::class, 'id', 'ministry_id');
+    }
+    */
+
 }
