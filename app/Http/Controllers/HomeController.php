@@ -37,6 +37,8 @@ class HomeController extends Controller
     public function index()
     {
       
+      dd('Test');
+      /*
         $attendance = attendance::where('activity','Sunday Service')->offset(0)->take(10)->get();
 
         $midweek = attendance::select('men')->offset(0)->take(10)->get();
@@ -51,6 +53,7 @@ class HomeController extends Controller
         $midweek = $midweek[0]->men.",".$midweek[1]->men.",".$midweek[2]->men.",".$midweek[3]->men.",".$midweek[4]->men.",".$midweek[5]->men.",".$midweek[6]->men.",".$midweek[7]->men.",".$midweek[8]->men.",".$midweek[9]->men;
 
         return view('home', compact('dates','midweek','totals','uprogrammes'));
+        */
     }
 
     public function logout()
