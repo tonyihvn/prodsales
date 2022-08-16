@@ -22,9 +22,15 @@
 	<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
 	<link rel="icon" type="{{ asset('image/png" sizes="96x96" href="assets/img/favicon.png') }}">
 
-	
+
     <link rel="stylesheet" href="{{asset('/css/jquery.dataTables.min.css')}}">
     <link rel="stylesheet" href="{{asset('https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css')}}">
+	<style>
+		.brand{
+			padding: 10px 5px 5px 10px !important;
+			width: 25%;
+		}
+	</style>
 </head>
 
 <body>
@@ -32,14 +38,20 @@
 	<div id="wrapper">
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="brand">
-				<a href="/"><img  src="/images/{{$settings->logo}}" alt="{{$settings->motto}}" class="img-responsive logo" style="height: 35px !important; float: left;"></a> {{$settings->ministry_name}}<br><small>{{$settings->motto}}</small>
+			<div class="brand row">
+				<div class="col-lg-3">
+					<img  src="/images/{{$settings->logo}}" alt="{{$settings->motto}}" class="img-responsive logo" style="height: auto !important; width: 100%; position: relative; padding: 0px;">
+				</div>
+				<div class="col-lg-9">
+					<b style="color: {{$settings->color}};">{{$settings->ministry_name}}</b><br>
+					<small>{{$settings->motto}}</small>
+				</div>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
-				
+
 				<form class="navbar-form navbar-left" action="{{ route('searchmembers') }}" method="post">
 					@csrf
 					<div class="input-group">
@@ -53,17 +65,17 @@
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
-							
+
 								<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
 									<i class="lnr lnr-alarm"></i>
 									@if ($mytasks->count()>0)
 										<span class="badge bg-danger">{{$mytasks->count()}} <!-- Some Laravel Counter --></span>
 									@endif
 								</a>
-							
-							
+
+
 							<ul class="dropdown-menu notifications">
-								@foreach ($mytasks as $ts)									
+								@foreach ($mytasks as $ts)
 									<li><a href="/tasks" class="notification-item"><span class="dot bg-warning"></span>{{$ts->title}} | <i class="lnr lnr-clock"></i>{{$ts->date}}</a></li>
 								@endforeach
 								<li><a href="/tasks" class="more">See all notifications</a></li>
@@ -82,10 +94,11 @@
 								<li><a href="/member/{{$login_user->id}}"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
 								<li><a href="/tasks"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
 								<li><a href="#"  data-toggle="modal" data-target="#settings"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
+                                <li><a href="#"  data-toggle="modal" data-target="#switchministry"><i class="lnr lnr-sync"></i> <span>Switch Ministry/Church</span></a></li>
 								<li><a href="/logout"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
 							</ul>
 						</li>
-						
+
 					</ul>
 				</div>
 			</div>
@@ -97,7 +110,7 @@
 				<nav>
 					<ul class="nav">
 						<li><a href="/home" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
-						
+
 						<li class="roledlink Worker Admin Followup Pastor Finance Super" style="visibility:hidden !important;">
 							<a href="#subPages1" data-toggle="collapse" class="collapsed"><i class="lnr lnr-calendar-full"></i> <span>Tasks/ To Do</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages1" class="collapse ">
@@ -112,7 +125,7 @@
 								<ul class="nav">
 									<li><a href="/members" class="">View Members</a></li>
 									<li><a href="/add-new" class="roledlink Worker,Admin,Followup,Pastor,Super">Add New</a></li>
-									
+
 								</ul>
 							</div>
 						</li>
@@ -121,7 +134,7 @@
 							<div id="subPages3" class="collapse ">
 								<ul class="nav">
 									<li><a href="/ministries" class="roledlink Admin Super Pastor">Manage Ministries</a></li>
-									
+
 								</ul>
 							</div>
 						</li>
@@ -130,8 +143,8 @@
 							<div id="subPages4" class="collapse ">
 								<ul class="nav">
 									<li><a href="/house-fellowships" class="">Manage House Fellowships</a></li>
-									
-									
+
+
 								</ul>
 							</div>
 						</li>
@@ -140,7 +153,7 @@
 							<div id="subPages5" class="collapse ">
 								<ul class="nav">
 									<li><a href="/programmes" class="">Manage Programmes</a></li>
-									
+
 								</ul>
 							</div>
 						</li>
@@ -156,8 +169,8 @@
 							<a href="#subPages7" data-toggle="collapse" class="collapsed"><i class="lnr lnr-list"></i> <span>Finance</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages7" class="collapse ">
 								<ul class="nav">
-									<li><a href="/transactions" class="">Financial Records</a></li>									
-									<li><a href="/account-heads" class="">Manage Account Heads</a></li>									
+									<li><a href="/transactions" class="">Financial Records</a></li>
+									<li><a href="/account-heads" class="">Manage Account Heads</a></li>
 
 								</ul>
 							</div>
@@ -167,7 +180,7 @@
 							<div id="subPages8" class="collapse ">
 								<ul class="nav">
 									<li><a href="/communications" class="">Send Bulk SMS</a></li>
-									<li><a href="/sentmessages" class="">Sent Messages</a></li>									
+									<li><a href="/sentmessages" class="">Sent Messages</a></li>
 								</ul>
 							</div>
 						</li>
@@ -211,7 +224,7 @@
 	<script src="{{asset('/assets/scripts/klorofil-common.js')}}"></script>
 	<script src="{{asset('/assets/jquery-ui/jquery-ui.min.js')}}"></script>
 
-	
+
 </body>
 
 </html>
@@ -220,24 +233,42 @@
 <div class="modal" id="settings">
     <div class="modal-dialog">
       <div class="modal-content">
-  
+
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Application Settings</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-  
+
         <!-- Modal body -->
         <div class="modal-body">
-            
-            <form method="POST" action="{{ route('settings') }}" enctype="multipart/form-data">
+            <div class="form-check">
+                <input type="checkbox" name="create_new_ministry" id="create_new_ministry" class="form-check-input">
+                <label class="form-check-label"><small style="color: {{$settings->color}}"><i>Click Here to Create New Ministry/Church</i></small></label>
+            </div>
+
+            <form method="POST" action="{{ route('settings') }}" id="settingsform" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="id" id="id" value="{{$settings->id}}">
 
-				<input type="hidden" name="oldlogo" id="id" value="{{$settings->logo}}">
+                <input type="hidden" name="id" value="{{$settings->id}}">
 
-				<input type="hidden" name="oldbackground" id="id" value="{{$settings->background}}">
-                                
+				<input type="hidden" name="oldlogo" value="{{$settings->logo}}">
+
+				<input type="hidden" name="oldbackground" value="{{$settings->background}}">
+
+                <input type="hidden" name="newministry" id="newministry" value="">
+
+                <div class="form-group">
+                    <label for="ministrygroup_id"  class="control-label ">Ministry Group/Headquarter</label>
+                    <select class="form-control" name="ministrygroup_id" id="ministrygroup_id">
+                        <option value="{{ $settings->ministrygroup_id }}" selected>{{ $ministrygroups->where('id',$settings->ministrygroup_id)->first()->ministry_group_name}}</option>
+                        @foreach ($ministrygroups as $mg)
+                            <option value="{{$mg->id}}">{{$mg->ministry_group_name}}</option>
+                        @endforeach
+
+                    </select>
+                </div>
+
                 <div class="form-group">
                     <label for="ministry_name">Ministry / Church Name</label>
                     <input type="text" name="ministry_name" id="ministry_name" class="form-control" value="{{$settings->ministry_name}}">
@@ -253,8 +284,8 @@
                     <input type="text" name="address" id="address" class="form-control" value="{{$settings->address}}">
                 </div>
 
-			
-                
+
+
 
                 <div class="form-group">
                     <label for="logo">Upload Logo Image</label>
@@ -269,6 +300,17 @@
 				<div class="form-group">
                     <label for="color">Choose System Colour</label>
                     <input type="color" name="color" id="color" class="form-control" value="{{$settings->color}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="user_id"  class="control-label ">Admin User</label>
+                    <select class="form-control" name="user_id" id="user_id">
+                        <option value="{{ $settings->user_id }}" selected>{{ $settings->user->name}}</option>
+                        @foreach ($hmembers as $hm)
+                            <option value="{{$hm->id}}">{{$hm->name}}</option>
+                        @endforeach
+
+                    </select>
                 </div>
 
 				<div class="form-group">
@@ -286,31 +328,98 @@
                     </button>
                 </div>
 
-                  
+
             </form>
         </div>
-  
+
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
-  
+
       </div>
     </div>
-  </div>
+</div>
+
+<div class="modal" id="switchministry">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Switch Ministry/Church</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+
+            <form method="POST" action="{{ route('switchministry') }}" enctype="multipart/form-data">
+                @csrf
+
+                @if (isset($userministries) && $userministries->count()>0)
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <select class="form-control" name="settings_id" id="settings_id">
+
+                                <option value="{{ $login_user->settings_id }}" selected>{{ $login_user->settings->ministry_name}}</option>
+                                @foreach ($ministrygroups as $ministrygroup)
+                                    @if (Auth()->user()->role=="Super")
+                                        @foreach ($ministrygroup->settings as $usrmin)
+                                            <option value="{{$usrmin->id}}">{{$usrmin->ministry_name}}</option>
+                                        @endforeach
+                                    @else
+                                        @foreach ($ministrygroup->settings->where('user_id',Auth()->user()->id) as $usrmin)
+                                            <option value="{{$usrmin->id}}">{{$usrmin->ministry_name}}</option>
+                                        @endforeach
+                                    @endif
+
+                                @endforeach
+
+
+                            </select>
+
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Switch') }}
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                @endif
+
+
+
+
+
+            </form>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+</div>
 
 @if (isset($pagename) && $pagename=="dashboard")
 	<script src="{{asset('/js/highcharts.js')}}"></script>
-	
+
 
 	<script>
-		
+
 		$(function () {
-     
+
 			var dates = [<?php echo $dates; ?>];
 			var totals = [<?php echo $totals; ?>];
 			var midweek = [<?php echo $midweek; ?>];
-			
+
 
 			console.log(dates);
 			$('#attendance-chart').highcharts({
@@ -373,14 +482,14 @@
 	<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js" /></script>
 
 	<script>
-		
+
 
 		// TABLES WITH FILTERS
 		$('#products thead tr').clone(true).appendTo( '#products thead' );
 		$('#products thead tr:eq(1) th:not(:last)').each( function (i) {
 			var title = $(this).text();
 			$(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" value="" />' );
-			
+
 			$( 'input', this ).on( 'keyup change', function () {
 				if ( table.column(i).search() !== this.value ) {
 					table
@@ -412,34 +521,34 @@
 
 	<script>
 		function accountHead(accid){
-			
-				
-				
+
+
+
 					var title = $('#ach'+accid).attr("data-title");
 					var category = $('#ach'+accid).attr("data-category");
 					var type = $('#ach'+accid).attr("data-type");
 					var description = $('#ach'+accid).attr("data-description");
-					
+
 					$('#id').val(accid);
 					$('#title').val(title);
 					$('#category').val(category).attr("selected", "selected");
 					$('#type').val(type);
 					$('#description').val(description);
-				
-			
+
+
 		}
 
 		function attendance(accid){
-			
-				
-				
+
+
+
 			var date = $('#ach'+accid).attr("data-date");
 			var activity = $('#ach'+accid).attr("data-activity");
 			var men = $('#ach'+accid).attr("data-men");
 			var women = $('#ach'+accid).attr("data-women");
 			var children = $('#ach'+accid).attr("data-children");
 			var remarks = $('#ach'+accid).attr("data-remarks");
-			
+
 			$('#id').val(accid);
 			$('#date').val(date);
 			$('#activity').val(activity).attr("selected", "selected");
@@ -447,12 +556,12 @@
 			$('#women').val(women);
 			$('#children').val(children);
 			$('#remarks').val(remarks);
-			
+
 		}
 
 		function transaction(accid){
-			
-				
+
+
 			var title = $('#ach'+accid).attr("data-title");
 			var date = $('#ach'+accid).attr("data-date");
 			var account_head = $('#ach'+accid).attr("data-account_head");
@@ -463,7 +572,7 @@
 			var to = $('#ach'+accid).attr("data-to");
 			var approved_by = $('#ach'+accid).attr("data-approved_by");
 			var recorded_by = $('#ach'+accid).attr("data-recorded_by");
-			
+
 			$('#title').val(title);
 			$('#id').val(accid);
 			$('#date').val(date);
@@ -475,30 +584,30 @@
 			$('#to').val(to).attr("selected", "selected");
 			$('#approved_by').val(approved_by).attr("selected", "selected");
 			$('#recorded_by').val(recorded_by).attr("selected", "selected");
-			
+
 		}
 
 		function ministry(accid){
-			
-				
-				
+
+
+
 			var name = $('#ach'+accid).attr("data-name");
 			var details = $('#ach'+accid).attr("data-details");
 			var leader = $('#ach'+accid).attr("data-leader");
 			var activities = $('#ach'+accid).attr("data-activities");
-			
+
 			$('#id').val(accid);
 			$('#name').val(name);
 			$('#details').val(details);
 			$('#leader').val(leader).attr("selected", "selected");
 			$('#activities').text(activities);
-			
+
 		}
 
 		function hfellowship(accid){
-			
-				
-				
+
+
+
 			var name = $('#ach'+accid).attr("data-name");
 			var about = $('#ach'+accid).attr("data-about");
 			var location = $('#ach'+accid).attr("data-location");
@@ -506,7 +615,7 @@
 
 			var leader = $('#ach'+accid).attr("data-leader");
 			var activities = $('#ach'+accid).attr("data-activities");
-			
+
 			$('#id').val(accid);
 			$('#name').val(name);
 			$('#location').val(location);
@@ -514,13 +623,13 @@
 			$('#about').val(about);
 			$('#leader').val(leader).attr("selected", "selected");
 			$('#activities').text(activities);
-			
+
 		}
 
 		function programme(accid){
-			
-				
-				
+
+
+
 			var title = $('#ach'+accid).attr("data-title");
 			var type = $('#ach'+accid).attr("data-type");
 			var from = $('#ach'+accid).attr("data-from");
@@ -529,7 +638,7 @@
 			var details = $('#ach'+accid).attr("data-details");
 			var category = $('#ach'+accid).attr("data-category");
 			var ministry = $('#ach'+accid).attr("data-ministry");
-			
+
 			$('#id').val(accid);
 			$('#title').val(title);
 			$('#type').val(type).attr("selected", "selected");
@@ -538,61 +647,61 @@
 			$('#details').val(details);
 			$('#category').val(category).attr("selected", "selected");
 			$('#ministry').val(ministry).attr("selected", "selected");
-			
+
 		}
 
 		function addnumber(number){
 			var receivers = $('#recipients').val();
 
 			if(number=="all"){
-				
+
 				if(receivers==""){
 					$('#recipients').val($('#all').attr('data-allnumbers'));
 				}else{
 					$('#recipients').val('');
 				}
 
-				
+
 			}else{
 				if($("#recipients").val().indexOf(','+number) >= 0){
 
-					
-					
+
+
 					$('#recipients').val(receivers.replace(','+number,''));
-						
+
 				}else if($("#recipients").val().indexOf(number+',') >= 0){
-					
-					
+
+
 					$('#recipients').val(receivers.replace(number+',',''));
-					
+
 				}else if($("#recipients").val().indexOf(number) >= 0){
-					
-					
+
+
 					$('#recipients').val(receivers.replace(number,''));
-					
+
 				}else{
 					if(receivers==""){
-						
+
 						$('#recipients').val(number);
 					}else{
 						$('#recipients').val(receivers+','+number);
 					}
-					
+
 				}
 			}
-				
+
 		}
 
 		// CHECK ALL
-		$('#all').click(function(event) {   
+		$('#all').click(function(event) {
 			if(this.checked) {
 				// Iterate each checkbox
 				$(':checkbox').each(function() {
-					this.checked = true;                        
+					this.checked = true;
 				});
 			} else {
 				$(':checkbox').each(function() {
-					this.checked = false;                       
+					this.checked = false;
 				});
 			}
 		});
@@ -604,13 +713,13 @@
 
 			$("#charcounter").text(currentLength + " characters");
 			$("#pagecounter").text(Math.ceil(currentLength/160) + " pages");
-				
+
 
 			if( currentLength >= maxlength ){
 				$("#error").text("You have reached the maximum number of characters.");
 			}else{
 				$("#charleft").text(maxlength - currentLength + " chars left");
-				
+
 			}
 		});
 
@@ -624,8 +733,17 @@
 		protect();
 
 		$( ".datepicker" ).datepicker();
-		
-	</script>	
+
+        $("#create_new_ministry").click(function(){
+            var token = $("input[name=_token]").val();
+            $('#settingsform')[0].reset();
+            $(':input').val('');
+            // $(':select').val('');
+            $('#newministry').val('Yes');
+            $("input[name=_token]").val(token);
+        });
+
+	</script>
 
 
 

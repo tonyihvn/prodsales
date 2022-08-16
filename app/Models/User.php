@@ -8,7 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+// implements MustVerifyEmail
+
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -57,7 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail
     // USER OWNS MINISTRIES
     public function ministry()
     {
-        return $this->belongsToMany(settings::class, 'user_id', 'id');
+        return $this->hasMany(settings::class, 'user_id', 'id');
     }
 
     // USER OWNS MINISTRY GROUPS
@@ -67,11 +69,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     // USER BELONGS TO ONE MINISTRY
-    /*
-    public function ministry()
+
+    public function settings()
     {
-        return $this->belongsTo(settings::class, 'id', 'ministry_id');
+        return $this->belongsTo(settings::class, 'settings_id', 'id');
     }
-    */
+
 
 }

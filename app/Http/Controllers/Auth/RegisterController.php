@@ -65,14 +65,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        
+
         if($data['email']==""){
             $email = "crmadmin@crmfct.org";
             $password = Hash::make("prayer22");
         }else{
             $email = $data['email'];
             $password = Hash::make($data['password']);
-            
+
         }
 
         return User::create([
@@ -85,7 +85,8 @@ class RegisterController extends Controller
             'about' => $data['about'],
             'address' => $data['address'],
             'role'=>"Member",
-            'status'=>"InActive"
+            'status'=>"InActive",
+            'settings_id'=>$data['settings_id']
         ]);
 
         /*

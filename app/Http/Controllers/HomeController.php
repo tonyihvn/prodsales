@@ -12,6 +12,7 @@ use App\Models\tasks;
 use App\Models\followups;
 use App\Models\programmes;
 use App\Models\settings;
+use App\Models\admintable;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -36,32 +37,42 @@ class HomeController extends Controller
      */
     public function index()
     {
-      
-      dd('Test');
-      /*
-        $attendance = attendance::where('activity','Sunday Service')->offset(0)->take(10)->get();
+        if(isset($settings_id)){
+            $role = admintable::select('role')->where('user_id',Auth()->user()->id)->where('settings_id',$settings_id)->first()->role;
+        }else{
+            $role = admintable::select('role')->where('user_id',Auth()->user()->id)->where('settings_id',Auth()->user()->settings_id)->first()->role;
+        }
+        if($role=="Admin"){
+            $attendance = attendance::where('activity','Sunday Service')->offset(0)->take(10)->get();
 
-        $midweek = attendance::select('men')->offset(0)->take(10)->get();
+            $midweek = attendance::select('men')->offset(0)->take(10)->get();
 
-        $uprogrammes = programmes::where('category','Upcoming')->select('id','title','from','to','ministry')->paginate(5);
-        
+            $uprogrammes = programmes::where('category','Upcoming')->select('id','title','from','to','ministry')->paginate(5);
 
-        $dates = "'".$attendance[0]->date."','".$attendance[1]->date."','".$attendance[2]->date."','".$attendance[3]->date."','".$attendance[4]->date."','".$attendance[5]->date."','".$attendance[6]->date."','".$attendance[7]->date."','".$attendance[8]->date."','".$attendance[9]->date."'";
-        
-        $totals = $attendance[0]->total.",".$attendance[1]->total.",".$attendance[2]->total.",".$attendance[3]->total.",".$attendance[4]->total.",".$attendance[5]->total.",".$attendance[6]->total.",".$attendance[7]->total.",".$attendance[8]->total.",".$attendance[9]->total;
+            if($attendance->count()>0){
+            $dates = "'".$attendance[0]->date."','".$attendance[1]->date."','".$attendance[2]->date."','".$attendance[3]->date."','".$attendance[4]->date."','".$attendance[5]->date."','".$attendance[6]->date."','".$attendance[7]->date."','".$attendance[8]->date."','".$attendance[9]->date."'";
 
-        $midweek = $midweek[0]->men.",".$midweek[1]->men.",".$midweek[2]->men.",".$midweek[3]->men.",".$midweek[4]->men.",".$midweek[5]->men.",".$midweek[6]->men.",".$midweek[7]->men.",".$midweek[8]->men.",".$midweek[9]->men;
+            $totals = $attendance[0]->total.",".$attendance[1]->total.",".$attendance[2]->total.",".$attendance[3]->total.",".$attendance[4]->total.",".$attendance[5]->total.",".$attendance[6]->total.",".$attendance[7]->total.",".$attendance[8]->total.",".$attendance[9]->total;
 
-        return view('home', compact('dates','midweek','totals','uprogrammes'));
-        */
-    }
+            $midweek = $midweek[0]->men.",".$midweek[1]->men.",".$midweek[2]->men.",".$midweek[3]->men.",".$midweek[4]->men.",".$midweek[5]->men.",".$midweek[6]->men.",".$midweek[7]->men.",".$midweek[8]->men.",".$midweek[9]->men;
+            }else{
+            $dates = ''; $totals = ''; $midweek = '';
+            }
+            return view('home', compact('dates','midweek','totals','uprogrammes'));
+        }else{
+            return view('member_home');
+
+        }
+
+
+     }
 
     public function logout()
     {
       Auth::logout();
       return redirect('/');
     }
-  
+
     public function members()
     {
       $members = User::all();
@@ -79,7 +90,7 @@ class HomeController extends Controller
     public function member($id)
     {
       $member = User::where('id',$id)->first();
-      $users = User::select('id','name','phone_number')->get();
+      $users = User::select('id','name','phone_number')->get(); // Be specific to member assigned to and invited by
       $tasks = tasks::where('assigned_to',$id)->get();
       $followups = followups::where('member',$id)->get();
 
@@ -100,15 +111,19 @@ class HomeController extends Controller
 
         if($request->email==""){
 
-            $email = "crmadmin@crmfct.org";
+            $email = "guest@crmfct2.org";
             $password = Hash::make("prayer22");
         }else{
             $email = $request->email;
-            $password = Hash::make($request->password);
-            
         }
 
-        User::updateOrCreate(['id'=>$request->id],[
+        if($request->password!=""){
+            $password = Hash::make($request->password);
+        }else{
+            $password = $request->oldpassword;
+        }
+
+        $userid = User::updateOrCreate(['id'=>$request->id],[
             'name' => $request->name,
             'email' => $email,
             'gender' => $request->gender,
@@ -124,12 +139,24 @@ class HomeController extends Controller
             'assigned_to' => $request->assigned_to,
             'ministry' => $request->ministry,
             'role'=>$request->role,
-            'status'=>$request->status
-            
-        ]);
-        $members = User::all();
+            'status'=>$request->status,
+            'settings_id'=>$request->settings_id
 
-        return view('members', compact('members'));
+        ])->id;
+
+        admintable::createOrUpdate([
+            'user_id'=>$userid,
+            'settings_id'=>$request->settings_id
+        ],[
+            'user_id'=>$userid,
+            'settings_id'=>$request->settings_id,
+            'status'=>$request->role,
+        ]);
+
+        $members = User::all();
+        $users = User::select('name','id')->get();
+
+        return view('members', compact('members','users'));
 
     }
 
@@ -145,7 +172,7 @@ class HomeController extends Controller
 
     public function deleteMember($id)
     {
-      $user = User::where('id',$id)->delete();      
+      $user = User::where('id',$id)->delete();
       $message = 'The member has been deleted!';
       return redirect()->route('members')->with(['message'=>$message]);
 
@@ -160,7 +187,7 @@ class HomeController extends Controller
           return redirect()->back()->with(['message'=>'Please connect your internect before going to communications page <a href="/communications">Retry</a>']);
       }else{
 
-      
+
 
         $session = file_get_contents("http://www.smslive247.com/http/index.aspx?cmd=login&owneremail=gcictng@gmail.com&subacct=CRMAPP&subacctpwd=@@prayer22");
         $sessionid = ltrim(substr($session,3),' ');
@@ -201,7 +228,7 @@ class HomeController extends Controller
 
     public function sendSMS(request $request){
 
-      // 2 Jan 2008 6:30 PM   sendtime - date format for scheduling 
+      // 2 Jan 2008 6:30 PM   sendtime - date format for scheduling
       if(\Cookie::get('sessionidd')){
         $sessionid = \Cookie::get('sessionidd');
       }else{
@@ -212,10 +239,10 @@ class HomeController extends Controller
       $sessionid = \Cookie::get('sessionidd');
       $recipients = $request->recipients;
       $body = $request->body;
-      
+
 
       $message = file_get_contents("http://www.smslive247.com/http/index.aspx?cmd=sendmsg&sessionid=".$sessionid."&message=".urlencode($body)."&sender=CHURCH&sendto=".$recipients."&msgtype=0");
-      
+
 
       // v20ylRY3Gp6jYEAvpaDtOQQTqwoCqc1n4CUG3IBboIMTciDeVk	  -  Token for smartsms solutions
 
@@ -250,7 +277,7 @@ class HomeController extends Controller
       $allnumbers = substr($allnumbers,0,-1);
       return view('communications', compact('members','allnumbers','message','creditbalance'));
 
-      
+
     }
 
     public function sentSMS(request $request){
@@ -272,25 +299,25 @@ class HomeController extends Controller
           'logo'=>'image|mimes:jpg,png,jpeg,gif,svg',
           'background'=>'image|mimes:jpg,png,jpeg,gif,svg'
       ]);
-      
+
       if(!empty($request->file('logo'))){
-       
+
           $logo = time().'.'.$request->logo->extension();
-        
+
           $request->logo->move(\public_path('images'),$logo);
       }else{
           $logo = $request->oldlogo;
       }
 
       if(!empty($request->file('background'))){
-          
+
           $background = time().'.'.$request->background->extension();
-          
+
           $request->background->move(\public_path('images'),$background);
       }else{
           $background = $request->oldbackground;
       }
-      
+
 
       settings::updateOrCreate(['id'=>$request->id],[
           'ministry_name' => $request->ministry_name,
@@ -298,11 +325,27 @@ class HomeController extends Controller
           'logo' => $logo,
           'address' => $request->address,
           'background' => $background,
-          'mode'=>$request->mode
-          
+          'mode'=>$request->mode,
+          'color'=>$request->color,
+          'ministrygroup_id'=>$request->ministrygroup_id,
+          'user_id'=>$request->user_id
       ]);
       $message = "The settings has been updated!";
       return redirect()->back()->with(['message'=>$message]);
+    }
+
+    public function switchministry(request $request){
+
+        User::where('id',Auth()->user()->id)->update([
+            'settings_id'=>$request->settings_id
+        ]);
+
+        $ministry_name = settings::where('id',$request->settings_id)->first()->ministry_name;
+        $settings_id = admintable::where('user_id',Auth()->user()->id)->first()->settings_id;
+
+
+        $message = "You have been switch to ".$ministry_name;
+        return redirect()->route('home')->with(['message'=>$message,'settings_id'=>$settings_id]);
     }
 
     public function Artisan1($command) {
@@ -316,5 +359,5 @@ class HomeController extends Controller
       $output = Artisan::output();
       return dd($output);
     }
-    
+
 }

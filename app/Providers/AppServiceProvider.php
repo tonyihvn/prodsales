@@ -7,6 +7,8 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\tasks;
 use App\Models\User;
 use App\Models\settings;
+use App\Models\ministrygroup;
+
 use Auth;
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,18 +31,25 @@ class AppServiceProvider extends ServiceProvider
     {
         // Using view composer to set following variables globally
 
-        
+
         view()->composer('*',function($view) {
-            $view->with('settings', settings::first());
+
             if (Auth::check())
             {
                 $view->with('login_user', Auth::user());
                 $view->with('mytasks', tasks::where('assigned_to',Auth::user()->id)->where('status','Not Completed')->get());
-                $view->with('hmembers', User::select('status')->get());
-                
+                $view->with('hmembers', User::select('id','name','status')->where('settings_id',Auth::user()->id)->get());
+                $view->with('userministries',settings::select('id','ministry_name','ministrygroup_id')->where('user_id',Auth::user()->id)->get());
+
+                $view->with('settings', settings::where('id',Auth::user()->settings_id)->first());
+            }else{
+                $view->with('settings', settings::first());
             }
+
+            $view->with('ministrygroups',ministrygroup::select('id','ministry_group_name')->get());
+
             // if you need to access in controller and views:
-            // Config::set('something', $something); 
+            // Config::set('something', $something);
         });
     }
 }

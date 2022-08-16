@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('role',30)->nullable();
+            $table->foreignId('settings_id')->constrained('settings');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -39,6 +40,7 @@ class CreateUsersTable extends Migration
         DB::table('users')->insert(
             array(
                 'name' => 'Ministry Manager',
+                'role' => 'Super'
             ));
 
     }

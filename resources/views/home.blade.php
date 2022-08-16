@@ -24,7 +24,7 @@
                                 <a href="/members" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
-                
+
                         <div class="col-lg-3 col-sm-6">
                             <div class="card-box bg-green">
                                 <div class="inner">
@@ -79,7 +79,7 @@
                     <h3 class="panel-title">Church Attendance | Last 4 Weeks</h3>
                 </div>
                 <div class="panel-body">
-                    
+
                     <div id="attendance-chart" style="height: 300px"></div>
                 </div>
             </div>
@@ -92,9 +92,9 @@
                 <div class="panel-body">
                     <table class="table">
                         <thead>
-                            
+
                             <tr>
-                               
+
                                 <th>Title</th>
                                 <th>Date</th>
                                 <th>Host/Organizer</th>
@@ -106,11 +106,11 @@
                                     <td>{{$up->title}}</td>
                                     <td>{{$up->from==$up->to?$up->from:$up->from." to ".$up->to}}</td>
                                     <td>{{$up->ministry}}</td>
-                                   
+
                                 </tr>
                             @endforeach
-                            
-                            
+
+
                         </tbody>
                     </table>
                 </div>
@@ -120,7 +120,7 @@
 
     <style>
         body{
-            background:#eee;    
+            background:#eee;
             }
 
             .card-box {
@@ -189,6 +189,6 @@
             }
 
     </style>
-        
-    
+
+
 @endsection

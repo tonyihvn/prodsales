@@ -13,7 +13,17 @@ class settings extends Model
 
     public function user()
     {
-        return $this->belongsToMany(user::class, 'id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function members()
+    {
+        return $this->hasMany(User::class, 'settings_id', 'id');
+    }
+
+    public function ministrygroup()
+    {
+        return $this->belongsTo(ministrygroup::class, 'id', 'ministrygroup_id');
     }
 
     public function housefellowhips()
@@ -45,7 +55,7 @@ class settings extends Model
     {
         return $this->hasMany(programmes::class, 'ministry_id', 'id');
     }
-    
+
     public function tasks()
     {
         return $this->hasMany(tasks::class, 'ministry_id', 'id');
