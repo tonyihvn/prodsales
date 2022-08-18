@@ -18,28 +18,25 @@ class CreateUsersTable extends Migration
             $table->string('name',50);
             $table->string('gender',7)->nullable();
             $table->string('dob',20)->nullable();
-            $table->string('age_group',15)->nullable();
+            $table->string('category',15)->nullable();
             $table->string('phone_number',30)->nullable();
             $table->string('email',50)->nullable();
             $table->text('about',120)->nullable();
             $table->string('address',130)->nullable();
             $table->string('location',40)->nullable();
-            $table->string('house_fellowship',50)->nullable();
-            $table->string('invited_by',10)->nullable();
-            $table->string('assigned_to',10)->nullable();
-            $table->string('ministry',50)->nullable();
+            $table->string('salary',50)->nullable();
             $table->string('status',30)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('role',30)->nullable();
-            $table->foreignId('settings_id')->constrained('settings');
+            $table->foreignId('setting_id')->constrained('settings');
             $table->rememberToken();
             $table->timestamps();
         });
 
         DB::table('users')->insert(
             array(
-                'name' => 'Ministry Manager',
+                'name' => 'ProdSales',
                 'role' => 'Super'
             ));
 

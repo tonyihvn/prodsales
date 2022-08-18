@@ -23,9 +23,12 @@ class CreateInventoriesTable extends Migration
             $table->string('current_location',40)->nullable();
             $table->string('detail',100)->nullable();
             $table->string('from',40)->nullable();
+
+            $table->unsignedBigInteger('current_user')->index()->nullable();
             $table->foreign('current_user')->references('id')->on('users')->onDelete('cascade')->nullable;
-            $table->foreign('settings_id')->references('id')->on('settings')->onDelete('cascade')->nullable;
-            $table->foreignId('setting_id')->references('id')->on('settings');
+
+            $table->unsignedBigInteger('setting_id')->index()->nullable();
+            $table->foreign('setting_id')->references('id')->on('settings')->onDelete('cascade')->nullable;
             $table->timestamps();
         });
     }

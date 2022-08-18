@@ -16,13 +16,13 @@ class CreateAttendancesTable extends Migration
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->string('activity')->nullable();
-            $table->string('men')->nullable();
-            $table->string('women')->nullable();
-            $table->string('children')->nullable();
-            $table->string('total')->nullable();
-            $table->string('remarks')->nullable();
-            $table->foreignId('settings_id')->constrained();
+            $table->unsignedBigInteger('staff_id')->index()->nullable();
+            $table->foreign('staff_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->integer('status',1)->nullable();
+
+            $table->unsignedBigInteger('setting_id')->index()->nullable();
+            $table->foreign('setting_id')->references('id')->on('settings')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -15,16 +15,20 @@ class CreateFollowupsTable extends Migration
     {
         Schema::create('followups', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title',70);
             $table->string('member')->nullable();
             $table->date('date')->nullable();
-            $table->string('type')->nullable();
+            $table->string('type',30)->nullable();
             $table->text('discussion')->nullable();
-            $table->string('nextaction')->nullable();
+            $table->string('nextaction',80)->nullable();
             $table->date('nextactiondate')->nullable();
-            $table->string('status')->nullable();
-            $table->string('assigned_to')->nullable();
-            $table->foreignId('settings_id')->constrained();           
+            $table->string('status',30)->nullable();
+
+            $table->unsignedBigInteger('assigned_to')->index()->nullable();
+            $table->string('assigned_to')->references('id')->on('users')->nullable();
+
+            $table->unsignedBigInteger('setting_id')->index()->nullable();
+            $table->foreignId('setting_id')->constrained('settings');
             $table->timestamps();
         });
     }

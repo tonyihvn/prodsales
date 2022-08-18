@@ -17,7 +17,11 @@ class CreateAuditsTable extends Migration
             $table->id();
             $table->string('activity',80);
             $table->string('category',30);
+
+            $table->unsignedBigInteger('user_id')->index()->nullable();
             $table->foreignId('user_id')->references('id')->on('users');
+
+            $table->unsignedBigInteger('setting_id')->index()->nullable();
             $table->foreignId('setting_id')->references('id')->on('settings');
             $table->timestamps();
         });

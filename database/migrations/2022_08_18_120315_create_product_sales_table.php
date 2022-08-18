@@ -15,13 +15,27 @@ class CreateProductSalesTable extends Migration
     {
         Schema::create('product_sales', function (Blueprint $table) {
             $table->id();
+
+            $table->integer('group_id')->index()->nullable();
+
+            $table->unsignedBigInteger('product_id')->index()->nullable();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+
+
             $table->double('quantity',10,2)->nullable();
+
+            $table->unsignedBigInteger('sales_person')->index()->nullable();
             $table->foreign('sales_person')->references('id')->on('users')->onDelete('cascade');
+
+            $table->unsignedBigInteger('confirmed_by')->index()->nullable();
             $table->foreign('comfirmed_by')->references('id')->on('users')->onDelete('cascade');
 
+            $table->unsignedBigInteger('buyer')->index()->nullable();
             $table->foreign('buyer')->references('id')->on('users')->onDelete('cascade');
+
+            $table->unsignedBigInteger('setting_id')->index()->nullable();
             $table->foreignId('setting_id')->references('id')->on('settings');
+
             $table->double('price',10,2)->nullable();
             $table->double('amount_paid',10,2)->default(0.00)->nullable();
             $table->string('pay_status',10)->default(0.00)->nullable();

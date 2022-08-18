@@ -5,15 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class admintable extends Model
+class payrolls extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
+    public function settings()
+    {
+        return $this->belongsTo(settings::class, 'id', 'setting_id');
+    }
+
     public function user()
     {
-        return $this->hasMany(users::class, 'id', 'user_id');
+        return $this->belongsTo(users::class, 'id', 'staff_id');
     }
 
 }

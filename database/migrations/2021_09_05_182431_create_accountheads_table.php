@@ -15,11 +15,12 @@ class CreateAccountheadsTable extends Migration
     {
         Schema::create('accountheads', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
-            $table->string('category')->nullable();
-            $table->string('type')->nullable();
-            $table->string('description')->nullable();
-            $table->foreignId('settings_id')->constrained();
+            $table->string('title',50)->nullable();
+            $table->string('category',50)->nullable();
+            $table->string('type',50)->nullable();
+            $table->string('description',50)->nullable();
+            $table->unsignedBigInteger('setting_id')->index()->nullable();
+            $table->foreign('setting_id')->references('id')->on('settings');
             $table->timestamps();
         });
     }

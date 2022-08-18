@@ -15,7 +15,8 @@ class CreateAdmintablesTable extends Migration
     {
         Schema::create('admintables', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id',false)->nullable();
+            $table->unsignedBigInteger('user_id')->index()->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->integer('settings_id',false)->nullable();
             $table->string('role',30)->nullable();
             $table->timestamps();

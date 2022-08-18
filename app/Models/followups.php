@@ -11,8 +11,13 @@ class followups extends Model
 
     protected $guarded = [];
 
-    public function ministry()
+    public function settings()
     {
-        return $this->belongsTo(settings::class, 'id', 'ministry_id');
+        return $this->belongsTo(settings::class, 'id', 'setting_id');
+    }
+
+    public function assigned_to()
+    {
+        return $this->belongsTo(user::class, 'id', 'assigned_to');
     }
 }

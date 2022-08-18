@@ -21,6 +21,7 @@ class CreateSuppliersTable extends Migration
             $table->string('phone_number',30)->nullable();
             $table->string('details',100)->nullable();
             $table->string('address',100)->nullable();
+            $table->unsignedBigInteger('setting_id')->index()->nullable();
             $table->foreignId('setting_id')->references('id')->on('settings');
             $table->timestamps();
         });

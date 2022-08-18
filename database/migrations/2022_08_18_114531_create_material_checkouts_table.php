@@ -15,15 +15,24 @@ class CreateMaterialCheckoutsTable extends Migration
     {
         Schema::create('material_checkouts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('material_id')->references('id')->on('materials');
-            $table->foreignId('checkout_by')->references('id')->on('users');
-            $table->foreignId('approved_by')->references('id')->on('users');
-            $table->foreignId('production_batch')->references('id')->on('production_jobs');
+            $table->unsignedBigInteger('material_id')->index()->nullable();
+            $table->foreign('material_id')->references('id')->on('materials');
+
+            $table->unsignedBigInteger('checkout_by')->index()->nullable();
+            $table->foreign('checkout_by')->references('id')->on('users');
+
+            $table->unsignedBigInteger('approved_by')->index()->nullable();
+            $table->foreign('approved_by')->references('id')->on('users');
+
+            $table->unsignedBigInteger('production_batch')->index()->nullable();
+            $table->foreign('production_batch')->references('id')->on('production_jobs');
 
             $table->double('quantity',10,2);
             $table->date('dated');
             $table->string('details',100);
-            $table->foreignId('setting_id')->references('id')->on('settings');
+
+            $table->unsignedBigInteger('setting_id')->index()->nullable();
+            $table->foreign('setting_id')->references('id')->on('settings');
             $table->timestamps();
         });
     }

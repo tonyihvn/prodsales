@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDistributorsTable extends Migration
+class CreatePayrollsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateDistributorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('distributors', function (Blueprint $table) {
+        Schema::create('payrolls', function (Blueprint $table) {
             $table->id();
-            $table->string('name',50)->nullable();
-            $table->string('company_name',100)->nullable();
-            $table->string('category',40)->nullable();
-            $table->string('phone_number',30)->nullable();
-            $table->string('details',100)->nullable();
-            $table->string('address',100)->nullable();
+            $table->unsignedBigInteger('staff_id')->index()->nullable();
+            $table->foreign('staff_id')->references('id')->on('users');
+            $table->double('amount',10,2)->nullable();
+
+            $table->unsignedBigInteger('paid_by')->index()->nullable();
+            $table->foreign('paid_by')->references('id')->on('users');
+            $table->string('month',15)->nullable();
 
             $table->unsignedBigInteger('setting_id')->index()->nullable();
             $table->foreignId('setting_id')->references('id')->on('settings');
@@ -35,6 +36,6 @@ class CreateDistributorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('distributors');
+        Schema::dropIfExists('payrolls');
     }
 }

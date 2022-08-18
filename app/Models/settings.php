@@ -18,51 +18,73 @@ class settings extends Model
 
     public function members()
     {
-        return $this->hasMany(User::class, 'settings_id', 'id');
+        return $this->hasMany(User::class, 'setting_id', 'id');
     }
 
-    public function ministrygroup()
+    public function businessgroup()
     {
-        return $this->belongsTo(ministrygroup::class, 'id', 'ministrygroup_id');
+        return $this->belongsTo(businessgroups::class, 'id', 'businessgroup_id');
     }
 
-    public function housefellowhips()
+    public function audits()
     {
-        return $this->hasMany(housefellowhips::class, 'ministry_id', 'id');
-    }
-
-    public function ministries()
-    {
-        return $this->hasMany(ministries::class, 'ministry_id', 'id');
+        return $this->hasMany(audits::class, 'setting_id', 'id');
     }
 
     public function accountheads()
     {
-        return $this->hasMany(accountheads::class, 'ministry_id', 'id');
+        return $this->hasMany(accountheads::class, 'setting_id', 'id');
     }
+
+    public function distributions()
+    {
+        return $this->hasMany(distribution::class, 'setting_id', 'id');
+    }
+
+    public function distributors()
+    {
+        return $this->hasMany(distributor::class, 'setting_id', 'id');
+    }
+
+    public function finishedproducts()
+    {
+        return $this->hasMany(finished_products::class, 'setting_id', 'id');
+    }
+
+    public function inventories()
+    {
+        return $this->hasMany(inventory::class, 'setting_id', 'id');
+    }
+
+    public function checkouts()
+    {
+        return $this->hasMany(material_checkouts::class, 'setting_id', 'id');
+    }
+
+
 
     public function attendance()
     {
-        return $this->hasMany(attendance::class, 'ministry_id', 'id');
+        return $this->hasMany(attendance::class, 'setting_id', 'id');
     }
 
     public function transactions()
     {
-        return $this->hasMany(transactions::class, 'ministry_id', 'id');
+        return $this->hasMany(transactions::class, 'setting_id', 'id');
     }
 
     public function programmes()
     {
-        return $this->hasMany(programmes::class, 'ministry_id', 'id');
+        return $this->hasMany(programmes::class, 'setting_id', 'id');
     }
 
     public function tasks()
     {
-        return $this->hasMany(tasks::class, 'ministry_id', 'id');
+        return $this->hasMany(tasks::class, 'setting_id', 'id');
     }
 
     public function followups()
     {
-        return $this->hasMany(followups::class, 'ministry_id', 'id');
+        return $this->hasMany(followups::class, 'setting_id', 'id');
     }
 }

@@ -11,8 +11,13 @@ class attendance extends Model
 
     protected $guarded = [];
 
-    public function ministry()
+    public function settings()
     {
-        return $this->belongsTo(settings::class, 'id', 'ministry_id');
+        return $this->belongsTo(settings::class, 'id', 'setting_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(user::class, 'id', 'staff_id');
     }
 }

@@ -15,12 +15,11 @@ use App\Http\Controllers\HomeController;
 */
 
 
-Auth::routes();
 Auth::routes(['verify' => true]);
 // ->middleware('role:editor,approver');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
-Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
+// Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
 
 // MEMBERS
 Route::get('/members', [App\Http\Controllers\HomeController::class, 'members'])->name('members')->middleware('role:Worker,Admin,Followup,Pastor,Finance,Super');

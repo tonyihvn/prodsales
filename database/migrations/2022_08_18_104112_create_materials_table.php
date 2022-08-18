@@ -22,7 +22,8 @@ class CreateMaterialsTable extends Migration
             $table->string('picture',50)->nullable();
             $table->double('size',10,2)->nullable();
             $table->double('cost_per',10,2)->nullable();
-            $table->foreignId('setting_id')->references('id')->on('settings');
+            $table->unsignedBigInteger('setting_id')->index()->nullable();
+            $table->foreign('setting_id')->references('id')->on('settings');
             $table->timestamps();
         });
     }

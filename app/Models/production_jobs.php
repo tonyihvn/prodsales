@@ -9,4 +9,21 @@ class production_jobs extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function settings()
+    {
+        return $this->belongsTo(settings::class, 'id', 'setting_id');
+    }
+
+
+    public function user()
+    {
+        return $this->hasMany(users::class, 'id', 'staff_incharge');
+    }
+
+
+    public function product()
+    {
+        return $this->hasOne(products::class, 'id', 'product_id');
+    }
 }
