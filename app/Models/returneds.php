@@ -5,14 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class transactions extends Model
+class returneds extends Model
 {
     use HasFactory;
-
     protected $guarded = [];
-
-    public function productionjobs()
-    {
-        return $this->belongsTo(productionjobs::class, 'id', 'production_id');
-    }
 }

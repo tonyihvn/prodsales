@@ -15,31 +15,33 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('ministry_name')->nullable();
+            $table->string('business_name')->nullable();
             $table->string('motto')->nullable();
             $table->string('logo')->nullable();
             $table->string('address')->nullable();
             $table->string('background')->nullable();
             $table->string('mode')->nullable();
             $table->string('color')->nullable();
-            $table->foreignId('ministrygroup_id')->constrained('ministrygroups')->nullable();
-            $table->foreignId('user_id')->constrained('users')->nullable();;
+
+            $table->foreign('businessgroup_id')->references('id')->on('businessgroups')->nullable();
+
+            $table->foreign('user_id')->references('id')->on('users')->nullable();
 
             $table->timestamps();
-            
+
         });
 
         DB::table('settings')->insert(
             array(
-                'ministry_name' => 'Ministry Manager',
-                'motto' => 'Ministry Management System',
+                'business_name' => 'ProdSales',
+                'motto' => 'Production and Sales Management System',
                 'logo' => 'logo-dark.png',
                 'background' => 'login-bg.jpg',
                 'mode' => 'Active',
-                'address' => 'Church Address',
+                'address' => 'Business Address',
                 'color' => '',
                 'user_id' => 1,
-                'ministrygroup_id' => 1
+                'businessgroup_id' => 1
 
             )
         );

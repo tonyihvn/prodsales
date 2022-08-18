@@ -16,17 +16,27 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->integer('amount');
-            $table->string('account_head');
-            $table->date('date')->nullable();
-            $table->string('reference_no')->nullable();
-            $table->string('upload')->nullable();
-            $table->string('detail')->nullable();
-            $table->string('from')->nullable();
-            $table->string('to')->nullable();
-            $table->string('approved_by')->nullable();
-            $table->string('recorded_by')->nullable();
+            $table->double('amount',10,2)->nullable();
+            $table->foreign('account_head')->references('id')->on('accountheads')->onDelete('cascade');
+
+            $table->dateTime('dated')->nullable();
+            $table->string('reference_no',20)->nullable();
+            $table->string('upload',50)->nullable();
+            $table->string('detail',100)->nullable();
+            $table->string('from',40)->nullable();
+            $table->string('to',40)->nullable();
+            $table->foreign('approved_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('recorded_by')->references('id')->on('users')->onDelete('cascade');
+
+            $table->string('payment_status',100)->nullable();
+            $table->string('transaction_id',40)->nullable();
+            $table->string('balance',40)->nullable();
+            $table->string('payment_type',100)->nullable();
+            $table->string('payment_particulars',40)->nullable();
+            $table->string('beneficiary',40)->nullable();
+
             $table->foreignId('settings_id')->constrained();
+
             $table->timestamps();
         });
     }
