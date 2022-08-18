@@ -43,16 +43,20 @@ class ProgrammesController extends Controller
         $validateData = $request->validate([
             'picture'=>'image|mimes:jpg,png,jpeg,gif,svg'
         ]);
-        
+
         if(!empty($request->file('picture'))){
             // $picture = $request->file('picture')->getClientOriginalName();
             $picture = time().'.'.$request->picture->extension();
             // $path = $request->file('picture')->store('public/images');
             $request->picture->move(\public_path('images'),$picture);
         }else{
-            $picture = "";
+            if($request->oldpicture==""){
+                $picture = "";
+            }else{
+                $picture = $request->oldpicture;
+            }
         }
-        
+
 
         programmes::updateOrCreate(['id'=>$request->id],[
             'title' => $request->title,
@@ -60,16 +64,25 @@ class ProgrammesController extends Controller
             'from' => $request->from,
             'to' => $request->to,
             'details' => $request->details,
-            'category'=>$request->category,   
+            'category'=>$request->category,
             'ministry' => $request->ministry,
-            'picture'=>$picture, 
-            
-            
+            'picture'=>$picture,
+            'settings_id'=>Auth()->user()->settings_id
+
+
         ]);
         $ministries = ministries::select('name')->get();
         $programmes = programmes::paginate(10);
 
         return view('programmes', compact('programmes','ministries'));
+    }
+
+    public function post($id)
+    {
+
+        $program = programmes::where('id',$id)->first();
+
+        return view('post', compact('program'));
     }
 
     /**
@@ -114,8 +127,8 @@ class ProgrammesController extends Controller
      */
     public function destroy($id)
     {
-        programmes::findOrFail($id)->delete();      
-        $message = 'The Post has been deleted!';      
+        programmes::findOrFail($id)->delete();
+        $message = 'The Post has been deleted!';
         return redirect()->route('programmes')->with(['message'=>$message]);
     }
 }

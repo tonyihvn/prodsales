@@ -72,6 +72,7 @@ Route::get('/delete-hfel/{id}', [App\Http\Controllers\HousefellowhipsController:
 // PROGRAMMES
 Route::get('/programmes', [App\Http\Controllers\ProgrammesController::class, 'index'])->name('programmes')->middleware('role:Admin,Super,Pastor');
 Route::post('/addprogramme', [App\Http\Controllers\ProgrammesController::class, 'store'])->name('addprogramme')->middleware('role:Admin,Super,Pastor');
+Route::get('/post/{id}', [App\Http\Controllers\ProgrammesController::class, 'post'])->name('post');
 Route::get('/delete-prog/{id}', [App\Http\Controllers\ProgrammesController::class, 'destroy'])->name('delete-prog')->middleware('role:Admin,Super,Pastor');
 
 // COMMUNICATION

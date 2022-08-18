@@ -40,9 +40,12 @@ class HomeController extends Controller
         if(isset($settings_id)){
             $role = admintable::select('role')->where('user_id',Auth()->user()->id)->where('settings_id',$settings_id)->first()->role;
         }else{
-            $role = admintable::select('role')->where('user_id',Auth()->user()->id)->where('settings_id',Auth()->user()->settings_id)->first()->role;
+            $role = admintable::select('role')->where('user_id',Auth()->user()->id)->where('settings_id',Auth()->user()->settings_id)->first();
+            if(isset($role->role)){
+              $role = $role->role;
+            }
         }
-        if($role=="Admin"){
+        if(($role=="Admin") || (Auth()->user()->role=="Super")){
             $attendance = attendance::where('activity','Sunday Service')->offset(0)->take(10)->get();
 
             $midweek = attendance::select('men')->offset(0)->take(10)->get();
@@ -58,9 +61,9 @@ class HomeController extends Controller
             }else{
             $dates = ''; $totals = ''; $midweek = '';
             }
-            return view('home', compact('dates','midweek','totals','uprogrammes'));
+            return view('home', compact('dates','midweek','totals','uprogrammes'))->with('message','Role is :'.$role);
         }else{
-            return view('member_home');
+            return view('member_home')->with('message','Role is :'.$role);;
 
         }
 
@@ -336,16 +339,26 @@ class HomeController extends Controller
 
     public function switchministry(request $request){
 
-        User::where('id',Auth()->user()->id)->update([
-            'settings_id'=>$request->settings_id
-        ]);
+
+        if(Auth()->user()->role=="Super"){
+            $admininfo = admintable::select('role','settings_id')->where('settings_id',$request->settings_id)->first();
+
+            User::where('id',Auth()->user()->id)->update([
+                'settings_id'=>$request->settings_id,
+            ]);
+        }else{
+            $admininfo = admintable::select('role','settings_id')->where('settings_id',$request->settings_id)->where('user_id',Auth()->user()->id)->first();
+
+            User::where('id',Auth()->user()->id)->update([
+                'settings_id'=>$request->settings_id,
+                'role'=>$admininfo->role
+            ]);
+
+        }
 
         $ministry_name = settings::where('id',$request->settings_id)->first()->ministry_name;
-        $settings_id = admintable::where('user_id',Auth()->user()->id)->first()->settings_id;
-
-
         $message = "You have been switch to ".$ministry_name;
-        return redirect()->route('home')->with(['message'=>$message,'settings_id'=>$settings_id]);
+        return redirect()->route('home')->with(['message'=>$message,'settings_id'=>$admininfo->settings_id]);
     }
 
     public function Artisan1($command) {

@@ -22,7 +22,6 @@
 	<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
 	<link rel="icon" type="{{ asset('image/png" sizes="96x96" href="assets/img/favicon.png') }}">
 
-
     <link rel="stylesheet" href="{{asset('/css/jquery.dataTables.min.css')}}">
     <link rel="stylesheet" href="{{asset('https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css')}}">
 	<style>
@@ -30,6 +29,13 @@
 			padding: 10px 5px 5px 10px !important;
 			width: 25%;
 		}
+
+        p[data-f-id="pbf"] {
+            visibility: hidden;
+            display: none;
+            height: 0px;
+            background-color: none !important;
+        }
 	</style>
 </head>
 
@@ -212,7 +218,7 @@
 		<div class="clearfix"></div>
 		<footer>
 			<div class="container-fluid">
-				<p class="copyright">&copy; {{date("Y")}} <a href="https://www.crmfct.org" target="_blank">CRM - FCT</a>. All Rights Reserved.</p>
+				<p class="copyright">&copy; {{date("Y")}} <a href="https://www.ministrymanager.org" target="_blank">{{$settings->name}}</a>. All Rights Reserved.</p>
 			</div>
 		</footer>
 	</div>
@@ -517,6 +523,22 @@
 		} );
 	</script>
 @endif
+@if (isset($pagename) && $pagename=="programmes")
+    <link href="{{asset('node_modules/froala-editor/css/froala_editor.pkgd.min.css')}}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="{{asset('node_modules/froala-editor/js/froala_editor.pkgd.min.js')}}"></script>
+    <script>
+        var editor = new FroalaEditor('.richtext');
+    </script>
+    <style>
+        .fr-wrapper div a{
+            visibility: hidden;
+            display: none;
+            height: 0px;
+            background-color: none !important;
+        }
+
+    </style>
+@endif
 
 
 	<script>
@@ -628,12 +650,11 @@
 
 		function programme(accid){
 
-
-
-			var title = $('#ach'+accid).attr("data-title");
+            var title = $('#ach'+accid).attr("data-title");
 			var type = $('#ach'+accid).attr("data-type");
 			var from = $('#ach'+accid).attr("data-from");
 			var to = $('#ach'+accid).attr("data-to");
+            var picture = $('#ach'+accid).attr("data-pic");
 
 			var details = $('#ach'+accid).attr("data-details");
 			var category = $('#ach'+accid).attr("data-category");
@@ -644,10 +665,18 @@
 			$('#type').val(type).attr("selected", "selected");
 			$('#from').val(from);
 			$('#to').val(to);
+
+
+
 			$('#details').val(details);
+            $('#oldpicture').val(picture);
 			$('#category').val(category).attr("selected", "selected");
 			$('#ministry').val(ministry).attr("selected", "selected");
 
+            // var editor2 = new FroalaEditor('.richtext', {}, function () {
+            // Call the method inside the initialized event.
+            editor.html.set(details);
+            // });
 		}
 
 		function addnumber(number){
@@ -742,6 +771,19 @@
             $('#newministry').val('Yes');
             $("input[name=_token]").val(token);
         });
+
+        $(function(){
+            $(".fr-wrapper div a").hide();
+        });
+
+        $(".modaldismiss,.close").click(function(){
+            // $('#programmesform')[0].reset();
+            var token = $("input[name=_token]").val();
+            $('#newministry').val('Yes');
+            $(':input').val('');
+            $("input[name=_token]").val(token);
+            editor.html.set("");
+        })
 
 	</script>
 
