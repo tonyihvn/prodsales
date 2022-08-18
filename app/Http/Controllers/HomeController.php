@@ -13,6 +13,7 @@ use App\Models\followups;
 use App\Models\programmes;
 use App\Models\settings;
 use App\Models\admintable;
+// use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -37,6 +38,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        //DB::connection('mysql')->statement("CREATE DATABASE ".env('DB_CONNECTION', 'mysql'));
+
         if(isset($settings_id)){
             $role = admintable::select('role')->where('user_id',Auth()->user()->id)->where('settings_id',$settings_id)->first()->role;
         }else{

@@ -24,7 +24,7 @@ class CreateBusinessgroupsTable extends Migration
             $table->string('mode',30)->nullable();
             $table->string('color',30)->nullable();
             $table->unsignedBigInteger('user_id')->index()->nullable();
-            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamps();
         });

@@ -61,7 +61,25 @@ class settings extends Model
         return $this->hasMany(material_checkouts::class, 'setting_id', 'id');
     }
 
+    public function stocks()
+    {
+        return $this->hasMany(product_stocks::class, 'setting_id', 'id');
+    }
 
+    public function jobs()
+    {
+        return $this->hasMany(production_jobs::class, 'setting_id', 'id');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(products::class, 'setting_id', 'id');
+    }
+
+    public function suppliers()
+    {
+        return $this->hasMany(suppliers::class, 'setting_id', 'id');
+    }
 
     public function attendance()
     {
