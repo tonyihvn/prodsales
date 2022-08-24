@@ -28,13 +28,13 @@ class CreateProductSalesTable extends Migration
             $table->foreign('sales_person')->references('id')->on('users')->onDelete('cascade');
 
             $table->unsignedBigInteger('confirmed_by')->index()->nullable();
-            $table->foreign('comfirmed_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('confirmed_by')->references('id')->on('users')->onDelete('cascade');
 
             $table->unsignedBigInteger('buyer')->index()->nullable();
             $table->foreign('buyer')->references('id')->on('users')->onDelete('cascade');
 
             $table->unsignedBigInteger('setting_id')->index()->nullable();
-            $table->foreignId('setting_id')->references('id')->on('settings');
+            $table->foreign('setting_id')->references('id')->on('settings');
 
             $table->double('price',10,2)->nullable();
             $table->double('amount_paid',10,2)->default(0.00)->nullable();

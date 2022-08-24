@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
-use App\Models\housefellowhips;
-use App\Models\ministries;
+use App\Models\businessgroups;
 use App\Models\attendance;
 use App\Models\tasks;
 use App\Models\followups;
 use App\Models\programmes;
 use App\Models\settings;
 use App\Models\admintable;
+use App\Models\product;
+use App\Models\production_jobs;
+
 // use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Hash;
@@ -39,39 +41,54 @@ class HomeController extends Controller
     public function index()
     {
 
-        //DB::connection('mysql')->statement("CREATE DATABASE ".env('DB_CONNECTION', 'mysql'));
-
-        if(isset($settings_id)){
-            $role = admintable::select('role')->where('user_id',Auth()->user()->id)->where('settings_id',$settings_id)->first()->role;
+        if(isset($setting_id)){
+            $role = admintable::select('role')->where('user_id',Auth()->user()->id)->where('setting_id',$setting_id)->first()->role;
         }else{
-            $role = admintable::select('role')->where('user_id',Auth()->user()->id)->where('settings_id',Auth()->user()->settings_id)->first();
+            $role = admintable::select('role')->where('user_id',Auth()->user()->id)->where('setting_id',Auth()->user()->setting_id)->first();
             if(isset($role->role)){
               $role = $role->role;
-            }
-        }
-        if(($role=="Admin") || (Auth()->user()->role=="Super")){
-            $attendance = attendance::where('activity','Sunday Service')->offset(0)->take(10)->get();
-
-            $midweek = attendance::select('men')->offset(0)->take(10)->get();
-
-            $uprogrammes = programmes::where('category','Upcoming')->select('id','title','from','to','ministry')->paginate(5);
-
-            if($attendance->count()>0){
-            $dates = "'".$attendance[0]->date."','".$attendance[1]->date."','".$attendance[2]->date."','".$attendance[3]->date."','".$attendance[4]->date."','".$attendance[5]->date."','".$attendance[6]->date."','".$attendance[7]->date."','".$attendance[8]->date."','".$attendance[9]->date."'";
-
-            $totals = $attendance[0]->total.",".$attendance[1]->total.",".$attendance[2]->total.",".$attendance[3]->total.",".$attendance[4]->total.",".$attendance[5]->total.",".$attendance[6]->total.",".$attendance[7]->total.",".$attendance[8]->total.",".$attendance[9]->total;
-
-            $midweek = $midweek[0]->men.",".$midweek[1]->men.",".$midweek[2]->men.",".$midweek[3]->men.",".$midweek[4]->men.",".$midweek[5]->men.",".$midweek[6]->men.",".$midweek[7]->men.",".$midweek[8]->men.",".$midweek[9]->men;
             }else{
-            $dates = ''; $totals = ''; $midweek = '';
+                $role = Auth()->user()->role;
             }
-            return view('home', compact('dates','midweek','totals','uprogrammes'))->with('message','Role is :'.$role);
-        }else{
-            return view('member_home')->with('message','Role is :'.$role);;
-
+            $setting_id = Auth()->user()->setting_id;
         }
 
+        if($role=="Admin" || $role == "Super"){
 
+            return $this->productionDashboard($setting_id,$role);
+        }else{
+            return userDashboard();
+        }
+     }
+
+     public function productionDashboard($setting_id,$role)
+    {
+
+        if($role == "Admin" || $role=="Super"){
+
+            $productionData = production_jobs::select(\DB::raw("COUNT(*) as count"))
+                    ->whereYear('dated_started', date('Y'))
+                    ->groupBy(\DB::raw("product_id"))
+                    ->pluck('count');
+
+            $jobs = production_jobs::select('product_id','staff_incharge','dated_started','dated_ended','status','estimated_cost_of_production')->get();
+            return view('production_dashboard', compact('jobs','productionData'));
+        }else{
+
+            $salesData = User::select(\DB::raw("COUNT(*) as count"))
+                    ->whereYear('dated_sold', date('Y'))
+                    ->groupBy(\DB::raw("Month(dated_sold)"))
+                    ->pluck('count');
+
+            $sales = products::select('product_name')->get();
+
+            return view('staff_dashboard',compact('sales','salesData'));
+
+        }
+     }
+
+     public function userDashboard(){
+        return view('user_dashboard');
      }
 
     public function logout()
@@ -108,8 +125,8 @@ class HomeController extends Controller
     {
       $users = User::select('name','id')->get();
       $house_fellowships = housefellowhips::select('name','id')->get();
-      $ministries = ministries::select('name','id')->get();
-      return view('add-new', compact('users','ministries','house_fellowships'));
+      $businesses = businesses::select('name','id')->get();
+      return view('add-new', compact('users','businesses','house_fellowships'));
 
     }
 
@@ -144,7 +161,7 @@ class HomeController extends Controller
             'house_fellowship' => $request->house_fellowship,
             'invited_by' => $request->invited_by,
             'assigned_to' => $request->assigned_to,
-            'ministry' => $request->ministry,
+            'business' => $request->business,
             'role'=>$request->role,
             'status'=>$request->status,
             'settings_id'=>$request->settings_id
@@ -334,14 +351,14 @@ class HomeController extends Controller
           'background' => $background,
           'mode'=>$request->mode,
           'color'=>$request->color,
-          'ministrygroup_id'=>$request->ministrygroup_id,
+          'businessgroup_id'=>$request->businessgroup_id,
           'user_id'=>$request->user_id
       ]);
       $message = "The settings has been updated!";
       return redirect()->back()->with(['message'=>$message]);
     }
 
-    public function switchministry(request $request){
+    public function switchbusiness(request $request){
 
 
         if(Auth()->user()->role=="Super"){
@@ -360,8 +377,8 @@ class HomeController extends Controller
 
         }
 
-        $ministry_name = settings::where('id',$request->settings_id)->first()->ministry_name;
-        $message = "You have been switch to ".$ministry_name;
+        $business_name = settings::where('id',$request->settings_id)->first()->business_name;
+        $message = "You have been switch to ".$business_name;
         return redirect()->route('home')->with(['message'=>$message,'settings_id'=>$admininfo->settings_id]);
     }
 

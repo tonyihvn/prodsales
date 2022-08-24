@@ -126,6 +126,7 @@
                 <div class="form-group">
                     <label for="category" class="control-label">Category</label>
                     <select class="form-control" name="category" id="category">
+                        <option value="Reminder" selected>Reminder</option>
                         <option value="Admin" selected>Admin</option>
                         <option value="Followup">Followup</option>
                         <option value="Others" selected>Others</option>

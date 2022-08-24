@@ -26,7 +26,7 @@ class CreateMaterialStocksTable extends Migration
             $table->dateTime('dated_added')->nullable();
 
             $table->unsignedBigInteger('supply_batch')->index()->nullable();
-            $table->foreign('supply_badge')->references('id')->on('supplies')->onDelete('cascade');
+            $table->foreign('supply_batch')->references('id')->on('material_supplies')->onDelete('cascade');
             $table->unsignedBigInteger('setting')->index()->nullable();
             $table->foreignId('setting_id')->references('id')->on('settings');
             $table->timestamps();

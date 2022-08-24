@@ -14,7 +14,8 @@ class SuppliersController extends Controller
      */
     public function index()
     {
-        //
+        $suppliers = suppliers::paginate(50);
+        return view('suppliers', compact('suppliers'));
     }
 
     /**
@@ -35,7 +36,37 @@ class SuppliersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'picture'=>'image|mimes:jpg,png,jpeg,gif,svg'
+        ]);
+
+        if(!empty($request->file('picture'))){
+            // $picture = $request->file('picture')->getClientOriginalName();
+            $picture = time().'.'.$request->picture->extension();
+            // $path = $request->file('picture')->store('public/images');
+            $request->picture->move(\public_path('images\materials'),$picture);
+        }else{
+            if($request->oldpicture==""){
+                $picture = "";
+            }else{
+                $picture = $request->oldpicture;
+            }
+        }
+
+
+        suppliers::updateOrCreate(['id'=>$request->id],[
+            'supplier_name' => $request->supplier_name,
+            'company_name' => $request->company_name,
+            'category' => $request->category,
+            'phone_number' => $request->phone_number,
+            'details' => $request->details,
+            'address'=>$request->address,
+            'setting_id'=>$request->setting_id
+
+        ]);
+        $suppliers = suppliers::paginate(50);
+
+        return view('suppliers', compact('suppliers'));
     }
 
     /**
@@ -78,8 +109,10 @@ class SuppliersController extends Controller
      * @param  \App\Models\suppliers  $suppliers
      * @return \Illuminate\Http\Response
      */
-    public function destroy(suppliers $suppliers)
+    public function destroy($id)
     {
-        //
+        materials::findOrFail($id)->delete();
+        $message = 'The material has been deleted!';
+        return redirect()->route('materials')->with(['message'=>$message]);
     }
 }

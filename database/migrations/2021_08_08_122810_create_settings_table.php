@@ -31,6 +31,10 @@ class CreateSettingsTable extends Migration
 
         });
 
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('setting_id')->references('id')->on('settings');
+        });
+
         DB::table('settings')->insert(
             array(
                 'business_name' => 'ProdSales',

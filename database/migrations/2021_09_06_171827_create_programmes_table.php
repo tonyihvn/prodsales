@@ -22,9 +22,9 @@ class CreateProgrammesTable extends Migration
             $table->text('details')->nullable();
             $table->string('category',50)->nullable();
             $table->string('picture',50)->nullable();
-            $table->string('ministry',50)->nullable();
+            $table->string('department',50)->nullable();
             $table->unsignedBigInteger('setting_id')->index()->nullable();
-            $table->foreignId('setting_id')->references('id')->on('settings');
+            $table->foreign('setting_id')->references('id')->on('settings');
             $table->timestamps();
         });
     }

@@ -13,7 +13,12 @@ class materials extends Model
 
     public function settings()
     {
-        return $this->belongsTo(settings::class, 'id', 'setting_id');
+        return $this->belongsTo(settings::class, 'setting_id', 'id');
+    }
+
+    public function supplies()
+    {
+        return $this->belongsTo(supplies::class, 'setting_id', 'id');
     }
 
 }

@@ -26,7 +26,7 @@ class CreateDistributionsTable extends Migration
             $table->foreign('comfirmed_by')->references('id')->on('users')->onDelete('cascade');
 
             $table->unsignedBigInteger('setting_id')->index()->nullable();
-            $table->foreignId('setting_id')->references('id')->on('settings');
+            $table->foreign('setting_id')->references('id')->on('settings');
 
             $table->double('price',10,2)->nullable();
             $table->double('amount_returned',10,2)->default(0.00)->nullable();

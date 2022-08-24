@@ -57,22 +57,22 @@ class User extends Authenticatable
     ];
 
     // USER OWNS MINISTRIES
-    public function ministry()
+    public function business()
     {
         return $this->hasMany(settings::class, 'user_id', 'id');
     }
 
     // USER OWNS MINISTRY GROUPS
-    public function ministrygroup()
+    public function businessgroup()
     {
-        return $this->hasMany(ministrygroup::class, 'user_id', 'id');
+        return $this->hasMany(businessgroup::class, 'user_id', 'id');
     }
 
     // USER BELONGS TO ONE MINISTRY
 
     public function settings()
     {
-        return $this->belongsTo(settings::class, 'settings_id', 'id');
+        return $this->belongsTo(settings::class, 'setting_id', 'id');
     }
 
 

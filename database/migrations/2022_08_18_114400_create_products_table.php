@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->double('size',10,2)->nullable();
             $table->double('price',10,2)->nullable();
             $table->unsignedBigInteger('setting_id')->index()->nullable();
-            $table->foreignId('setting_id')->references('id')->on('settings');
+            $table->foreign('setting_id')->references('id')->on('settings');
             $table->timestamps();
         });
     }

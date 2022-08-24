@@ -14,7 +14,8 @@ class ProductionJobsController extends Controller
      */
     public function index()
     {
-        //
+        $productionjobs = production_jobs::paginate(50);
+        return view('production_jobs', compact('productionjobs'));
     }
 
     /**
@@ -35,7 +36,21 @@ class ProductionJobsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pjobs = production_jobs::updateOrCreate(['id'=>$request->id],[
+            'product_id' => $request->product_id,
+            'staff_incharge' => $request->staff_incharge,
+            'target_quantity' => $request->target_quantity,
+            'dated_started' => $request->dated_started,
+            'dated_ended' => $request->dated_ended,
+            'status'=>$request->status,
+            'batchno'=>$request->batchno,
+            'estimated_cost_of_production'=>$request->estimated_cost_of_production,
+            'setting_id'=>$request->setting_id
+
+        ])->id;
+
+        $productionjobs = production_jobs::paginate(50);
+        return view('production_jobs', compact('productionjobs'));
     }
 
     /**
@@ -78,8 +93,11 @@ class ProductionJobsController extends Controller
      * @param  \App\Models\production_jobs  $production_jobs
      * @return \Illuminate\Http\Response
      */
-    public function destroy(production_jobs $production_jobs)
+
+    public function destroy($id)
     {
-        //
+        production_jobs::findOrFail($id)->delete();
+        $message = 'The Production record has been deleted!';
+        return redirect()->route('productionjobs')->with(['message'=>$message]);
     }
 }

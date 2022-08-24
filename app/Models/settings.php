@@ -16,7 +16,7 @@ class settings extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function members()
+    public function personnel()
     {
         return $this->hasMany(User::class, 'setting_id', 'id');
     }
@@ -71,6 +71,11 @@ class settings extends Model
         return $this->hasMany(production_jobs::class, 'setting_id', 'id');
     }
 
+    public function materials()
+    {
+        return $this->hasMany(materials::class, 'setting_id', 'id');
+    }
+
     public function products()
     {
         return $this->hasMany(products::class, 'setting_id', 'id');
@@ -104,5 +109,10 @@ class settings extends Model
     public function followups()
     {
         return $this->hasMany(followups::class, 'setting_id', 'id');
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(categories::class, 'setting_id', 'id');
     }
 }

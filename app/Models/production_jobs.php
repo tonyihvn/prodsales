@@ -18,7 +18,7 @@ class production_jobs extends Model
 
     public function user()
     {
-        return $this->hasMany(users::class, 'id', 'staff_incharge');
+        return $this->hasOne(User::class, 'id', 'staff_incharge');
     }
 
 

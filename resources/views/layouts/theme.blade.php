@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>CRM Church Manager | Dashboard</title>
+	<title>ProdSales | Dashboard</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -49,7 +49,7 @@
 					<img  src="/images/{{$settings->logo}}" alt="{{$settings->motto}}" class="img-responsive logo" style="height: auto !important; width: 100%; position: relative; padding: 0px;">
 				</div>
 				<div class="col-lg-9">
-					<b style="color: {{$settings->color}};">{{$settings->ministry_name}}</b><br>
+					<b style="color: {{$settings->color}};">{{$settings->business_name}}</b><br>
 					<small>{{$settings->motto}}</small>
 				</div>
 			</div>
@@ -61,13 +61,15 @@
 				<form class="navbar-form navbar-left" action="{{ route('searchmembers') }}" method="post">
 					@csrf
 					<div class="input-group">
-						<input type="text" value="" name="keyword" class="form-control" placeholder="Search Members...">
+						<input type="text" value="" name="keyword" class="form-control" placeholder="Search ...">
 						<span class="input-group-btn"><button type="submit" class="btn btn-primary">Go</button></span>
 					</div>
 				</form>
-				<div class="navbar-btn navbar-btn-right">
+				<!--
+                <div class="navbar-btn navbar-btn-right">
 					<a class="btn btn-success update-pro" href="/add-new" title="New Member" target="_blank"><span class="fa fa-user-plus"></span> <span>New Member</span></a>
 				</div>
+            -->
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
@@ -100,8 +102,16 @@
 								<li><a href="/member/{{$login_user->id}}"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
 								<li><a href="/tasks"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
 								<li><a href="#"  data-toggle="modal" data-target="#settings"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
-                                <li><a href="#"  data-toggle="modal" data-target="#switchministry"><i class="lnr lnr-sync"></i> <span>Switch Ministry/Church</span></a></li>
-								<li><a href="/logout"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+                                <li><a href="#"  data-toggle="modal" data-target="#switchbusiness"><i class="lnr lnr-sync"></i> <span>Switch Business</span></a></li>
+                                <li><a href="/members/"><i class="lnr lnr-user"></i> <span>Users</span></a></li>
+                                <li><a href="/logout"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+							</ul>
+						</li>
+                        <li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="lnr lnr-sync"></i> <span>Switch Dashboard</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+							<ul class="dropdown-menu">
+								<li><a href="/production/"><i class="lnr lnr-store"></i> <span>Production</span></a></li>
+								<li><a href="/sales"><i class="lnr lnr-cart"></i> <span>Sales</span></a></li>
 							</ul>
 						</li>
 
@@ -126,20 +136,20 @@
 							</div>
 						</li>
 						<li class="roledlink Worker Admin Followup Pastor Finance Super" style="visibility:hidden;">
-							<a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i> <span>Members</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i> <span>Customers</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages2" class="collapse ">
 								<ul class="nav">
-									<li><a href="/members" class="">View Members</a></li>
+									<li><a href="/members" class="">View Customers</a></li>
 									<li><a href="/add-new" class="roledlink Worker,Admin,Followup,Pastor,Super">Add New</a></li>
 
 								</ul>
 							</div>
 						</li>
 						<li class="roledlink Admin Super Pastor" style="visibility:hidden;">
-							<a href="#subPages3" data-toggle="collapse" class="collapsed"><i class="lnr lnr-briefcase"></i> <span>Ministries</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#subPages3" data-toggle="collapse" class="collapsed"><i class="lnr lnr-briefcase"></i> <span>Businesses</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages3" class="collapse ">
 								<ul class="nav">
-									<li><a href="/ministries" class="roledlink Admin Super Pastor">Manage Ministries</a></li>
+									<li><a href="/businesses" class="roledlink Admin Super Pastor">Manage Businesses</a></li>
 
 								</ul>
 							</div>
@@ -218,7 +228,7 @@
 		<div class="clearfix"></div>
 		<footer>
 			<div class="container-fluid">
-				<p class="copyright">&copy; {{date("Y")}} <a href="https://www.ministrymanager.org" target="_blank">{{$settings->name}}</a>. All Rights Reserved.</p>
+				<p class="copyright">&copy; {{date("Y")}} <a href="https://www.prodsales.com" target="_blank">{{$settings->name}}</a>. All Rights Reserved.</p>
 			</div>
 		</footer>
 	</div>
@@ -249,8 +259,8 @@
         <!-- Modal body -->
         <div class="modal-body">
             <div class="form-check">
-                <input type="checkbox" name="create_new_ministry" id="create_new_ministry" class="form-check-input">
-                <label class="form-check-label"><small style="color: {{$settings->color}}"><i>Click Here to Create New Ministry/Church</i></small></label>
+                <input type="checkbox" name="create_new_business" id="create_new_business" class="form-check-input">
+                <label class="form-check-label"><small style="color: {{$settings->color}}"><i>Click Here to Create New Business</i></small></label>
             </div>
 
             <form method="POST" action="{{ route('settings') }}" id="settingsform" enctype="multipart/form-data">
@@ -262,22 +272,22 @@
 
 				<input type="hidden" name="oldbackground" value="{{$settings->background}}">
 
-                <input type="hidden" name="newministry" id="newministry" value="">
+                <input type="hidden" name="newbusiness" id="newbusiness" value="">
 
                 <div class="form-group">
-                    <label for="ministrygroup_id"  class="control-label ">Ministry Group/Headquarter</label>
-                    <select class="form-control" name="ministrygroup_id" id="ministrygroup_id">
-                        <option value="{{ $settings->ministrygroup_id }}" selected>{{ $ministrygroups->where('id',$settings->ministrygroup_id)->first()->ministry_group_name}}</option>
-                        @foreach ($ministrygroups as $mg)
-                            <option value="{{$mg->id}}">{{$mg->ministry_group_name}}</option>
+                    <label for="businessgroup_id"  class="control-label ">Business Group/Head Office</label>
+                    <select class="form-control" name="businessgroup_id" id="businessgroup_id">
+                        <option value="{{ $settings->businessgroup_id }}" selected>{{ $businessgroups->where('id',$settings->businessgroup_id)->first()->businessgroup_name}}</option>
+                        @foreach ($businessgroups as $mg)
+                            <option value="{{$mg->id}}">{{$mg->businessgroup_name}}</option>
                         @endforeach
 
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="ministry_name">Ministry / Church Name</label>
-                    <input type="text" name="ministry_name" id="ministry_name" class="form-control" value="{{$settings->ministry_name}}">
+                    <label for="business_name">Business / Facility Name</label>
+                    <input type="text" name="business_name" id="business_name" class="form-control" value="{{$settings->business_name}}">
                 </div>
 
 				<div class="form-group">
@@ -312,7 +322,7 @@
                     <label for="user_id"  class="control-label ">Admin User</label>
                     <select class="form-control" name="user_id" id="user_id">
                         <option value="{{ $settings->user_id }}" selected>{{ $settings->user->name}}</option>
-                        @foreach ($hmembers as $hm)
+                        @foreach ($customers as $hm)
                             <option value="{{$hm->id}}">{{$hm->name}}</option>
                         @endforeach
 
@@ -347,36 +357,37 @@
     </div>
 </div>
 
-<div class="modal" id="switchministry">
+<div class="modal" id="switchbusiness">
     <div class="modal-dialog">
       <div class="modal-content">
 
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Switch Ministry/Church</h4>
+          <h4 class="modal-title">Switch Business/Facility</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
 
         <!-- Modal body -->
         <div class="modal-body">
 
-            <form method="POST" action="{{ route('switchministry') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('switchbusiness') }}" enctype="multipart/form-data">
                 @csrf
+                {{var_dump($userbusinesses)}}
+                @if (isset($userbusinesses) && $userbusinesses->count()>0)
 
-                @if (isset($userministries) && $userministries->count()>0)
                     <div class="form-group row">
                         <div class="col-sm-8">
                             <select class="form-control" name="settings_id" id="settings_id">
 
-                                <option value="{{ $login_user->settings_id }}" selected>{{ $login_user->settings->ministry_name}}</option>
-                                @foreach ($ministrygroups as $ministrygroup)
+                                <option value="{{ $login_user->setting_id }}" selected>{{ $login_user->settings->business_name}}</option>
+                                @foreach ($businessgroups as $businessgroup)
                                     @if (Auth()->user()->role=="Super")
-                                        @foreach ($ministrygroup->settings as $usrmin)
-                                            <option value="{{$usrmin->id}}">{{$usrmin->ministry_name}}</option>
+                                        @foreach ($businessgroup->settings as $usrmin)
+                                            <option value="{{$usrmin->id}}">{{$usrmin->business_name}}</option>
                                         @endforeach
                                     @else
-                                        @foreach ($ministrygroup->settings->where('user_id',Auth()->user()->id) as $usrmin)
-                                            <option value="{{$usrmin->id}}">{{$usrmin->ministry_name}}</option>
+                                        @foreach ($businessgroup->settings->where('user_id',Auth()->user()->id) as $usrmin)
+                                            <option value="{{$usrmin->id}}">{{$usrmin->business_name}}</option>
                                         @endforeach
                                     @endif
 
@@ -396,6 +407,10 @@
                         </div>
 
                     </div>
+                @else
+
+               No Business to Switch
+
                 @endif
 
 
@@ -414,60 +429,114 @@
     </div>
 </div>
 
-@if (isset($pagename) && $pagename=="dashboard")
+@if (isset($pagename) && $pagename=="staff_dashboard")
 	<script src="{{asset('/js/highcharts.js')}}"></script>
 
 
-	<script>
+	<script type="text/javascript">
+        var salesData = <?php echo json_encode($salesData)?>;
+        Highcharts.chart('container', {
+            title: {
+                text: 'Sales Data ',{{date('Y')}}
+            },
+            subtitle: {
+                text: 'Source: Sales Record'
+            },
+            xAxis: {
+                categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+                    'October', 'November', 'December'
+                ]
+            },
+            yAxis: {
+                title: {
+                    text: 'Number of Sales By Product Name'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+            plotOptions: {
+                series: {
+                    allowPointSelect: true
+                }
+            },
+            series: [{
+                name: 'Sales Record',
+                data: salesData
+            }],
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+        });
+    </script>
+@endif
 
-		$(function () {
-
-			var dates = [<?php echo $dates; ?>];
-			var totals = [<?php echo $totals; ?>];
-			var midweek = [<?php echo $midweek; ?>];
+@if (isset($pagename) && $pagename=="production_dashboard")
+	<script src="{{asset('/js/highcharts.js')}}"></script>
 
 
-			console.log(dates);
-			$('#attendance-chart').highcharts({
-				chart: {
-				type: 'line'
-				},
-				title: {
-				text: 'Sunday Service Attendance Chart'
-				},
-				xAxis: {
-				categories: dates
-				},
-				yAxis: {
-					title: {
-					text: 'Attendance'
-				}
-				},
-				series: [
-				{
-				name: 'Sunday Services',
-				data: totals
-				},
-				{
-				name: 'Men',
-				data: midweek
-				}]
-			});
-		});
-
-		/*
-
-		series: [{
-				name: 'Dates',
-				data: dates
-				},
-				{
-				name: 'Totals',
-				data: totals
-				}]
-			*/
-
-	</script>
+	<script type="text/javascript">
+        var productionData = <?php echo json_encode($productionData)?>;
+        Highcharts.chart('container', {
+            title: {
+                text: 'Production Data ',{{date('Y')}}
+            },
+            subtitle: {
+                text: 'Source: Production Record'
+            },
+            xAxis: {
+                categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+                    'October', 'November', 'December'
+                ]
+            },
+            yAxis: {
+                title: {
+                    text: 'Number of Production By Product Name'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+            plotOptions: {
+                series: {
+                    allowPointSelect: true
+                }
+            },
+            series: [{
+                name: 'Production Record',
+                data: productionData
+            }],
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+        });
+    </script>
 @endif
 @if (isset($pagetype) && $pagetype=="report")
 
@@ -560,6 +629,48 @@
 
 		}
 
+        function category(accid){
+            var title = $('#ach'+accid).attr("data-title");
+            var category_group = $('#ach'+accid).attr("data-category_group");
+            var description = $('#ach'+accid).attr("data-description");
+            var setting_id = $('#ach'+accid).attr("data-setting_id");
+
+
+            $('#id').val(accid);
+            $('#title').val(title);
+            $('#category_group').val(category_group).attr("selected", "selected");
+            $('#description').val(description);
+            $('#catbutton').html("Update Category");
+            $('#setting_id').val(setting_id);
+
+        }
+
+        function productionjob(accid){
+            var batchno = $('#ach'+accid).attr("data-batchno");
+
+            var target_quantity = $('#ach'+accid).attr("data-target_quantity");
+            var product_id = $('#ach'+accid).attr("data-product_id");
+            var staff_incharge = $('#ach'+accid).attr("data-staff_incharge");
+            var dated_started = $('#ach'+accid).attr("data-dated_started");
+            var dated_ended = $('#ach'+accid).attr("data-dated_ended");
+            var status = $('#ach'+accid).attr("data-status");
+            var estimated_cost_of_production = $('#ach'+accid).attr("data-estimated_cost_of_production");
+            var setting_id = $('#ach'+accid).attr("data-setting_id");
+
+            $('#id').val(accid);
+            $('#batchno').val(batchno);
+            $('#target_quantity').val(target_quantity);
+            $('#product_id').val(product_id).attr("selected", "selected");
+            $('#staff_incharge').val(staff_incharge).attr("selected", "selected");
+            $('#dated_started').val(dated_started);
+            $('#dated_ended').val(dated_ended);
+            $('#status').val(status);
+            $('#estimated_cost_of_production').val(estimated_cost_of_production);
+            $('#setting_id').val(setting_id);
+
+            $('#pjobbutton').html("Update Production Job");
+        }
+
 		function attendance(accid){
 
 
@@ -609,7 +720,7 @@
 
 		}
 
-		function ministry(accid){
+		function business(accid){
 
 
 
@@ -626,27 +737,168 @@
 
 		}
 
-		function hfellowship(accid){
+        function material(accid){
+
+            var name = $('#ach'+accid).attr("data-name");
+            var type = $('#ach'+accid).attr("data-type");
+            var measurement_unit = $('#ach'+accid).attr("data-measurement_unit");
+            var size = $('#ach'+accid).attr("data-size");
+            var picture = $('#ach'+accid).attr("data-picture");
+
+            var cost_per = $('#ach'+accid).attr("data-cost_per");
+            var setting_id = $('#ach'+accid).attr("data-setting_id");
+            var category = $('#ach'+accid).attr("data-category");
+
+            $('#id').val(accid);
+            $('#name').val(name);
+            $('#type').val(type).attr("selected", "selected");
+            $('#measurement_unit').val(measurement_unit);
+            $('#size').val(size);
 
 
 
-			var name = $('#ach'+accid).attr("data-name");
-			var about = $('#ach'+accid).attr("data-about");
-			var location = $('#ach'+accid).attr("data-location");
-			var about = $('#ach'+accid).attr("data-about");
+            $('#cost_per').val(cost_per);
+            $('#oldpicture').val(picture);
+            $('#category').val(category).attr("selected", "selected");
+            $('#setting_id').val(setting_id).attr("selected", "selected");
+            $('#matbutton').html("Update Material");
 
-			var leader = $('#ach'+accid).attr("data-leader");
-			var activities = $('#ach'+accid).attr("data-activities");
+        }
 
-			$('#id').val(accid);
-			$('#name').val(name);
-			$('#location').val(location);
-			$('#address').val(address);
-			$('#about').val(about);
-			$('#leader').val(leader).attr("selected", "selected");
-			$('#activities').text(activities);
+        function materialcheckout(accid){
 
-		}
+            var checkout_by = $('#ach'+accid).attr("data-checkout_by");
+            var approved_by = $('#ach'+accid).attr("data-approved_by");
+            var production_batch = $('#ach'+accid).attr("data-production_batch");
+
+            var material_id = $('#ach'+accid).attr("data-material_id");
+            var quantity = $('#ach'+accid).attr("data-quantity");
+            var setting_id = $('#ach'+accid).attr("data-setting_id");
+            var dated = $('#ach'+accid).attr("data-dated");
+            var details = $('#ach'+accid).attr("data-details");
+
+            var date_supplied = $('#ach'+accid).attr("data-date_supplied");
+
+
+            $('#id').val(accid);
+            $('#production_batch').val(production_batch).attr("selected", "selected").change();
+            $('#checkout_by').val(checkout_by).attr("selected", "selected").change();
+            $('#material_id').val(material_id).attr("selected", "selected").change();
+            $('#quantity').val(quantity);
+            $('#dated').val(dated);
+            $('#details').val(details);
+            $('#approved_by').val(approved_by).attr("selected", "selected").change();
+
+            $('#setting_id').val(setting_id).attr("selected", "selected").change();
+            $('#mtcbutton').html("Update Checkout");
+
+        }
+
+        function product(accid){
+
+            var name = $('#ach'+accid).attr("data-name");
+            var type = $('#ach'+accid).attr("data-type");
+            var measurement_unit = $('#ach'+accid).attr("data-measurement_unit");
+            var size = $('#ach'+accid).attr("data-size");
+            var picture = $('#ach'+accid).attr("data-picture");
+
+            var price = $('#ach'+accid).attr("data-price");
+            var setting_id = $('#ach'+accid).attr("data-setting_id");
+            var category = $('#ach'+accid).attr("data-category");
+
+            $('#id').val(accid);
+            $('#name').val(name);
+            $('#type').val(type).attr("selected", "selected");
+            $('#measurement_unit').val(measurement_unit);
+            $('#size').val(size);
+
+
+
+            $('#price').val(price);
+            $('#oldpicture').val(picture);
+            $('#category').val(category).attr("selected", "selected");
+            $('#setting_id').val(setting_id).attr("selected", "selected");
+            $('#prdbutton').html("Update Product");
+
+        }
+
+        function supplier(accid){
+
+            var supplier_name = $('#ach'+accid).attr("data-supplier_name");
+            var company_name = $('#ach'+accid).attr("data-company_name");
+            var phone_number = $('#ach'+accid).attr("data-phone_number");
+            var details = $('#ach'+accid).attr("data-details");
+            var address = $('#ach'+accid).attr("data-address");
+            var setting_id = $('#ach'+accid).attr("data-setting_id");
+            var category = $('#ach'+accid).attr("data-category");
+
+            $('#id').val(accid);
+            $('#company_name').val(company_name);
+            $('#supplier_name').val(supplier_name);
+            $('#phone_number').val(phone_number);
+            $('#details').val(details);
+            $('#address').val(address);
+            $('#category').val(category).attr("selected", "selected").change();
+            $('#setting_id').val(setting_id).attr("selected", "selected").change();
+            $('#supbutton').html("Update Supplier");
+
+        }
+
+        function supply(accid){
+
+            var supplier_id = $('#ach'+accid).attr("data-supplier_id");
+            var material_id = $('#ach'+accid).attr("data-material_id");
+            var quantity = $('#ach'+accid).attr("data-quantity");
+            var cost_per = $('#ach'+accid).attr("data-cost_per");
+            var total_amount = $('#ach'+accid).attr("data-total_amount");
+            var setting_id = $('#ach'+accid).attr("data-setting_id");
+            var confirmed_by = $('#ach'+accid).attr("data-confirmed_by");
+            var batchno = $('#ach'+accid).attr("data-batchno");
+
+            var date_supplied = $('#ach'+accid).attr("data-date_supplied");
+
+
+            $('#id').val(accid);
+            $('#supplier_id').val(supplier_id).attr("selected", "selected").change();;
+            $('#material_id').val(material_id).attr("selected", "selected").change();;
+            $('#quantity').val(quantity);
+            $('#cost_per').val(cost_per);
+            $('#total_amount').val(total_amount);
+            $('#date_supplied').val(date_supplied);
+            $('#confirmed_by').val(confirmed_by);
+            $('#batchno').val(batchno);
+
+            $('#setting_id').val(setting_id).attr("selected", "selected").change();
+            $('#spbutton').html("Update Supply");
+
+        }
+        function psupply(accid){
+
+            var supplier_id = $('#ach'+accid).attr("data-supplier_id");
+            var product_id = $('#ach'+accid).attr("data-product_id");
+            var quantity = $('#ach'+accid).attr("data-quantity");
+            var cost_per = $('#ach'+accid).attr("data-cost_per");
+            var total_amount = $('#ach'+accid).attr("data-total_amount");
+            var setting_id = $('#ach'+accid).attr("data-setting_id");
+            var confirmed_by = $('#ach'+accid).attr("data-confirmed_by");
+            var batchno = $('#ach'+accid).attr("data-batchno");
+            var date_supplied = $('#ach'+accid).attr("data-date_supplied");
+
+
+            $('#id').val(accid);
+            $('#supplier_id').val(supplier_id).attr("selected", "selected").change();;
+            $('#product_id').val(product_id).attr("selected", "selected").change();;
+            $('#quantity').val(quantity);
+            $('#cost_per').val(cost_per);
+            $('#total_amount').val(total_amount);
+            $('#date_supplied').val(date_supplied);
+            $('#confirmed_by').val(confirmed_by);
+            $('#batchno').val(batchno);
+
+            $('#setting_id').val(setting_id).attr("selected", "selected").change();
+            $('#pspbutton').html("Update Product Supply");
+
+        }
 
 		function programme(accid){
 
@@ -658,7 +910,7 @@
 
 			var details = $('#ach'+accid).attr("data-details");
 			var category = $('#ach'+accid).attr("data-category");
-			var ministry = $('#ach'+accid).attr("data-ministry");
+			var business = $('#ach'+accid).attr("data-business");
 
 			$('#id').val(accid);
 			$('#title').val(title);
@@ -671,7 +923,7 @@
 			$('#details').val(details);
             $('#oldpicture').val(picture);
 			$('#category').val(category).attr("selected", "selected");
-			$('#ministry').val(ministry).attr("selected", "selected");
+			$('#business').val(business).attr("selected", "selected");
 
             // var editor2 = new FroalaEditor('.richtext', {}, function () {
             // Call the method inside the initialized event.
@@ -761,14 +1013,23 @@
 		}
 		protect();
 
-		$( ".datepicker" ).datepicker();
+		// $( ".datepicker" ).datepicker({dateFormat: 'yy-mm-dd'});
 
-        $("#create_new_ministry").click(function(){
+        $(function() {
+            $('.datepicker').datepicker({
+				yearRange: "-80:+0",
+                changeYear: true,
+                dateFormat: 'yy-mm-dd',
+
+            });
+		});
+
+        $("#create_new_business").click(function(){
             var token = $("input[name=_token]").val();
             $('#settingsform')[0].reset();
             $(':input').val('');
             // $(':select').val('');
-            $('#newministry').val('Yes');
+            $('#newbusiness').val('Yes');
             $("input[name=_token]").val(token);
         });
 
@@ -779,11 +1040,35 @@
         $(".modaldismiss,.close").click(function(){
             // $('#programmesform')[0].reset();
             var token = $("input[name=_token]").val();
-            $('#newministry').val('Yes');
+            $('#newbusiness').val('Yes');
             $(':input').val('');
             $("input[name=_token]").val(token);
             editor.html.set("");
-        })
+        });
+
+        // ADD MATERIAL CHECKOUT
+        $(".add_item").click(function(){
+            // alert("Am here!");
+            // $(".spechead").show();
+            var item_class = $(".add_item").attr("id");
+            var old_class = parseFloat(item_class);
+            new_class = old_class+1;
+            $(".add_item").prop('id', new_class);
+
+            $("#1").clone().attr('id',new_class).appendTo("#item_list");
+            $("#"+new_class +" a").prop('id',"re"+new_class);
+
+            // $("table tbody#item_list").append("<tr scope='row' class='row"+new_class+"'><td class='input-field'><input type='text' name='property[]' value='' placeholder='e.g. Color, Brand etc'></td><td class='input-field'><td class='input-field'><input type='text' name='value[]' value='' placeholder='e.g. Red, HP etc'></td><td><a href='#' class='btn-floating red btn-small delpos' onClick='delRow("+new_class+")'><i class='small material-icons'>remove</i></a></td></tr>");
+
+        });
+
+        $(".removeitem").click(function(event) {
+
+            var item_id = $(this).attr("id").substr(2);
+            alert(item_id);
+
+            $("#"+item_id).remove();
+        });
 
 	</script>
 

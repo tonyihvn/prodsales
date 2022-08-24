@@ -28,6 +28,20 @@ class CreateBusinessgroupsTable extends Migration
 
             $table->timestamps();
         });
+
+        DB::table('businessgroups')->insert(
+            array(
+                'businessgroup_name' => 'ProdSales',
+                'motto' => 'Production and Sales Management System',
+                'logo' => 'logo-dark.png',
+                'background' => 'login-bg.jpg',
+                'mode' => 'Active',
+                'address' => 'Business Address',
+                'color' => '',
+                'user_id' => 1,
+
+            )
+        );
     }
 
     /**

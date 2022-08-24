@@ -27,7 +27,7 @@ class CreateReturnedsTable extends Migration
             $table->foreign('recieved_by')->references('id')->on('users');
 
             $table->unsignedBigInteger('setting_id')->index()->nullable();
-            $table->foreignId('setting_id')->references('id')->on('settings');
+            $table->foreign('setting_id')->references('id')->on('settings');
             $table->string('reason',60)->nullable();
             $table->string('stocked',10)->nullable();
 

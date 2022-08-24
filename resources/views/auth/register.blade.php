@@ -13,14 +13,14 @@
                                 @csrf
                                 <div class="row">
                                     <div class="form-group col-lg-12">
-                                        <select class="form-control" name="settings_id" id="settings_id">
+                                        <select class="form-control" name="setting_id" id="setting_id">
 
-                                            <option value="1" selected>Select Ministry</option>
+                                            <option value="1" selected>Select Business/Facility</option>
 
-                                            @foreach ($ministrygroups as $ministrygroup)
+                                            @foreach ($businessgroups as $businessgroup)
 
-                                                    @foreach ($ministrygroup->settings as $usrmin)
-                                                        <option value="{{$usrmin->id}}">{{$usrmin->ministry_name}}</option>
+                                                    @foreach ($businessgroup->settings as $usrmin)
+                                                        <option value="{{$usrmin->id}}">{{$usrmin->business_name}}</option>
                                                     @endforeach
 
                                             @endforeach

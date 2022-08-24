@@ -15,40 +15,18 @@
                         <div class="col-lg-3 col-sm-6">
                             <div class="card-box bg-blue">
                                 <div class="inner">
-                                    <h3> {{$hmembers->count()}} </h3>
-                                    <p> Total Members</p>
+                                    <h3> {{$customers->count()}} </h3>
+                                    <p> Total Customers</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fa fa-users" aria-hidden="true"></i>
                                 </div>
-                                <a href="/members" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="/customers" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="card-box bg-green">
-                                <div class="inner">
-                                    <h3> {{$hmembers->where('status','New Member')->count()}} </h3>
-                                    <p> New Members</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
-                                </div>
-                                <a href="/members" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="card-box bg-orange">
-                                <div class="inner">
-                                    <h3> {{$hmembers->where('status','Worker')->count()}} </h3>
-                                    <p> Workers </p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fa fa-briefcase" aria-hidden="true"></i>
-                                </div>
-                                <a href="/members" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
+
+
                         <div class="col-lg-3 col-sm-6">
                             <div class="card-box bg-red">
                                 <div class="inner">
@@ -62,11 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-3 col-sm-6">
-                            <a href="http://www.uiuxstream.com/dashboard-user-profile-page-design-using-bootstrap-4/">uiuxstream</a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -76,18 +50,18 @@
         <div class="col-md-6">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Church Attendance | Last 4 Weeks</h3>
+                    <h3 class="panel-title">Sales | this year</h3>
                 </div>
                 <div class="panel-body">
 
-                    <div id="attendance-chart" style="height: 300px"></div>
+                    <div id="sales-chart" style="height: 300px"></div>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Upcoming Programmes/Events</h3>
+                    <h3 class="panel-title">Reminders</h3>
                 </div>
                 <div class="panel-body">
                     <table class="table">
@@ -97,17 +71,21 @@
 
                                 <th>Title</th>
                                 <th>Date</th>
-                                <th>Host/Organizer</th>
+                                <th>Activities</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($uprogrammes as $up)
-                                <tr>
-                                    <td>{{$up->title}}</td>
-                                    <td>{{$up->from==$up->to?$up->from:$up->from." to ".$up->to}}</td>
-                                    <td>{{$up->ministry}}</td>
+                            @foreach ($tasks as $ta)
+                                @if ($ta->category=="Reminder")
 
-                                </tr>
+                                    <tr>
+                                        <td>{{$ta->title}}</td>
+                                        <td>{{$ta->from==$ta->to?$ta->from:$ta->from." to ".$ta->to}}</td>
+                                        <td>{{$ta->activities}}</td>
+
+                                    </tr>
+                                @endif
                             @endforeach
 
 

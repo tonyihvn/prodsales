@@ -28,7 +28,7 @@ class CreateProductStocksTable extends Migration
             $table->dateTime('dated_added')->nullable();
 
             $table->unsignedBigInteger('setting_id')->index()->nullable();
-            $table->foreignId('setting_id')->references('id')->on('settings');
+            $table->foreign('setting_id')->references('id')->on('settings');
             $table->timestamps();
         });
     }

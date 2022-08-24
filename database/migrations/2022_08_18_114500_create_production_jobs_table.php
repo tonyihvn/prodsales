@@ -15,8 +15,10 @@ class CreateProductionJobsTable extends Migration
     {
         Schema::create('production_jobs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_name')->index()->nullable();
-            $table->foreign('product_name')->references('id')->on('products')->nullable();
+            $table->string('batchno',30)->nullable();
+
+            $table->unsignedBigInteger('product_id')->index()->nullable();
+            $table->foreign('product_id')->references('id')->on('products')->nullable();
 
             $table->unsignedBigInteger('staff_incharge')->index()->nullable();
             $table->foreign('staff_incharge')->references('id')->on('users');
@@ -25,9 +27,7 @@ class CreateProductionJobsTable extends Migration
             $table->date('dated_started')->nullable();
             $table->date('dated_ended')->nullable();
             $table->string('status',30)->nullable();
-            $table->string('details',100)->nullable();
             $table->double('estimated_cost_of_production',10,2)->nullable();
-
             $table->unsignedBigInteger('setting_id')->index()->nullable();
             $table->foreign('setting_id')->references('id')->on('settings');
             $table->timestamps();

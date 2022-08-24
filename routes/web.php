@@ -19,33 +19,81 @@ Auth::routes(['verify' => true]);
 // ->middleware('role:editor,approver');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
-// Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
+Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
 
 // MEMBERS
-Route::get('/members', [App\Http\Controllers\HomeController::class, 'members'])->name('members')->middleware('role:Worker,Admin,Followup,Pastor,Finance,Super');
-Route::get('/add-new', [App\Http\Controllers\HomeController::class, 'addNew'])->name('add-new')->middleware('role:Worker,Admin,Followup,Pastor,Super');
-Route::post('/addnew', [App\Http\Controllers\HomeController::class, 'create'])->name('addnew')->middleware('role:Worker,Admin,Followup,Pastor,Super');
-Route::get('/edit-member/{id}/', [App\Http\Controllers\HomeController::class, 'editMember'])->name('edit-member')->middleware('role:Worker,Admin,Followup,Pastor,Super');
-Route::get('/member/{id}/', [App\Http\Controllers\HomeController::class, 'member'])->name('member')->middleware('role:Worker,Admin,Followup,Pastor,Super');
-Route::get('/delete-member/{id}', [App\Http\Controllers\HomeController::class, 'deleteMember'])->name('delete-member')->middleware('role:Admin,Followup,Pastor,Super');
+Route::get('/members', [App\Http\Controllers\HomeController::class, 'members'])->name('members')->middleware('role:Worker,Admin,Followup,Staff,Finance,Super');
+Route::get('/add-new', [App\Http\Controllers\HomeController::class, 'addNew'])->name('add-new')->middleware('role:Worker,Admin,Followup,Staff,Super');
+Route::post('/addnew', [App\Http\Controllers\HomeController::class, 'create'])->name('addnew')->middleware('role:Worker,Admin,Followup,Staff,Super');
+Route::get('/edit-member/{id}/', [App\Http\Controllers\HomeController::class, 'editMember'])->name('edit-member')->middleware('role:Worker,Admin,Followup,Staff,Super');
+Route::get('/member/{id}/', [App\Http\Controllers\HomeController::class, 'member'])->name('member')->middleware('role:Worker,Admin,Followup,Staff,Super');
+Route::get('/delete-member/{id}', [App\Http\Controllers\HomeController::class, 'deleteMember'])->name('delete-member')->middleware('role:Admin,Followup,Staff,Super');
 Route::post('/settings', [App\Http\Controllers\HomeController::class, 'settings'])->name('settings')->middleware('role:Super');
-Route::post('/switchministry', [App\Http\Controllers\HomeController::class, 'switchministry'])->name('switchministry')->middleware('role:Super,Admin');
-Route::post('/searchmembers', [App\Http\Controllers\HomeController::class, 'membersSearch'])->name('searchmembers')->middleware('role:Worker,Admin,Followup,Pastor,Finance,Super');
+Route::post('/switchbusiness', [App\Http\Controllers\HomeController::class, 'switchbusiness'])->name('switchbusiness')->middleware('role:Super,Admin');
+Route::post('/searchmembers', [App\Http\Controllers\HomeController::class, 'membersSearch'])->name('searchmembers')->middleware('role:Worker,Admin,Followup,Staff,Finance,Super');
+
+// MATERIALS
+Route::get('/materials', [App\Http\Controllers\MaterialsController::class, 'index'])->name('materials')->middleware('role:Admin,Super,Staff');
+Route::post('/addmaterial', [App\Http\Controllers\MaterialsController::class, 'store'])->name('addmaterial')->middleware('role:Admin,Super,Staff');
+Route::get('/material/{id}', [App\Http\Controllers\MaterialsController::class, 'material'])->name('material');
+Route::get('/delete-mat/{id}', [App\Http\Controllers\MaterialsController::class, 'destroy'])->name('delete-mat')->middleware('role:Admin,Super,Staff');
+
+// SUPPLIERS
+Route::get('/suppliers', [App\Http\Controllers\SuppliersController::class, 'index'])->name('suppliers')->middleware('role:Admin,Super,Staff');
+Route::post('/addsupplier', [App\Http\Controllers\SuppliersController::class, 'store'])->name('addsupplier')->middleware('role:Admin,Super,Staff');
+Route::get('/supplier/{id}', [App\Http\Controllers\SuppliersController::class, 'supplier'])->name('supplier');
+Route::get('/delete-sup/{id}', [App\Http\Controllers\SuppliersController::class, 'destroy'])->name('delete-sup')->middleware('role:Admin,Super,Staff');
+
+// SUPPLIES
+Route::get('/supplies', [App\Http\Controllers\MaterialSuppliesController::class, 'index'])->name('supplies')->middleware('role:Admin,Super,Staff');
+Route::post('/addsupply', [App\Http\Controllers\MaterialSuppliesController::class, 'store'])->name('addsupply')->middleware('role:Admin,Super,Staff');
+Route::get('/supply/{id}', [App\Http\Controllers\MaterialSuppliesController::class, 'supply'])->name('supply');
+Route::get('/delete-sp/{id}', [App\Http\Controllers\MaterialSuppliesController::class, 'destroy'])->name('delete-sp')->middleware('role:Admin,Super,Staff');
+
+// MATERIAL CHECKOUTS
+Route::get('/mcheckouts', [App\Http\Controllers\MaterialCheckoutsController::class, 'index'])->name('mcheckouts')->middleware('role:Admin,Super,Staff');
+Route::post('/addmcheckout', [App\Http\Controllers\MaterialCheckoutsController::class, 'store'])->name('addmcheckout')->middleware('role:Admin,Super,Staff');
+Route::get('/delete-mtc/{id}', [App\Http\Controllers\MaterialCheckoutsController::class, 'destroy'])->name('delete-mtc')->middleware('role:Admin,Super,Staff');
+
+
+// PRODUCT SUPPLIES
+Route::get('/psupplies', [App\Http\Controllers\ProductSuppliesController::class, 'index'])->name('psupplies')->middleware('role:Admin,Super,Staff');
+Route::post('/addpsupply', [App\Http\Controllers\ProductSuppliesController::class, 'store'])->name('addpsupply')->middleware('role:Admin,Super,Staff');
+Route::get('/psupply/{id}', [App\Http\Controllers\ProductSuppliesController::class, 'psupply'])->name('psupply');
+Route::get('/delete-psp/{id}', [App\Http\Controllers\ProductSuppliesController::class, 'destroy'])->name('delete-sp')->middleware('role:Admin,Super,Staff');
 
 
 // TASKS / TO DOs
-Route::post('/newtask', [App\Http\Controllers\TasksController::class, 'store'])->name('newtask')->middleware('role:Worker,Admin,Followup,Pastor,Super');
-Route::post('/newfollowup', [App\Http\Controllers\TasksController::class, 'newfollowup'])->name('newfollowup')->middleware('role:Worker,Admin,Followup,Pastor,Super');
-Route::get('/tasks', [App\Http\Controllers\TasksController::class, 'index'])->name('tasks')->middleware('role:Worker,Admin,Followup,Pastor,Super');
-Route::get('/completetask/{id}', [App\Http\Controllers\TasksController::class, 'completetask'])->name('completetask')->middleware('role:Worker,Admin,Followup,Pastor,Super');
-Route::get('/inprogresstask/{id}', [App\Http\Controllers\TasksController::class, 'inprogresstask'])->name('inprogresstask')->middleware('role:Worker,Admin,Followup,Pastor,Super');
+Route::post('/newtask', [App\Http\Controllers\TasksController::class, 'store'])->name('newtask')->middleware('role:Worker,Admin,Followup,Staff,Super');
+Route::post('/newfollowup', [App\Http\Controllers\TasksController::class, 'newfollowup'])->name('newfollowup')->middleware('role:Worker,Admin,Followup,Staff,Super');
+Route::get('/tasks', [App\Http\Controllers\TasksController::class, 'index'])->name('tasks')->middleware('role:Worker,Admin,Followup,Staff,Super');
+Route::get('/completetask/{id}', [App\Http\Controllers\TasksController::class, 'completetask'])->name('completetask')->middleware('role:Worker,Admin,Followup,Staff,Super');
+Route::get('/inprogresstask/{id}', [App\Http\Controllers\TasksController::class, 'inprogresstask'])->name('inprogresstask')->middleware('role:Worker,Admin,Followup,Staff,Super');
 Route::get('/delete-task/{id}', [App\Http\Controllers\TasksController::class, 'destroy'])->name('destroy')->middleware('role:Super');
-Route::get('/delete-followup/{id}', [App\Http\Controllers\TasksController::class, 'deletefollowup'])->name('delete-followup')->middleware('role:Worker,Admin,Followup,Pastor,Super');
+Route::get('/delete-followup/{id}', [App\Http\Controllers\TasksController::class, 'deletefollowup'])->name('delete-followup')->middleware('role:Worker,Admin,Followup,Staff,Super');
 
 // ACCOUNT HEADS
 Route::get('/account-heads', [App\Http\Controllers\AccountheadsController::class, 'index'])->name('account-heads')->middleware('role:Finance,Admin,Super');
 Route::post('/addaccounthead', [App\Http\Controllers\AccountheadsController::class, 'store'])->name('addaccounthead')->middleware('role:Finance,Admin,Super');
 Route::get('/delete-acch/{id}', [App\Http\Controllers\AccountheadsController::class, 'destroy'])->name('delete-acch')->middleware('role:Super');
+
+// ACCOUNT HEADS
+Route::get('/categories', [App\Http\Controllers\CategoriesController::class, 'index'])->name('categories')->middleware('role:Finance,Admin,Super');
+Route::post('/addcategory', [App\Http\Controllers\CategoriesController::class, 'store'])->name('addcategory')->middleware('role:Finance,Admin,Super');
+Route::get('/delete-cat/{id}', [App\Http\Controllers\CategoriesController::class, 'destroy'])->name('delete-cat')->middleware('role:Super');
+
+// ACCOUNT HEADS
+Route::get('/productionjobs', [App\Http\Controllers\ProductionJobsController::class, 'index'])->name('productionjobs')->middleware('role:Finance,Admin,Super');
+Route::post('/addproduction', [App\Http\Controllers\ProductionJobsController::class, 'store'])->name('addproduction')->middleware('role:Finance,Admin,Super');
+Route::get('/delete-pjob/{id}', [App\Http\Controllers\ProductionJobsController::class, 'destroy'])->name('delete-pjob')->middleware('role:Super');
+
+
+// ACCOUNT HEADS
+Route::get('/products', [App\Http\Controllers\ProductsController::class, 'index'])->name('products')->middleware('role:Finance,Admin,Super');
+Route::post('/addproduct', [App\Http\Controllers\ProductsController::class, 'store'])->name('addproduct')->middleware('role:Finance,Admin,Super');
+Route::get('/delete-prd/{id}', [App\Http\Controllers\ProductsController::class, 'destroy'])->name('delete-prd')->middleware('role:Super');
+
+
 
 // ATTENDANCE
 Route::get('/attendance', [App\Http\Controllers\AttendanceController::class, 'index'])->name('attendance')->middleware('role:Usher,Admin,Super');
@@ -58,26 +106,26 @@ Route::post('/addtransaction', [App\Http\Controllers\TransactionsController::cla
 Route::get('/delete-trans/{id}', [App\Http\Controllers\TransactionsController::class, 'destroy'])->name('delete-trans')->middleware('role:Finance,Super');
 
 // MINISTRIES
-Route::get('/ministries', [App\Http\Controllers\MinistriesController::class, 'index'])->name('ministries')->middleware('role:Admin,Super,Pastor');
-Route::post('/addministry', [App\Http\Controllers\MinistriesController::class, 'store'])->name('addministry')->middleware('role:Admin,Super,Pastor');
-Route::get('/delete-mins/{id}', [App\Http\Controllers\MinistriesController::class, 'destroy'])->name('delete-mins')->middleware('role:Admin,Super,Pastor');
+Route::get('/ministries', [App\Http\Controllers\MinistriesController::class, 'index'])->name('ministries')->middleware('role:Admin,Super,Staff');
+Route::post('/addministry', [App\Http\Controllers\MinistriesController::class, 'store'])->name('addministry')->middleware('role:Admin,Super,Staff');
+Route::get('/delete-mins/{id}', [App\Http\Controllers\MinistriesController::class, 'destroy'])->name('delete-mins')->middleware('role:Admin,Super,Staff');
 
 // HOUSE FELLOWSHIPS
-Route::get('/house-fellowships', [App\Http\Controllers\HousefellowhipsController::class, 'index'])->name('house-fellowships')->middleware('role:Admin,Super,Pastor');
-Route::post('/addhfellowship', [App\Http\Controllers\HousefellowhipsController::class, 'store'])->name('addhfellowship')->middleware('role:Admin,Super,Pastor');
-Route::get('/delete-hfel/{id}', [App\Http\Controllers\HousefellowhipsController::class, 'destroy'])->name('delete-hfel')->middleware('role:Admin,Super,Pastor');
+Route::get('/house-fellowships', [App\Http\Controllers\HousefellowhipsController::class, 'index'])->name('house-fellowships')->middleware('role:Admin,Super,Staff');
+Route::post('/addhfellowship', [App\Http\Controllers\HousefellowhipsController::class, 'store'])->name('addhfellowship')->middleware('role:Admin,Super,Staff');
+Route::get('/delete-hfel/{id}', [App\Http\Controllers\HousefellowhipsController::class, 'destroy'])->name('delete-hfel')->middleware('role:Admin,Super,Staff');
 
 
 // PROGRAMMES
-Route::get('/programmes', [App\Http\Controllers\ProgrammesController::class, 'index'])->name('programmes')->middleware('role:Admin,Super,Pastor');
-Route::post('/addprogramme', [App\Http\Controllers\ProgrammesController::class, 'store'])->name('addprogramme')->middleware('role:Admin,Super,Pastor');
+Route::get('/programmes', [App\Http\Controllers\ProgrammesController::class, 'index'])->name('programmes')->middleware('role:Admin,Super,Staff');
+Route::post('/addprogramme', [App\Http\Controllers\ProgrammesController::class, 'store'])->name('addprogramme')->middleware('role:Admin,Super,Staff');
 Route::get('/post/{id}', [App\Http\Controllers\ProgrammesController::class, 'post'])->name('post');
-Route::get('/delete-prog/{id}', [App\Http\Controllers\ProgrammesController::class, 'destroy'])->name('delete-prog')->middleware('role:Admin,Super,Pastor');
+Route::get('/delete-prog/{id}', [App\Http\Controllers\ProgrammesController::class, 'destroy'])->name('delete-prog')->middleware('role:Admin,Super,Staff');
 
 // COMMUNICATION
-Route::get('/communications', [App\Http\Controllers\HomeController::class, 'communications'])->name('communications')->middleware('role:Admin,Super,Pastor');
-Route::post('/sendsms', [App\Http\Controllers\HomeController::class, 'sendSMS'])->name('sendsms')->middleware('role:Admin,Super,Pastor');
-Route::get('/sentmessages', [App\Http\Controllers\HomeController::class, 'sentSMS'])->name('sentmessages')->middleware('role:Admin,Super,Pastor');
+Route::get('/communications', [App\Http\Controllers\HomeController::class, 'communications'])->name('communications')->middleware('role:Admin,Super,Staff');
+Route::post('/sendsms', [App\Http\Controllers\HomeController::class, 'sendSMS'])->name('sendsms')->middleware('role:Admin,Super,Staff');
+Route::get('/sentmessages', [App\Http\Controllers\HomeController::class, 'sentSMS'])->name('sentmessages')->middleware('role:Admin,Super,Staff');
 
 
 

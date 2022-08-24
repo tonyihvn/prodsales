@@ -16,13 +16,13 @@ class CreateFinishedProductsTable extends Migration
         Schema::create('finished_products', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_name')->index()->nullable();
-            $table->foreignId('product_name')->references('id')->on('products')->nullable();
+            $table->foreign('product_name')->references('id')->on('products')->nullable();
 
             $table->unsignedBigInteger('production_batch')->index()->nullable();
-            $table->foreignId('production_batch')->references('id')->on('production_jobs')->nullable();
+            $table->foreign('production_batch')->references('id')->on('production_jobs')->nullable();
 
             $table->unsignedBigInteger('confirmed_by')->index()->nullable();
-            $table->foreignId('comfirmed_by')->references('id')->on('users');
+            $table->foreign('confirmed_by')->references('id')->on('users');
 
             $table->double('quantity_produced',10,2)->nullable();
             $table->double('quantity_damaged',10,2)->nullable();
@@ -31,7 +31,7 @@ class CreateFinishedProductsTable extends Migration
             $table->string('details',100)->nullable();
 
             $table->unsignedBigInteger('setting_id')->index()->nullable();
-            $table->foreignId('setting_id')->references('id')->on('settings');
+            $table->foreign('setting_id')->references('id')->on('settings');
             $table->timestamps();
         });
     }

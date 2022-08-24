@@ -17,7 +17,7 @@ class CreateAdmintablesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->index()->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('settings_id',false)->nullable();
+            $table->integer('setting_id',false)->nullable();
             $table->string('role',30)->nullable();
             $table->timestamps();
         });

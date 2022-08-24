@@ -19,7 +19,7 @@ class CreateAttendancesTable extends Migration
             $table->unsignedBigInteger('staff_id')->index()->nullable();
             $table->foreign('staff_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->integer('status',1)->nullable();
+            $table->integer('status',false,1)->unsigned()->nullable();
 
             $table->unsignedBigInteger('setting_id')->index()->nullable();
             $table->foreign('setting_id')->references('id')->on('settings')->onDelete('cascade');

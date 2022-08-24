@@ -3,7 +3,7 @@
 @section('content')
     @php $pagename="member_home"; @endphp
 
-    <h3 class="page-title">Dashboard | <small style="color: green"> Updates, Tasks, Messages</small></h3>
+    <h3 class="page-title">Dashboard | <small style="color: green"> Updates, Tasks, Messages, Reminders</small></h3>
     <div class="row">
         <div class="panel">
             <div class="panel-heading">
@@ -11,7 +11,7 @@
             </div>
             <div class="panel-body">
                 <div class="container">
-                   <h3>Member Info</h3>
+                   <h3>Client Info</h3>
                 </div>
             </div>
         </div>

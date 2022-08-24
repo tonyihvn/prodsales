@@ -23,7 +23,7 @@ class CreateDistributorsTable extends Migration
             $table->string('address',100)->nullable();
 
             $table->unsignedBigInteger('setting_id')->index()->nullable();
-            $table->foreignId('setting_id')->references('id')->on('settings');
+            $table->foreign('setting_id')->references('id')->on('settings');
             $table->timestamps();
         });
     }

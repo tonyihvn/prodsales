@@ -86,7 +86,7 @@ class RegisterController extends Controller
             'address' => $data['address'],
             'role'=>"Member",
             'status'=>"InActive",
-            'settings_id'=>$data['settings_id']
+            'setting_id'=>$data['setting_id']
         ]);
 
         /*

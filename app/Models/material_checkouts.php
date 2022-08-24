@@ -16,13 +16,19 @@ class material_checkouts extends Model
         return $this->belongsTo(settings::class, 'id', 'setting_id');
     }
 
-    public function user()
-    {
-        return $this->belongsToMany(user::class, 'id', 'checkout_by','approved_by');
-    }
 
     public function material()
     {
         return $this->hasOne(materials::class, 'id', 'material_id');
+    }
+
+    public function approvedby()
+    {
+        return $this->belongsToMany(user::class, 'id', 'checkout_by','approved_by');
+    }
+
+    public function checkoutby()
+    {
+        return $this->belongsToMany(user::class, 'id', 'checkout_by','approved_by');
     }
 }

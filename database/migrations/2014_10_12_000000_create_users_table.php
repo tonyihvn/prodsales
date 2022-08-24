@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('role',30)->nullable();
-            // $table->foreignId('setting_id')->constrained('settings');
+            $table->unsignedBigInteger('setting_id')->index()->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
@@ -37,7 +37,10 @@ class CreateUsersTable extends Migration
         DB::table('users')->insert(
             array(
                 'name' => 'ProdSales',
-                'role' => 'Super'
+                'role' => 'Super',
+                'email'=> 'admin@prodsales.com',
+                'password'=>'$2y$10$dxyWNlqDIBLi2DWM8fFzbO76rNcHAQOz1GLQLTShUJikUF8dXccQq',
+
             ));
 
     }

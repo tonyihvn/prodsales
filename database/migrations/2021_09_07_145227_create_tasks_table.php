@@ -21,11 +21,11 @@ class CreateTasksTable extends Migration
             $table->text('activities')->nullable();
             $table->string('status',30)->nullable();
             $table->unsignedBigInteger('assigned_to')->index()->nullable();
-            $table->string('assigned_to')->references('id')->on('users')->nullable();
+            $table->foreign('assigned_to')->references('id')->on('users')->nullable();
 
             $table->string('member')->nullable();
             $table->unsignedBigInteger('setting_id')->index()->nullable();
-            $table->foreignId('setting_id')->constrained('settings');
+            $table->foreign('setting_id')->references('id')->on('settings');
             $table->timestamps();
         });
     }

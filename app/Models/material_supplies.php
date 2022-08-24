@@ -9,18 +9,26 @@ class material_supplies extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function settings()
     {
-        return $this->belongsTo(settings::class, 'id', 'setting_id');
+        return $this->belongsTo(settings::class, 'setting_id', 'id');
     }
 
     public function supplier()
     {
-        return $this->belongsToMany(suppliers::class, 'id', 'supplier_id');
+        return $this->hasOne(suppliers::class, 'id', 'supplier_id');
     }
 
     public function material()
     {
         return $this->hasOne(materials::class, 'id', 'material_id');
     }
+
+    public function confirmedby()
+    {
+        return $this->hasOne(User::class, 'id', 'confirmed_by');
+    }
+
 }
