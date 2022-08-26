@@ -351,7 +351,7 @@ class HomeController extends Controller
 
 
       settings::updateOrCreate(['id'=>$request->id],[
-          'ministry_name' => $request->ministry_name,
+          'business_name' => $request->business_name,
           'motto' => $request->motto,
           'logo' => $logo,
           'address' => $request->address,
