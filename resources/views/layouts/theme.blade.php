@@ -105,13 +105,7 @@
 								<li><a href="/tasks" class="more">See all notifications</a></li>
 							</ul>
 						</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="lnr lnr-question-circle"></i> <span>Help</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
-							<ul class="dropdown-menu">
-								<li><a href="/help">Basic Use</a></li>
-								<li><a href="/security">Security</a></li>
-							</ul>
-						</li>
+
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="lnr lnr-user"></i> <span>@auth {{ Auth::user()->name }} @endauth </span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
 							<ul class="dropdown-menu">
@@ -207,6 +201,8 @@
 									<li><a href="/programmes" class="">Manage Programmes</a></li>
                                     <li><a href="/attendance" class="">Manage Attendance</a></li>
                                     <li><a href="/businesses" class="roledlink Super">Manage Businesses</a></li>
+                                    <li><a href="/help">Basic Use</a></li>
+								    <li><a href="/security">Security</a></li>
 								</ul>
 							</div>
 						</li>
