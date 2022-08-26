@@ -28,4 +28,21 @@ class product_sales extends Model
         return $this->hasOne(products::class, 'id', 'product_id');
     }
 
+    public function seller()
+    {
+        return $this->hasOne(User::class, 'id', 'sales_person');
+    }
+
+    public function customer()
+    {
+        return $this->hasOne(User::class, 'id', 'buyer');
+    }
+
+    public function confirmedby()
+    {
+        return $this->hasOne(User::class, 'id', 'confirmed_by');
+    }
+
+
+
 }

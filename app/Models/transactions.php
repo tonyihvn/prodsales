@@ -15,4 +15,9 @@ class transactions extends Model
     {
         return $this->belongsTo(productionjobs::class, 'id', 'production_id');
     }
+
+    public function accounthead()
+    {
+        return $this->hasOne(accountheads::class, 'id', 'account_head');
+    }
 }

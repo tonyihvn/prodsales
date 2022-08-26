@@ -25,4 +25,9 @@ class finished_products extends Model
     {
         return $this->hasOne(products::class, 'id', 'product_name');
     }
+
+    public function confirmedby()
+    {
+        return $this->hasOne(User::class, 'id', 'confirmed_by');
+    }
 }

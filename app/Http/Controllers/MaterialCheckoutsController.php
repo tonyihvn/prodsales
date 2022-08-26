@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\material_checkouts;
+
+use App\Models\material_stock;
 use Illuminate\Http\Request;
 
 class MaterialCheckoutsController extends Controller
@@ -36,23 +38,27 @@ class MaterialCheckoutsController extends Controller
      */
     public function store(Request $request)
     {
-        $material_chechouts = material_checkouts::updateOrCreate(['id'=>$request->id],[
-            'material_id' => $request->material_id,
-            'checkout_by' => $request->checkout_by,
-            'quantity' => $request->quantity,
-            'approved_by' => $request->approved_by,
-            'production_batch' => $request->production_batch,
-            'dated' => $request->dated,
-            'details' => $request->details,
-            'setting_id'=>$request->setting_id
+        foreach($request->mid as $key => $material_id){
 
-        ])->id;
+            material_checkouts::updateOrCreate(['id'=>$request->id],[
+                'material_id' => $material_id,
+                'checkout_by' => $request->checkout_by,
+                'quantity' => $request->qty[$key],
+                'approved_by' => $request->approved_by,
+                'production_batch' => $request->production_batch,
+                'dated' => $request->dated,
+                'details' => $request->details,
+                'setting_id'=>$request->setting_id
+
+            ]);
+
 
         // Update Stock
-        material_stock::updateOrCreate(['material_id'=>$request->material_id],[
-            'material_id'=>$request->material_id,
-        ])->decrement('quantity',$request->quantity);
+        material_stock::updateOrCreate(['material_id'=>$material_id],[
+            'material_id'=>$material_id,
+        ])->decrement('quantity',$request->qty[$key]);
 
+        }
         $mcheckouts = material_checkouts::paginate(50);
 
         return view('mcheckouts', compact('mcheckouts'));
@@ -98,11 +104,14 @@ class MaterialCheckoutsController extends Controller
      * @param  \App\Models\material_checkouts  $material_checkouts
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id,$mid,$qty)
     {
+        material_stock::where('material_id',$mid)->increment('quantity',$qty);
+
         material_checkouts::findOrFail($id)->delete();
+
         $message = 'The material checkout record has been deleted!';
-        return redirect()->route('supplies')->with(['message'=>$message]);
+        return redirect()->route('mcheckouts')->with(['message'=>$message]);
     }
 
 }

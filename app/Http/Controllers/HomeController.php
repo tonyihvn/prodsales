@@ -14,7 +14,7 @@ use App\Models\settings;
 use App\Models\admintable;
 use App\Models\product;
 use App\Models\production_jobs;
-
+use Artisan;
 // use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Hash;
@@ -57,11 +57,11 @@ class HomeController extends Controller
 
             return $this->productionDashboard($setting_id,$role);
         }else{
-            return userDashboard();
+            return $this->userDashboard();
         }
      }
 
-     public function productionDashboard($setting_id,$role)
+    public function productionDashboard($setting_id,$role)
     {
 
         if($role == "Admin" || $role=="Super"){
@@ -85,9 +85,9 @@ class HomeController extends Controller
             return view('staff_dashboard',compact('sales','salesData'));
 
         }
-     }
+    }
 
-     public function userDashboard(){
+    public function userDashboard(){
         return view('user_dashboard');
      }
 
@@ -99,10 +99,23 @@ class HomeController extends Controller
 
     public function members()
     {
-      $members = User::all();
+      $members = User::where('category','!=','Customer')->get();
       $users = User::select('name','id')->get();
       return view('members', compact('members','users'));
     }
+
+    public function customers()
+    {
+      $members = User::where('category','Customer')->get();
+      $users = User::select('name','id')->get();
+      return view('members', compact('members','users'));
+    }
+
+    public function businesses()
+    {
+      return view('businesses');
+    }
+
 
     public function membersSearch(request $request)
     {
@@ -124,9 +137,8 @@ class HomeController extends Controller
     public function addNew()
     {
       $users = User::select('name','id')->get();
-      $house_fellowships = housefellowhips::select('name','id')->get();
       $businesses = businesses::select('name','id')->get();
-      return view('add-new', compact('users','businesses','house_fellowships'));
+      return view('add-new', compact('users','businesses'));
 
     }
 
@@ -152,15 +164,12 @@ class HomeController extends Controller
             'email' => $email,
             'gender' => $request->gender,
             'dob' => $request->dob,
-            'age_group'=>$request->age_group,
             'phone_number'=>$request->phone_number,
             'password' => $password,
             'about' => $request->about,
             'address' => $request->address,
             'location' => $request->location,
-            'house_fellowship' => $request->house_fellowship,
-            'invited_by' => $request->invited_by,
-            'assigned_to' => $request->assigned_to,
+            'category' => $request->category,
             'business' => $request->business,
             'role'=>$request->role,
             'status'=>$request->status,
@@ -188,9 +197,7 @@ class HomeController extends Controller
     {
       $user = User::where('id',$id)->first();
       $users = User::select('id','name')->get();
-      $house_fellowships = housefellowhips::select('name','id')->get();
-      $ministries = ministries::select('name','id')->get();
-      return view('edit-member', compact('user','users','ministries','house_fellowships'));
+      return view('edit-member', compact('user','users'));
 
     }
 
@@ -389,9 +396,12 @@ class HomeController extends Controller
     }
 
     public function Artisan2($command, $param) {
-      $artisan = Artisan::call($command,['flag'=>$param]);
-      $output = Artisan::output();
-      return dd($output);
+
+        $output = Artisan::call($command.":".$param);
+
+        // $artisan = Artisan::call($command,['flag'=>$param]);
+        // $output = Artisan::output();
+        return dd($output);
     }
 
 }

@@ -80,6 +80,24 @@ class ProductsController extends Controller
         return view('products', compact('products'));
     }
 
+
+    public function pjob($batchno)
+    {
+        $pjob = production_jobs::where('batchno',$batchno)->first();
+        $pusedmaterials = material_checkouts::where('production_batch',$batchno)->get();
+        $pfinished = finished_products::where('batchno',$batchno)->first();
+
+        $pdf_doc = PDF::loadView('pjob',compact('pjob','pusedmaterials','pfinished'))->setOptions(['defaultFont' => 'sans-serif']);
+
+        return $pdf_doc->stream('pjob'.$batchno.'.pdf');
+
+    }
+
+    public function product($product_id)
+    {
+        $product = products::where('id',$product_id)->get();
+        return view('product', compact('product'));
+    }
     /**
      * Display the specified resource.
      *

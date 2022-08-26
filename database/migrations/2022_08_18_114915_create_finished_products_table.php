@@ -18,15 +18,13 @@ class CreateFinishedProductsTable extends Migration
             $table->unsignedBigInteger('product_name')->index()->nullable();
             $table->foreign('product_name')->references('id')->on('products')->nullable();
 
-            $table->unsignedBigInteger('production_batch')->index()->nullable();
-            $table->foreign('production_batch')->references('id')->on('production_jobs')->nullable();
+            $table->string('batchno')->nullable();
 
             $table->unsignedBigInteger('confirmed_by')->index()->nullable();
             $table->foreign('confirmed_by')->references('id')->on('users');
 
             $table->double('quantity_produced',10,2)->nullable();
             $table->double('quantity_damaged',10,2)->nullable();
-            $table->text('added_to_stock',10)->nullable();
             $table->date('dated');
             $table->string('details',100)->nullable();
 

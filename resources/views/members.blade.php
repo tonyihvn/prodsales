@@ -9,7 +9,9 @@
 
 
             <div class="panel">
-
+                <div class="panel-heading">
+                    <a href="/add-new" class="btn btn-primary pull-right" style="margin-bottom: 10px;">Add New User</a>
+                </div>
                 <div class="panel-body">
                     <table class="table  responsive-table" id="products">
                         <thead>
@@ -17,9 +19,8 @@
                                 <th width="20">#</th>
                                 <th>Full Name</th>
                                 <th>Status</th>
-                                <th>Ministry</th>
+                                <th>Category</th>
                                 <th>Phone Number</th>
-                                <th>Assigned To</th>
                                 <th>Location</th>
                                 <th>Action</th>
                             </tr>
@@ -35,11 +36,8 @@
                                     <td>{{$member->id}}</td>
                                     <td>{{$member->name}}</td>
                                     <td>{{$member->status}}</td>
-                                    <td>{{$member->ministry}}</td>
+                                    <td>{{$member->category}}</td>
                                     <td>{{$member->phone_number}}</td>
-
-                                    <td>{{($member->assigned_to) == '' ? 'Not Assigned' : (is_numeric($member->assigned_to)?$users->where('id',$member->assigned_to)->first()->name:$member->assigned_to)}}</td>
-
                                     <td>{{$member->location}}</td>
                                     <td width="90">
                                         <div class="btn-group">

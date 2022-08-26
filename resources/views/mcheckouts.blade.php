@@ -36,15 +36,15 @@
                                     <td><b>{{$mtc->production_batch}}</b></td>
                                     <td><b>{{$mtc->quantity}}{{$mtc->material->measurement_unit}}</b></td>
                                     <td>{{$mtc->details}}</td>
-                                    <td>{{$mtc->checkedby->name}}</td>
+                                    <td>{{$mtc->checkoutby->name}}</td>
                                     <td>{{$mtc->approvedby->name}}</td>
                                     <td>{{$mtc->dated}}</td>
                                     <td>{{$mtc->settings->business_name}}</td>
 
                                     <td>
 
-                                        <button class="label label-primary" id="ach{{$mtc->id}}" onclick="materialcheckout({{$mtc->id}})"  data-toggle="modal" data-target="#materialcheckout" data-material_id="{{$mtc->material_id}}" data-production_batch="{{$mtc->production_batch}}" data-quantity="{{$mtc->quantity}}" data-details="{{$mtc->details}}"  data-checkout_by="{{$mtc->checkout_by}}"  data-approved_by="{{$mtc->approved_by}}" data-dated="{{$mtc->dated}}" data-setting_id="{{$mtc->setting_id}}">Edit</button>
-                                        <a href="/delete-mtc/{{$mtc->id}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the material checkout record: {{$mtc->name}}?')">Delete</a>
+                                        <button class="label label-primary" id="ach{{$mtc->id}}" onclick="materialcheckout({{$mtc->id}})"  data-toggle="modal" data-target="#materialcheckout"  data-material_name="{{$mtc->material->name}}" data-material_id="{{$mtc->material_id}}" data-production_batch="{{$mtc->production_batch}}" data-quantity="{{$mtc->quantity}}" data-details="{{$mtc->details}}"  data-checkout_by="{{$mtc->checkout_by}}"  data-approved_by="{{$mtc->approved_by}}" data-dated="{{$mtc->dated}}" data-setting_id="{{$mtc->setting_id}}">Edit</button>
+                                        <a href="/delete-mtc/{{$mtc->id}}/{{$mtc->material_id}}/{{$mtc->quantity}}" class="label label-danger" onclick="return confirm('Are you sure you want to delete the material checkout record, this will return the {{$mtc->material->name}} with quantity {{$mtc->quantity}} back to stock?')">Delete</a>
                                     </td>
 
                                 </tr>
@@ -83,12 +83,13 @@
                 @csrf
                 <input type="hidden" name="id" id="id">
 
-                <div class="row" style="visibility: hidden; display: none;">
+                <div class="row" id="forcheckout">
                     <div class="form-goup col-md-6">
                         <label for="material_id">
-                            Material Name
+                            Material Name: <span id="material_named"></span>
                         </label>
                         <input type="hidden" name="material_id" id="material_id" readonly>
+
                     </div>
                     <div class="form-goup col-md-6">
                         <label for="quantity">
@@ -101,27 +102,31 @@
                 <table class="table" id="materiallist">
                     <thead>
                         <tr class="spechead">
-                            <th>Material NAme</th>
-                            <th>Quantity</th>
-                            <th></th>
+                            <th class="form-group">Material NAme</th>
+                            <th class="form-group">Quantity</th>
+                            <th class="form-group">Unit</th>
+                            <th class="form-group">.</th>
                         </tr>
                     </thead>
                     <tbody id="item_list">
 
-                        <tr class="row" id="1">
+                        <tr id="1">
                             <td class="form-group">
-                                <select class="form-control" name="mid[]">
+                                <select class="form-control mid" name="mid[]" required>
                                     @foreach ($settings->materials as $sma)
-                                        <option value="{{$sma->id}}">{{$sma->name}}</option>
+                                        <option value="{{$sma->id}}" data-units="{{$sma->measurement_unit}}">{{$sma->name}}</option>
                                     @endforeach
 
                                 </select>
                             </td>
                             <td class="form-group">
-                                <input type="number" name="qty[]" class="form-control">
+                                <input type="number" name="qty[]" class="form-control" required><span></span>
+                            </td>
+                            <td class="unit">
+                                <span></span>
                             </td>
                             <td class="form-group">
-                                <a href='#' class='btn btn-sm btn-danger removeitem'>Remove <i class="lnr lnr-remove"></i></a>
+                                <a href="#" class="btn btn-sm btn-danger removeitem" id="re1">Remove<i class="lnr lnr-remove"></i></a>
                             </td>
                         </tr>
 
@@ -135,8 +140,8 @@
 
                 <div class="row">
                     <div class="form-group col-md-4">
-                        <label for="date">Checkout Date</label>
-                        <input type="text" name="date" id="date" class="form-control datepicker">
+                        <label for="dated">Checkout Date</label>
+                        <input type="text" name="dated" id="dated" class="form-control datepicker">
                     </div>
 
                     <div class="form-group col-md-8">
@@ -151,7 +156,7 @@
                         <label for="production_batch">Production Batch No.</label>
                         <select class="form-control" name="production_batch" id="production_batch">
                             @foreach ($settings->jobs as $pjs)
-                                <option value="{{$pjs->id}}">{{$pjs->batchno}}</option>
+                                <option value="{{$pjs->batchno}}">{{$pjs->batchno}}</option>
                             @endforeach
 
                         </select>

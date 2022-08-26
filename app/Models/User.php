@@ -24,16 +24,14 @@ class User extends Authenticatable
         'email',
         'gender',
         'dob',
-        'age_group',
         'phone_number',
         'password',
         'address',
         'location',
-        'house_fellowship',
-        'invited_by',
-        'assigned_to',
-        'ministry',
         'role',
+        'category',
+        'about',
+        'setting_id',
         'status'
     ];
 

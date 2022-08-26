@@ -36,6 +36,22 @@
             height: 0px;
             background-color: none !important;
         }
+
+        .grid-container {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: auto auto auto;
+            background-color:aliceblue;
+            padding: 10px;
+        }
+
+        .grid-item {
+            background-color:beige;
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            font-size: 20px;
+            text-align: center;
+        }
 	</style>
 </head>
 
@@ -127,73 +143,87 @@
 					<ul class="nav">
 						<li><a href="/home" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
 
-						<li class="roledlink Worker Admin Followup Pastor Finance Super" style="visibility:hidden !important;">
-							<a href="#subPages1" data-toggle="collapse" class="collapsed"><i class="lnr lnr-calendar-full"></i> <span>Tasks/ To Do</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="subPages1" class="collapse ">
-								<ul class="nav">
-									<li><a href="/tasks" class="">Manage Tasks/TODOs</a></li>
-								</ul>
-							</div>
-						</li>
-						<li class="roledlink Worker Admin Followup Pastor Finance Super" style="visibility:hidden;">
-							<a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i> <span>Customers</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+
+                        <li class="roledlink Staff Admin Finance Super" style="visibility:hidden;">
+							<a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="lnr lnr-settings"></i> <span>Production</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages2" class="collapse ">
 								<ul class="nav">
-									<li><a href="/members" class="">View Customers</a></li>
-									<li><a href="/add-new" class="roledlink Worker,Admin,Followup,Pastor,Super">Add New</a></li>
-
+									<li><a href="/productionjobs" class="">Production Jobs</a></li>
 								</ul>
 							</div>
 						</li>
-						<li class="roledlink Admin Super Pastor" style="visibility:hidden;">
-							<a href="#subPages3" data-toggle="collapse" class="collapsed"><i class="lnr lnr-briefcase"></i> <span>Businesses</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+
+                        <li class="roledlink Staff Admin Finance Super" style="visibility:hidden;">
+							<a href="#subPages3" data-toggle="collapse" class="collapsed"><i class="lnr lnr-settings"></i> <span>Materials</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages3" class="collapse ">
 								<ul class="nav">
-									<li><a href="/businesses" class="roledlink Admin Super Pastor">Manage Businesses</a></li>
+									<li><a href="/materials" class="">Production Materials</a></li>
+                                    <li><a href="/supplies" class="">Material Supplies</a></li>
+                                    <li><a href="/mcheckouts" class="">Material Checkouts</a></li>
+
 
 								</ul>
 							</div>
 						</li>
-						<li class="roledlink Admin Super Pastor" style="visibility:hidden;">
-							<a href="#subPages4" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>House Fellowships</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+
+                        <li class="roledlink Staff Admin Finance Super" style="visibility:hidden;">
+							<a href="#subPages4" data-toggle="collapse" class="collapsed"><i class="lnr lnr-items"></i> <span>Products</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages4" class="collapse ">
 								<ul class="nav">
-									<li><a href="/house-fellowships" class="">Manage House Fellowships</a></li>
-
-
+									<li><a href="/products" class="">Product List</a></li>
+                                    <li><a href="/psupplies" class="">Product Supplies</a></li>
 								</ul>
 							</div>
 						</li>
-						<li class="roledlink Admin Super Pastor" style="visibility:hidden;">
-							<a href="#subPages5" data-toggle="collapse" class="collapsed"><i class="lnr lnr-flag"></i> <span>Programs/Activities</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+
+						<li class="roledlink Admin Super Staff" style="visibility:hidden;">
+							<a href="#subPages5" data-toggle="collapse" class="collapsed"><i class="lnr lnr-cart"></i> <span>Sales</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages5" class="collapse ">
 								<ul class="nav">
-									<li><a href="/programmes" class="">Manage Programmes</a></li>
+									<li><a href="/newsales" class="roledlink Admin Super Staff">New Sales</a></li>
+                                    <li><a href="/sales" class="roledlink Admin Super Staff">Product Sales Records</a></li>
 
 								</ul>
 							</div>
 						</li>
-						<li class="roledlink Admin Super Pastor Usher" style="visibility:hidden;">
-							<a href="#subPages6" data-toggle="collapse" class="collapsed"><i class="lnr lnr-checkmark-circle"></i> <span>Attendance</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+
+						<li class="roledlink Staff Admin Finance Super" style="visibility:hidden;">
+							<a href="#subPages6" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i> <span>Users</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages6" class="collapse ">
 								<ul class="nav">
-									<li><a href="/attendance" class="">Manage Attendance</a></li>
+									<li><a href="/members" class="">Personnel</a></li>
+                                    <li><a href="/customers" class="">Customers</a></li>
+                                    <li><a href="/suppliers" class="">Suppliers</a></li>
+
 								</ul>
 							</div>
 						</li>
-						<li class="roledlink Admin Super Super" style="visibility:hidden;">
-							<a href="#subPages7" data-toggle="collapse" class="collapsed"><i class="lnr lnr-list"></i> <span>Finance</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="subPages7" class="collapse ">
+
+						<li class="roledlink Admin Super Staff" style="visibility:hidden;">
+							<a href="#subPages8" data-toggle="collapse" class="collapsed"><i class="lnr lnr-flag"></i> <span>Management</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<div id="subPages8" class="collapse ">
 								<ul class="nav">
-									<li><a href="/transactions" class="">Financial Records</a></li>
+                                    <li><a href="/tasks" class="">Manage Tasks/TODOs</a></li>
+									<li><a href="/programmes" class="">Manage Programmes</a></li>
+                                    <li><a href="/attendance" class="">Manage Attendance</a></li>
+                                    <li><a href="/businesses" class="roledlink Super">Manage Businesses</a></li>
+								</ul>
+							</div>
+						</li>
+
+						<li class="roledlink Admin Super Super" style="visibility:hidden;">
+							<a href="#subPages9" data-toggle="collapse" class="collapsed"><i class="lnr lnr-list"></i> <span>Finance</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<div id="subPages9" class="collapse ">
+								<ul class="nav">
+									<li><a href="/transactions" class="">Transactions</a></li>
 									<li><a href="/account-heads" class="">Manage Account Heads</a></li>
 
 								</ul>
 							</div>
 						</li>
-						<li class="roledlink Admin Super Pastor" style="visibility:hidden;">
-							<a href="#subPages8" data-toggle="collapse" class="collapsed"><i class="lnr lnr-envelope"></i> <span>Communication</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="subPages8" class="collapse ">
+						<li class="roledlink Admin Super Staff" style="visibility:hidden;">
+							<a href="#subPages10" data-toggle="collapse" class="collapsed"><i class="lnr lnr-envelope"></i> <span>Communication</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<div id="subPages10" class="collapse ">
 								<ul class="nav">
 									<li><a href="/communications" class="">Send Bulk SMS</a></li>
 									<li><a href="/sentmessages" class="">Sent Messages</a></li>
@@ -235,10 +265,10 @@
 	<!-- END WRAPPER -->
 	<!-- Javascript -->
 	<script src="{{asset('/assets/vendor/jquery/jquery.min.js')}}"></script>
-	<script src="{{asset('/assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 	<script src="{{asset('/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 	<script src="{{asset('/assets/scripts/klorofil-common.js')}}"></script>
 	<script src="{{asset('/assets/jquery-ui/jquery-ui.min.js')}}"></script>
+	<script src="{{asset('/assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 
 
 </body>
@@ -486,7 +516,6 @@
 
 @if (isset($pagename) && $pagename=="production_dashboard")
 	<script src="{{asset('/js/highcharts.js')}}"></script>
-
 
 	<script type="text/javascript">
         var productionData = <?php echo json_encode($productionData)?>;
@@ -767,6 +796,16 @@
 
         function materialcheckout(accid){
 
+            $("#forcheckout").show();
+
+            $("#materiallist").hide();
+
+            var material_name = $('#ach'+accid).attr("data-material_name");
+
+            $("#material_named").text(material_name).change();
+
+            $("#quantity").attr('type','number').change();
+
             var checkout_by = $('#ach'+accid).attr("data-checkout_by");
             var approved_by = $('#ach'+accid).attr("data-approved_by");
             var production_batch = $('#ach'+accid).attr("data-production_batch");
@@ -857,6 +896,7 @@
 
             var date_supplied = $('#ach'+accid).attr("data-date_supplied");
 
+            $('#updating').val("No");
 
             $('#id').val(accid);
             $('#supplier_id').val(supplier_id).attr("selected", "selected").change();;
@@ -973,6 +1013,78 @@
 
 		}
 
+        function addItem(item){
+
+            var pid = $('#item'+item).attr("data-pid");
+			var unit = $('#item'+item).attr("data-price");
+            var in_stock = $('#item'+item).attr("data-in_stock");
+            var name = $('#item'+item).attr("data-name");
+            var munit = $('#item'+item).attr("data-munit");
+
+            $("table tbody#item_list").append("<tr id='itrow"+item+"'><td class='form-group'><input id='item"+item+"' type='hidden' name='product_id[]' class='form-control' value='"+pid+"' readonly><h5 id='itname"+item+"'>"+name+"</h5><small><i>(Stock: "+in_stock+")</i></small></td><td class='form-group'><input id='qty"+item+"'  onchange='changeQty("+item+")' type='number' value='1' name='qty[]' class='form-control quantity'><span><small>"+munit+"</small></span></td><td class='form-group'><input id='unit"+item+"' type='number' onchange='changeUc("+item+")' name='unit[]'  value='"+unit+"' class='form-control'></td><td class='form-group'><input id='amount"+item+"' type='number' name='amount[]'  value='"+unit+"' class='form-control amount' readonly></td><td class='form-group'><a href='#' class='badge badge-danger removeitem' id='re"+item+"'>X</a></td></tr>");
+
+            reCalc();
+
+            $('#item'+item).hide();
+        };
+
+        function changeQty(clicked){
+            // RECALCULATE AMOUNT OF ONE ITEM ON QUANTITY CHANGE
+            var qty = $("#qty"+clicked).val();
+            var unit_rate = $("#unit"+clicked).val();
+            var new_amount = parseFloat(qty)*parseFloat(unit_rate);
+            $("#amount"+clicked).val(new_amount.toFixed(2));
+            reCalc();
+        }
+
+        $(document).on('input','.form-control',function(event){
+            reCalc();
+        });
+
+        function changeUc(clicked){
+            // RECALCULATE AMOUNT OF ONE ITEM ON QUANTITY CHANGE
+            var uc = $("#unit"+clicked).val();
+            var qty = $("#qty"+clicked).val();
+            var new_amount = parseFloat(qty)*parseFloat(uc);
+            $("#amount"+clicked).val(new_amount.toFixed(2));
+            reCalc();
+        }
+
+        function reCalc(){
+
+            // alert("Am Recalculating...");
+            // RECALCULATE TOTAL AMOUNT
+            var sum = 0;
+            $(".amount").each(function(){
+                sum += +$(this).val();
+            });
+            $("#total_due").val(sum.toFixed(2));
+
+
+            // RECALCULATE TOTAL DISCOUNT
+            var total_discount = $("#discount").val();
+
+            //$(".discount").each(function(){
+              //  total_discount += +$(this).val();
+            // });
+
+            // $("#total_discount").val(total_discount.toFixed(2));
+
+            var tax_percent = $("#tax_percent").val();
+            tax = parseFloat(tax_percent)*(parseFloat(sum)/100);
+
+            $("#tax").val(tax);
+
+            // var total_discount = $("#total_discount").val();
+
+            var new_sum = (parseFloat(sum)+parseFloat(tax)) - parseFloat(total_discount);
+
+            $("#total_due").val(new_sum.toFixed(2));
+
+            // $("#amount_paid").val($("#total_due").val());
+
+        }
+
 		// CHECK ALL
 		$('#all').click(function(event) {
 			if(this.checked) {
@@ -1043,7 +1155,7 @@
             $('#newbusiness').val('Yes');
             $(':input').val('');
             $("input[name=_token]").val(token);
-            editor.html.set("");
+            // editor.html.set("");
         });
 
         // ADD MATERIAL CHECKOUT
@@ -1062,13 +1174,51 @@
 
         });
 
-        $(".removeitem").click(function(event) {
+        $(document.body).on('click','.removeitem',function(event) {
 
-            var item_id = $(this).attr("id").substr(2);
-            alert(item_id);
+            var item_id = $(this).attr("id");
+            item_id = item_id.substr(2);
 
             $("#"+item_id).remove();
+            $("#itrow"+item_id).remove();
+            if($(".amount").length >= 0) {
+                reCalc();
+                $('#item'+item_id).toggle();
+            }
+
         });
+
+        $("#supplyupdate").click(function(){
+            $('#updating').val("Yes");
+        });
+
+        $(document.body).on('change','.mid',function(event) {
+
+            var unit = $(this).find(':selected').attr('data-units');
+            $(this).parent().parent().children('td.unit').children('span').text(unit);
+        });
+
+        $(document).on('change','.jobstatus',function(event) {
+            var jstatus = $(this).find(':selected').val();
+            if(jstatus=="Completed"){
+                $("#forcompleted").show();
+            }
+        });
+
+        $(document.body).on('change','#customer',function(event) {
+            // var elementValue = $(this).val();
+            var buyer = $("#customers option[value='" + $('#customer').val() + "']").text()
+
+            $("#buyer").val(buyer);
+
+        });
+
+
+        $("#forcheckout").hide();
+        $("#forcompleted").hide();
+
+
+
 
 	</script>
 

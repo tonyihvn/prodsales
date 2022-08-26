@@ -21,4 +21,11 @@ class materials extends Model
         return $this->belongsTo(supplies::class, 'setting_id', 'id');
     }
 
+
+    public function stock()
+    {
+        return $this->hasOne(material_stock::class, 'material_id', 'id');
+    }
+
+
 }

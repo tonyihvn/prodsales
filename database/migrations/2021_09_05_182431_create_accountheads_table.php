@@ -23,7 +23,24 @@ class CreateAccountheadsTable extends Migration
             $table->foreign('setting_id')->references('id')->on('settings');
             $table->timestamps();
         });
-    }
+
+        DB::table('accountheads')->insert(
+            array(
+                'title' => 'Item Sales',
+                'category' => 'Inflow',
+                'type'=> 'Sales',
+                'description'=>'For all sales of products',
+
+            ));
+        DB::table('accountheads')->insert(
+            array(
+                'title' => 'Material Supply',
+                'category' => 'Expenditure',
+                'type'=> 'Production',
+                'description'=>'For payment of material supplies',
+
+            ));
+        }
 
     /**
      * Reverse the migrations.

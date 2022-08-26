@@ -13,7 +13,7 @@ class material_checkouts extends Model
 
     public function settings()
     {
-        return $this->belongsTo(settings::class, 'id', 'setting_id');
+        return $this->belongsTo(settings::class, 'setting_id','id');
     }
 
 
@@ -24,11 +24,11 @@ class material_checkouts extends Model
 
     public function approvedby()
     {
-        return $this->belongsToMany(user::class, 'id', 'checkout_by','approved_by');
+        return $this->hasOne(User::class, 'id', 'approved_by');
     }
 
     public function checkoutby()
     {
-        return $this->belongsToMany(user::class, 'id', 'checkout_by','approved_by');
+        return $this->hasOne(User::class, 'id', 'checkout_by');
     }
 }

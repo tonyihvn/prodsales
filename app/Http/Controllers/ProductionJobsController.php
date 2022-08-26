@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\production_jobs;
+use App\Models\finished_products;
+use App\Models\material_checkouts;
+use App\Models\product_stocks;
+use PDF;
+
 use Illuminate\Http\Request;
 
 class ProductionJobsController extends Controller
@@ -36,7 +41,7 @@ class ProductionJobsController extends Controller
      */
     public function store(Request $request)
     {
-        $pjobs = production_jobs::updateOrCreate(['id'=>$request->id],[
+        production_jobs::updateOrCreate(['id'=>$request->id],[
             'product_id' => $request->product_id,
             'staff_incharge' => $request->staff_incharge,
             'target_quantity' => $request->target_quantity,
@@ -47,10 +52,39 @@ class ProductionJobsController extends Controller
             'estimated_cost_of_production'=>$request->estimated_cost_of_production,
             'setting_id'=>$request->setting_id
 
-        ])->id;
+        ]);
+
+        if($request->status=="Completed"){
+            finished_products::create([
+                'product_name'=>$request->product_id,
+                'batchno'=>$request->batchno,
+                'confirmed_by'=>$request->confirmed_by,
+                'quantity_produced'=>$request->quantity_produced,
+                'quantity_damaged'=>$request->quantity_damaged,
+                'dated'=>$request->dated,
+                'details'=>$request->details,
+                'setting_id'=>$request->setting_id
+            ]);
+
+            product_stocks::where('product_id',$request->product_id)->increment('quantity',$request->quantity_produced);
+
+        }
 
         $productionjobs = production_jobs::paginate(50);
         return view('production_jobs', compact('productionjobs'));
+    }
+
+
+    public function pjob($batchno)
+    {
+        $pjob = production_jobs::where('batchno',$batchno)->first();
+        $pusedmaterials = material_checkouts::where('production_batch',$batchno)->get();
+        $pfinished = finished_products::where('batchno',$batchno)->first();
+
+        $pdf_doc = PDF::loadView('pjob',compact('pjob','pusedmaterials','pfinished'))->setOptions(['defaultFont' => 'sans-serif']);
+
+        return $pdf_doc->stream('pjob'.$batchno.'.pdf');
+
     }
 
     /**

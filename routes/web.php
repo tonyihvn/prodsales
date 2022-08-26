@@ -23,6 +23,8 @@ Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->n
 
 // MEMBERS
 Route::get('/members', [App\Http\Controllers\HomeController::class, 'members'])->name('members')->middleware('role:Worker,Admin,Followup,Staff,Finance,Super');
+Route::get('/customers', [App\Http\Controllers\HomeController::class, 'customers'])->name('customers')->middleware('role:Worker,Admin,Followup,Staff,Finance,Super');
+
 Route::get('/add-new', [App\Http\Controllers\HomeController::class, 'addNew'])->name('add-new')->middleware('role:Worker,Admin,Followup,Staff,Super');
 Route::post('/addnew', [App\Http\Controllers\HomeController::class, 'create'])->name('addnew')->middleware('role:Worker,Admin,Followup,Staff,Super');
 Route::get('/edit-member/{id}/', [App\Http\Controllers\HomeController::class, 'editMember'])->name('edit-member')->middleware('role:Worker,Admin,Followup,Staff,Super');
@@ -31,6 +33,9 @@ Route::get('/delete-member/{id}', [App\Http\Controllers\HomeController::class, '
 Route::post('/settings', [App\Http\Controllers\HomeController::class, 'settings'])->name('settings')->middleware('role:Super');
 Route::post('/switchbusiness', [App\Http\Controllers\HomeController::class, 'switchbusiness'])->name('switchbusiness')->middleware('role:Super,Admin');
 Route::post('/searchmembers', [App\Http\Controllers\HomeController::class, 'membersSearch'])->name('searchmembers')->middleware('role:Worker,Admin,Followup,Staff,Finance,Super');
+
+Route::get('/businesses', [App\Http\Controllers\HomeController::class, 'businesses'])->name('businesses')->middleware('role:Super');
+
 
 // MATERIALS
 Route::get('/materials', [App\Http\Controllers\MaterialsController::class, 'index'])->name('materials')->middleware('role:Admin,Super,Staff');
@@ -53,7 +58,7 @@ Route::get('/delete-sp/{id}', [App\Http\Controllers\MaterialSuppliesController::
 // MATERIAL CHECKOUTS
 Route::get('/mcheckouts', [App\Http\Controllers\MaterialCheckoutsController::class, 'index'])->name('mcheckouts')->middleware('role:Admin,Super,Staff');
 Route::post('/addmcheckout', [App\Http\Controllers\MaterialCheckoutsController::class, 'store'])->name('addmcheckout')->middleware('role:Admin,Super,Staff');
-Route::get('/delete-mtc/{id}', [App\Http\Controllers\MaterialCheckoutsController::class, 'destroy'])->name('delete-mtc')->middleware('role:Admin,Super,Staff');
+Route::get('/delete-mtc/{id}/{mid}/{qty}', [App\Http\Controllers\MaterialCheckoutsController::class, 'destroy'])->name('delete-mtc')->middleware('role:Super');
 
 
 // PRODUCT SUPPLIES
@@ -82,9 +87,10 @@ Route::get('/categories', [App\Http\Controllers\CategoriesController::class, 'in
 Route::post('/addcategory', [App\Http\Controllers\CategoriesController::class, 'store'])->name('addcategory')->middleware('role:Finance,Admin,Super');
 Route::get('/delete-cat/{id}', [App\Http\Controllers\CategoriesController::class, 'destroy'])->name('delete-cat')->middleware('role:Super');
 
-// ACCOUNT HEADS
+// PRODUCTION JOBS
 Route::get('/productionjobs', [App\Http\Controllers\ProductionJobsController::class, 'index'])->name('productionjobs')->middleware('role:Finance,Admin,Super');
 Route::post('/addproduction', [App\Http\Controllers\ProductionJobsController::class, 'store'])->name('addproduction')->middleware('role:Finance,Admin,Super');
+Route::get('/pjob/{batchno}', [App\Http\Controllers\ProductionJobsController::class, 'pjob'])->where('batchno', '.*')->name('pjob')->middleware('role:Super,Admin,Staff');
 Route::get('/delete-pjob/{id}', [App\Http\Controllers\ProductionJobsController::class, 'destroy'])->name('delete-pjob')->middleware('role:Super');
 
 
@@ -92,6 +98,11 @@ Route::get('/delete-pjob/{id}', [App\Http\Controllers\ProductionJobsController::
 Route::get('/products', [App\Http\Controllers\ProductsController::class, 'index'])->name('products')->middleware('role:Finance,Admin,Super');
 Route::post('/addproduct', [App\Http\Controllers\ProductsController::class, 'store'])->name('addproduct')->middleware('role:Finance,Admin,Super');
 Route::get('/delete-prd/{id}', [App\Http\Controllers\ProductsController::class, 'destroy'])->name('delete-prd')->middleware('role:Super');
+
+// PRODUCT SALES
+Route::get('/sales', [App\Http\Controllers\ProductSalesController::class, 'index'])->name('sales')->middleware('role:Finance,Admin,Super,Staff');
+Route::get('/newsales', [App\Http\Controllers\ProductSalesController::class, 'sale'])->name('newsales')->middleware('role:Finance,Admin,Super,Staff');
+Route::post('/addsales', [App\Http\Controllers\ProductSalesController::class, 'store'])->name('addsales')->middleware('role:Finance,Admin,Super,Staff');
 
 
 
@@ -104,17 +115,6 @@ Route::get('/delete-attd/{id}', [App\Http\Controllers\AttendanceController::clas
 Route::get('/transactions', [App\Http\Controllers\TransactionsController::class, 'index'])->name('transactions')->middleware('role:Finance,Admin,Super');
 Route::post('/addtransaction', [App\Http\Controllers\TransactionsController::class, 'store'])->name('addtransaction')->middleware('role:Finance,Admin,Super');
 Route::get('/delete-trans/{id}', [App\Http\Controllers\TransactionsController::class, 'destroy'])->name('delete-trans')->middleware('role:Finance,Super');
-
-// MINISTRIES
-Route::get('/ministries', [App\Http\Controllers\MinistriesController::class, 'index'])->name('ministries')->middleware('role:Admin,Super,Staff');
-Route::post('/addministry', [App\Http\Controllers\MinistriesController::class, 'store'])->name('addministry')->middleware('role:Admin,Super,Staff');
-Route::get('/delete-mins/{id}', [App\Http\Controllers\MinistriesController::class, 'destroy'])->name('delete-mins')->middleware('role:Admin,Super,Staff');
-
-// HOUSE FELLOWSHIPS
-Route::get('/house-fellowships', [App\Http\Controllers\HousefellowhipsController::class, 'index'])->name('house-fellowships')->middleware('role:Admin,Super,Staff');
-Route::post('/addhfellowship', [App\Http\Controllers\HousefellowhipsController::class, 'store'])->name('addhfellowship')->middleware('role:Admin,Super,Staff');
-Route::get('/delete-hfel/{id}', [App\Http\Controllers\HousefellowhipsController::class, 'destroy'])->name('delete-hfel')->middleware('role:Admin,Super,Staff');
-
 
 // PROGRAMMES
 Route::get('/programmes', [App\Http\Controllers\ProgrammesController::class, 'index'])->name('programmes')->middleware('role:Admin,Super,Staff');

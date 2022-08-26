@@ -13,6 +13,7 @@
                                 @csrf
                                 <div class="row">
                                     <div class="form-group col-lg-12">
+
                                         <select class="form-control" name="setting_id" id="setting_id">
 
                                             <option value="1" selected>Select Business/Facility</option>

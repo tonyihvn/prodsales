@@ -7,10 +7,7 @@
     <div class="row">
             <div class="panel">
                 <div class="panel-heading">
-
-                        <a href="#" class="btn btn-primary pull-right" data-toggle="modal" data-target="#supply">Add New</a>
-
-
+                        <a href="#" class="btn btn-primary pull-right" data-toggle="modal" data-target="#supply" id="supplyupdate">Add New</a>
                 </div>
                 <div class="panel-body">
                     <table class="table responsive-table">
@@ -26,12 +23,10 @@
                                 <th>Location/Facility</th>
                                 <th>Date Supplied</th>
                                 <th>Action</th>
-
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($supplies as $sp)
-
                                 <tr>
                                     <td><b>{{$sp->batchno}}</b></td>
                                     <td><b>{{$sp->material->name}}</b></td>
@@ -43,7 +38,6 @@
                                     <td>{{$sp->settings->business_name}}</td>
                                     <td>{{$sp->date_supplied}}</td>
                                     <td>
-
                                         <button class="label label-primary" id="ach{{$sp->id}}" onclick="supply({{$sp->id}})"  data-toggle="modal" data-target="#supply" data-supplier_id="{{$sp->supplier_id}}" data-material_id="{{$sp->material_id}}" data-quantity="{{$sp->quantity}}" data-cost_per="{{$sp->cost_per}}"  data-total_amount="{{$sp->total_amount}}" data-date_supplied="{{$sp->date_supplied}}" data-setting_id="{{$sp->setting_id}}"  data-batchno="{{$sp->batchno}}" data-confirmed_by="{{$sp->confirmed_by}}">Edit</button>
                                         <a href="/delete-sp/{{$sp->id}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the supply: {{$sp->material->name}}?')">Delete</a>
                                     </td>
@@ -83,7 +77,7 @@
             <form method="POST" action="{{ route('addsupply') }}" id="supplyform" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="id" id="id">
-
+                <input type="hidden" name="updating" id="updating" value="Yes">
                 <div class="row">
 
                     <div class="form-group col-md-4">
@@ -153,7 +147,7 @@
                     <div class="form-group col-md-4">
                         <label for="confirmed_by">Confirmed By</label>
                         <select class="form-control" name="confirmed_by" id="confirmed_by">
-                            @foreach ($settings->users as $usr)
+                            @foreach ($settings->personnel as $usr)
                                 <option value="{{$usr->id}}">{{$usr->name}}</option>
                             @endforeach
 

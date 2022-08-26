@@ -22,6 +22,7 @@
                                 <th>Size/Unit</th>
                                 <th>Price</th>
                                 <th>Location</th>
+                                <th>Stock Bal.</th>
                                 <th>Action</th>
 
                             </tr>
@@ -38,6 +39,7 @@
                                     <td>{{$pr->size}} {{$pr->measurement_unit}}</td>
                                     <td>{{$pr->price}}</td>
                                     <td>{{$pr->settings->business_name}}</td>
+                                    <td>{{$pr->stock->quantity}}</td>
                                     <td>
 
                                         <button class="label label-primary" id="ach{{$pr->id}}" onclick="product({{$pr->id}})"  data-toggle="modal" data-target="#product" data-name="{{$pr->name}}" data-type="{{$pr->type}}" data-category="{{$pr->category}}" data-measurement_unit="{{$pr->measurement_unit}}"  data-picture="{{$pr->picture}}"  data-size="{{$pr->size}}"  data-price="{{$pr->price}}"  data-setting_id="{{$pr->setting_id}}">Edit</button>

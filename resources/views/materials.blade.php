@@ -22,6 +22,7 @@
                                 <th>Size/Unit</th>
                                 <th>Cost Per</th>
                                 <th>Location</th>
+                                <th>Stock Bal.</th>
                                 <th>Action</th>
 
                             </tr>
@@ -38,6 +39,7 @@
                                     <td>{{$mat->size}} {{$mat->measurement_unit}}</td>
                                     <td>{{$mat->cost_per}}</td>
                                     <td>{{$mat->settings->business_name}}</td>
+                                    <td>{{$mat->stock->quantity}}</td>
                                     <td>
 
                                         <button class="label label-primary" id="ach{{$mat->id}}" onclick="material({{$mat->id}})"  data-toggle="modal" data-target="#material" data-name="{{$mat->name}}" data-type="{{$mat->type}}" data-category="{{$mat->category}}" data-measurement_unit="{{$mat->measurement_unit}}"  data-picture="{{$mat->picture}}"  data-size="{{$mat->size}}"  data-cost_per="{{$mat->cost_per}}"  data-setting_id="{{$mat->setting_id}}" }}">Edit</button>

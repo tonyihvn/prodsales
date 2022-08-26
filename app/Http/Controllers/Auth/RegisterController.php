@@ -84,9 +84,10 @@ class RegisterController extends Controller
             'password' => $password,
             'about' => $data['about'],
             'address' => $data['address'],
-            'role'=>"Member",
+            'role'=>"Customer",
+            'category'=>"Customer",
             'status'=>"InActive",
-            'setting_id'=>$data['setting_id']
+            'setting_id' => $data['setting_id']
         ]);
 
         /*
