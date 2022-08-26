@@ -44,11 +44,6 @@
 		<div class="vertical-align-wrap">
 
 			<div class="vertical-align-middle">
-
-				<div class="logocontainer">
-					<img  src="{{ asset('images/'.$settings->logo) }}" class="logo  img-circle">
-				</div>
-
                     <div class="content">
                             <!-----------------------------START YIELD PAGE CONTENT -->
                             @yield('content')

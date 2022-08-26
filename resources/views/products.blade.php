@@ -32,7 +32,7 @@
 
                                 <tr>
                                     <td width="10%">
-                                            <img src="/images/products/{{$pr->picture}}" class="img-circle" alt="{{$settings->business_name}}" width="100%" height="auto">
+                                            <img src="/public/images/products/{{$pr->picture}}" class="img-circle" alt="{{$settings->business_name}}" width="100%" height="auto">
                                     </td>
                                     <td><a href="/product/{{$pr->id}}"><b>{{$pr->name}}</b></td>
                                     <td><b>{{$pr->type}}/{{$pr->category}}</b></td>

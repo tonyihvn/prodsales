@@ -141,7 +141,7 @@ class ProductSalesController extends Controller
     {
         $sale = transactions::where('id',$tid)->first();
 
-        $products = product_sales::where('group_id',$sale->reference_no)->first();
+        $products = product_sales::where('group_id',$sale->reference_no)->get();
 
         $customer = User::where('id',$sale->from)->first();
 

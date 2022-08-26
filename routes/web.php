@@ -103,9 +103,7 @@ Route::get('/delete-prd/{id}', [App\Http\Controllers\ProductsController::class, 
 Route::get('/sales', [App\Http\Controllers\ProductSalesController::class, 'index'])->name('sales')->middleware('role:Finance,Admin,Super,Staff');
 Route::get('/newsales', [App\Http\Controllers\ProductSalesController::class, 'sale'])->name('newsales')->middleware('role:Finance,Admin,Super,Staff');
 Route::post('/addsales', [App\Http\Controllers\ProductSalesController::class, 'store'])->name('addsales')->middleware('role:Finance,Admin,Super,Staff');
-
-
-
+Route::get('/invoice/{category}/{tid}', [App\Http\Controllers\ProductSalesController::class, 'invoice'])->name('invoice')->middleware('role:Finance,Admin,Super,Staff');
 // ATTENDANCE
 Route::get('/attendance', [App\Http\Controllers\AttendanceController::class, 'index'])->name('attendance')->middleware('role:Usher,Admin,Super');
 Route::post('/addattendance', [App\Http\Controllers\AttendanceController::class, 'store'])->name('addattendance')->middleware('role:Usher,Admin,Super');

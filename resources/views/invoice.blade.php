@@ -1,16 +1,16 @@
 @extends('layouts.print-theme')
 
 @section('content')
+    <div style="text-align: center;"><img  src="/public/images/{{$settings->logo}}" class="img-responsive logo" style="height: auto !important; width: 100px; position: relative; padding: 0px;"></div>
+
     <h3 class="page-title" style="font-weight: bold; text-align: center;">{{$settings->business_name}}<br><small>{{$settings->address}} | {{$settings->phone_number}}</small></h3>
 
     <hr>
 
-    <h4 class="page-title" style="font-weight: bold; text-align: center;">{{$category}} No.: {{$sales->group_id}} </h4>
+    <h4 class="page-title" style="font-weight: bold; text-align: center;">{{$category}} No.: {{$sale->reference_no}} </h4>
     <div class="row" style="margin: 10px auto;">
 
             <div class="panel">
-
-
                 <div class="panel-body">
                     <h4>Customer Detail</h4>
                     <table class="table responsive-table">
@@ -20,8 +20,6 @@
                                 <th>Phone Number:</th>
                                 <th>Address</th>
                                 <th>Date</th>
-
-
                             </tr>
 
                         </thead>
@@ -56,7 +54,7 @@
                         <tbody>
                             @foreach ($products as $pr)
                                 <tr>
-                                    <td>{{$pr->name}}</td>
+                                    <td>{{$pr->product->name}}</td>
                                     <td>{{$pr->quantity}}</td>
                                     <td>{{$pr->price}}</td>
                                     <td>{{$pr->amount_paid}}</td>
