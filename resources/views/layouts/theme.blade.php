@@ -52,6 +52,17 @@
             font-size: 20px;
             text-align: center;
         }
+
+        @media only screen and (max-width: 800px) {
+            .navbar-nav{
+                padding-left: 5px !important;
+                padding-right: 5px !important;
+            }
+
+            #navbar-menu{
+                width: 80% !important;
+            }
+        }
 	</style>
 </head>
 
