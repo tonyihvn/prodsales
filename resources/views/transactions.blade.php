@@ -13,7 +13,7 @@
 
                 </div>
                 <div class="panel-body">
-                    <table class="table  responsive-table" id="products">
+                    <table class="table  responsive-table" style="width: 100%" id="products">
                         <thead>
                             <tr>
                                 <th>Title</th>
