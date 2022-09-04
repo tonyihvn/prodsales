@@ -154,10 +154,10 @@
                                         <div class="form-group row">
                                             <label for="role"  class="control-label sr-only">Role</label>
                                             <select class="form-control" name="role" id="role">
-                                                <option value="Member" selected>Member</option>
+                                                <option value="Marketers" selected>Marketers</option>
                                                 <option value="Admin">Admin</option>
-                                                <option value="Usher">Usher</option>
-                                                <option value="Followup">Followup</option>
+                                                <option value="Staff">Staff</option>
+                                                <option value="Distributor">Distributor</option>
                                                 <option value="Finance">Finance</option>
                                                 @if ($settings->mode=="Maintenance")
                                                 <option value="Super">Super</option>
