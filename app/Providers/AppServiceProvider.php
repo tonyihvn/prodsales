@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('login_user', Auth::user());
                 $view->with('mytasks', tasks::where('assigned_to',Auth::user()->id)->where('status','Not Completed')->get());
                 $view->with('customers', User::select('id','name','status')->where('setting_id',Auth::user()->id)->get());
-                $view->with('userbusinesses',settings::select('id','business_name','businessgroup_id')->where('user_id',Auth::user()->id)->get());
+                $view->with('userbusinesses',settings::select('id','business_name','businessgroup_id')->where('user_id',Auth::user()->id)->orWhere('setting_id',Auth()->user()->setting_id)->get());
 
                 $view->with('settings', settings::where('id',Auth::user()->setting_id)->first());
 
