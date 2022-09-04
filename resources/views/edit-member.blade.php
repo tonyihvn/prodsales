@@ -90,8 +90,8 @@
                                         </div>
 
                                         <div class="form-group row">
-                                            <label for="status"  class="control-label ">Category</label>
-                                            <select class="form-control" name="status" id="status">
+                                            <label for="category"  class="control-label ">Category</label>
+                                            <select class="form-control" name="category" id="category">
                                                 <option value="{{ $user->category }}" selected>{{ $user->category }}</option>
                                                 <option value="Staff">Staff</option>
                                                 <option value="Customer">Customer</option>
