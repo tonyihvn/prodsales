@@ -173,16 +173,16 @@ class HomeController extends Controller
             //'business' => $request->business,
             'role'=>$request->role,
             'status'=>$request->status,
-            'settings_id'=>$request->settings_id
+            'setting_id'=>Auth()->user()->setting_id
 
         ])->id;
 
-        admintable::createOrUpdate([
+        admintable::updateOrCreate([
             'user_id'=>$userid,
-            'settings_id'=>$request->settings_id
+            'setting_id'=>Auth()->user()->setting_id
         ],[
             'user_id'=>$userid,
-            'settings_id'=>$request->settings_id,
+            'setting_id'=>Auth()->user()->setting_id,
             'status'=>$request->role,
         ]);
 

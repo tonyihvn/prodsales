@@ -12,7 +12,7 @@
             <div class="panel-body">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-3 col-sm-6">
+                        <div class="col-lg-4 col-sm-6">
                             <div class="card-box bg-blue">
                                 <div class="inner">
                                     <h3> {{$customers->count()}} </h3>
@@ -27,7 +27,7 @@
 
 
 
-                        <div class="col-lg-3 col-sm-6">
+                        <div class="col-lg-4 col-sm-6">
                             <div class="card-box bg-red">
                                 <div class="inner">
                                     <h3> {{$mytasks->count()}} </h3>
@@ -40,7 +40,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-sm-6">
+                        <div class="col-lg-4 col-sm-6">
                             <div class="card-box bg-orange">
                                 <div class="inner">
                                     <h3> {{$mytasks->count()}} </h3>
@@ -53,18 +53,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="card-box bg-green">
-                                <div class="inner">
-                                    <h3> {{$mytasks->count()}} </h3>
-                                    <p> Distributions </p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fa fa-tasks"></i>
-                                </div>
-                                <a href="/distributions" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
+
                     </div>
 
                 </div>
