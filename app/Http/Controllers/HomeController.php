@@ -183,7 +183,7 @@ class HomeController extends Controller
         ],[
             'user_id'=>$userid,
             'setting_id'=>Auth()->user()->setting_id,
-            'status'=>$request->role,
+            'role'=>$request->role,
         ]);
 
         $members = User::all();
