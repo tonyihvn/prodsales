@@ -49,7 +49,7 @@ class MaterialSuppliesController extends Controller
             'date_supplied' => $request->date_supplied,
             'setting_id'=>$request->setting_id,
             'batchno'=>$request->batchno,
-            'confirmed_by'=>$request->confirmed_by
+            //'confirmed_by'=>$request->confirmed_by
 
         ]);
 
