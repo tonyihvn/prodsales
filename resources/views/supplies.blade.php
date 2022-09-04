@@ -19,7 +19,6 @@
                                 <th>Quantity</th>
                                 <th>Cost Per Unit</th>
                                 <th>Total Amount</th>
-                                <th>Confirmed By</th>
                                 <th>Location/Facility</th>
                                 <th>Date Supplied</th>
                                 <th>Action</th>
@@ -34,7 +33,6 @@
                                     <td>{{$sp->quantity}}</td>
                                     <td>{{$sp->cost_per}}</td>
                                     <td>{{$sp->total_amount}}</td>
-                                    <td>{{$sp->confirmedby->name}}</td>
                                     <td>{{$sp->settings->business_name}}</td>
                                     <td>{{$sp->date_supplied}}</td>
                                     <td>
