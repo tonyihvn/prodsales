@@ -165,8 +165,7 @@
 									<li><a href="/materials" class="">Production Materials</a></li>
                                     <li><a href="/supplies" class="">Material Supplies</a></li>
                                     <li><a href="/mcheckouts" class="">Material Checkouts</a></li>
-
-
+                                    <li><a href="/material-damages" class="">Damages</a></li>
 								</ul>
 							</div>
 						</li>
@@ -177,6 +176,7 @@
 								<ul class="nav">
 									<li><a href="/products" class="">Product List</a></li>
                                     <li><a href="/psupplies" class="">Product Supplies</a></li>
+                                    <li><a href="/product-damages" class="">Damages</a></li>
 								</ul>
 							</div>
 						</li>
@@ -409,7 +409,7 @@
 
             <form method="POST" action="{{ route('switchbusiness') }}" enctype="multipart/form-data">
                 @csrf
-                {{var_dump($userbusinesses)}}
+
                 @if (isset($userbusinesses) && $userbusinesses->count()>0)
 
                     <div class="form-group row">
@@ -798,6 +798,65 @@
             $('#category').val(category).attr("selected", "selected");
             $('#setting_id').val(setting_id).attr("selected", "selected");
             $('#matbutton').html("Update Material");
+
+        }
+
+
+        function materialdamages(accid){
+
+            var name = $('#ach'+accid).attr("data-name");
+            var material_id = $('#ach'+accid).attr("data-material_id");
+            var invoiceno = $('#ach'+accid).attr("data-invoiceno");
+            var batchno = $('#ach'+accid).attr("data-batchno");
+            var reason = $('#ach'+accid).attr("data-reason");
+
+            var quantity = $('#ach'+accid).attr("data-quantity");
+            var setting_id = $('#ach'+accid).attr("data-setting_id");
+            var dated = $('#ach'+accid).attr("data-dated");
+            var damaged_by = $('#ach'+accid).attr("data-damaged_by");
+
+            $('#id').val(accid);
+            $('#name').val(name);
+            $('#material_id').val(material_id).attr("selected", "selected");
+            $('#invoiceno').val(invoiceno);
+            $('#batchno').val(batchno);
+            $('#dated').val(dated);
+
+
+            $('#reason').val(reason);
+            $('#quantity').val(quantity);
+            $('#damaged_by').val(damaged_by).attr("selected", "selected");
+            $('#setting_id').val(setting_id).attr("selected", "selected");
+            $('#matdbutton').html("Update Damaged Material");
+
+        }
+
+        function productDamages(accid){
+
+            var product_name = $('#ach'+accid).attr("data-product_name");
+            var product_id = $('#ach'+accid).attr("data-product_id");
+            var invoiceno = $('#ach'+accid).attr("data-invoiceno");
+            var batchno = $('#ach'+accid).attr("data-batchno");
+            var reason = $('#ach'+accid).attr("data-reason");
+
+            var quantity = $('#ach'+accid).attr("data-quantity");
+            var setting_id = $('#ach'+accid).attr("data-setting_id");
+            var dated = $('#ach'+accid).attr("data-dated");
+            var damaged_by = $('#ach'+accid).attr("data-damaged_by");
+
+            $('#id').val(accid);
+            $('#name').val(name);
+            $('#product_id').val(product_id).attr("selected", "selected");
+            $('#invoiceno').val(invoiceno);
+            $('#batchno').val(batchno);
+            $('#dated').val(dated);
+
+
+            $('#reason').val(reason);
+            $('#quantity').val(quantity);
+            $('#damaged_by').val(damaged_by).attr("selected", "selected");
+            $('#setting_id').val(setting_id).attr("selected", "selected");
+            $('#prddbutton').html("Update Damaged Product");
 
         }
 

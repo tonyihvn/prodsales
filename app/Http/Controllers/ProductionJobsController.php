@@ -6,6 +6,7 @@ use App\Models\production_jobs;
 use App\Models\finished_products;
 use App\Models\material_checkouts;
 use App\Models\product_stocks;
+use App\Models\product_damages;
 use PDF;
 
 use Illuminate\Http\Request;
@@ -68,9 +69,19 @@ class ProductionJobsController extends Controller
 
             product_stocks::where('product_id',$request->product_id)->increment('quantity',$request->quantity_produced);
 
+            product_damages::create([
+                'product_id'=>$request->product_id,
+                'batchno'=>$request->batchno,
+                'reason'=>'Damaged during production',
+                'quantity'=>$request->quantity_damaged,
+                'dated'=>$request->dated,
+                'damaged_by'=>$request->staff_incharge,
+                'setting_id'=>$request->setting_id
+            ]);
         }
 
         $productionjobs = production_jobs::paginate(50);
+
         return view('production_jobs', compact('productionjobs'));
     }
 
@@ -133,5 +144,12 @@ class ProductionJobsController extends Controller
         production_jobs::findOrFail($id)->delete();
         $message = 'The Production record has been deleted!';
         return redirect()->route('productionjobs')->with(['message'=>$message]);
+    }
+
+    public function removedMaterial($id)
+    {
+        product_damages::findOrFail($id)->delete();
+        $message = 'The damaged material has been deleted!';
+        return redirect()->route('materials')->with(['message'=>$message]);
     }
 }

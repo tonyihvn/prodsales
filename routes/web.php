@@ -43,6 +43,11 @@ Route::post('/addmaterial', [App\Http\Controllers\MaterialsController::class, 's
 Route::get('/material/{id}', [App\Http\Controllers\MaterialsController::class, 'material'])->name('material');
 Route::get('/delete-mat/{id}', [App\Http\Controllers\MaterialsController::class, 'destroy'])->name('delete-mat')->middleware('role:Admin,Super,Staff');
 
+// MATERIAL DAMAGES
+Route::get('/material-damages', [App\Http\Controllers\MaterialsController::class, 'damages'])->name('material-damages')->middleware('role:Admin,Super,Staff');
+Route::post('/adddmaterial', [App\Http\Controllers\MaterialsController::class, 'adddMaterial'])->name('adddmaterial')->middleware('role:Admin,Super,Staff');
+Route::get('/delete-dmat/{id}', [App\Http\Controllers\MaterialsController::class, 'removedMaterial'])->name('delete-dmat')->middleware('role:Admin,Super,Staff');
+
 // SUPPLIERS
 Route::get('/suppliers', [App\Http\Controllers\SuppliersController::class, 'index'])->name('suppliers')->middleware('role:Admin,Super,Staff');
 Route::post('/addsupplier', [App\Http\Controllers\SuppliersController::class, 'store'])->name('addsupplier')->middleware('role:Admin,Super,Staff');
@@ -94,16 +99,23 @@ Route::get('/pjob/{batchno}', [App\Http\Controllers\ProductionJobsController::cl
 Route::get('/delete-pjob/{id}', [App\Http\Controllers\ProductionJobsController::class, 'destroy'])->name('delete-pjob')->middleware('role:Super');
 
 
-// ACCOUNT HEADS
+// PRODUCTS
 Route::get('/products', [App\Http\Controllers\ProductsController::class, 'index'])->name('products')->middleware('role:Finance,Admin,Super');
 Route::post('/addproduct', [App\Http\Controllers\ProductsController::class, 'store'])->name('addproduct')->middleware('role:Finance,Admin,Super');
 Route::get('/delete-prd/{id}', [App\Http\Controllers\ProductsController::class, 'destroy'])->name('delete-prd')->middleware('role:Super');
+Route::get('/product/{id}', [App\Http\Controllers\ProductsController::class, 'product'])->name('product')->middleware('role:Super');
 
 // PRODUCT SALES
 Route::get('/sales', [App\Http\Controllers\ProductSalesController::class, 'index'])->name('sales')->middleware('role:Finance,Admin,Super,Staff');
 Route::get('/newsales', [App\Http\Controllers\ProductSalesController::class, 'sale'])->name('newsales')->middleware('role:Finance,Admin,Super,Staff');
 Route::post('/addsales', [App\Http\Controllers\ProductSalesController::class, 'store'])->name('addsales')->middleware('role:Finance,Admin,Super,Staff');
 Route::get('/invoice/{category}/{tid}', [App\Http\Controllers\ProductSalesController::class, 'invoice'])->name('invoice')->middleware('role:Finance,Admin,Super,Staff');
+
+// PRODUCT DAMAGES
+Route::get('/product-damages', [App\Http\Controllers\ProductsController::class, 'damages'])->name('product-damages')->middleware('role:Admin,Super,Staff');
+Route::post('/adddproduct', [App\Http\Controllers\ProductsController::class, 'adddProduct'])->name('adddproduct')->middleware('role:Admin,Super,Staff');
+Route::get('/delete-dprd/{id}', [App\Http\Controllers\ProductsController::class, 'removedproduct'])->name('delete-dprd')->middleware('role:Admin,Super,Staff');
+
 // ATTENDANCE
 Route::get('/attendance', [App\Http\Controllers\AttendanceController::class, 'index'])->name('attendance')->middleware('role:Usher,Admin,Super');
 Route::post('/addattendance', [App\Http\Controllers\AttendanceController::class, 'store'])->name('addattendance')->middleware('role:Usher,Admin,Super');

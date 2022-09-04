@@ -137,7 +137,7 @@ class HomeController extends Controller
     public function addNew()
     {
       $users = User::select('name','id')->get();
-      $businesses = businesses::select('name','id')->get();
+      $businesses = settings::select('business_name','id')->get();
       return view('add-new', compact('users','businesses'));
 
     }
@@ -170,7 +170,7 @@ class HomeController extends Controller
             'address' => $request->address,
             'location' => $request->location,
             'category' => $request->category,
-            'business' => $request->business,
+            //'business' => $request->business,
             'role'=>$request->role,
             'status'=>$request->status,
             'settings_id'=>$request->settings_id

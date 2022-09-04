@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\materials;
 use App\Models\material_stock;
+use App\Models\material_damages;
+use App\Models\material_supplies;
+use App\Models\material_checkouts;
 use Illuminate\Http\Request;
 
 class MaterialsController extends Controller
@@ -17,6 +20,12 @@ class MaterialsController extends Controller
     {
         $materials = materials::paginate(50);
         return view('materials', compact('materials'));
+    }
+
+    public function damages()
+    {
+        $material_damages = material_damages::paginate(50);
+        return view('material-damages', compact('material_damages'));
     }
 
     /**
@@ -81,6 +90,29 @@ class MaterialsController extends Controller
         return view('materials', compact('materials'));
     }
 
+    public function adddMaterial(Request $request){
+        material_damages::updateOrCreate(['id'=>$request->id],[
+            'material_id'=>$request->material_id,
+            'batchno'=>$request->batchno,
+            'invoiceno'=>$request->invoiceno,
+            'reason'=>$request->reason,
+            'quantity'=>$request->quantity,
+            'dated'=>$request->dated,
+            'damaged_by'=>$request->damaged_by,
+            'setting_id'=>$request->setting_id
+        ]);
+
+        $message = "The material damage record added successfully.";
+        return redirect()->route('material-damages')->with(['message'=>$message]);
+    }
+
+    public function material($material_id)
+    {
+        $material = materials::where('id',$material_id)->first();
+        $susupplies = material_supplies::where('material_id',$material_id)->get();
+        $mcheckouts = material_checkouts::where('material_id',$material_id)->get();
+        return view('material', compact('material','susupplies','mcheckouts'));
+    }
     /**
      * Display the specified resource.
      *
@@ -125,6 +157,13 @@ class MaterialsController extends Controller
     {
         materials::findOrFail($id)->delete();
         $message = 'The material has been deleted!';
+        return redirect()->route('materials')->with(['message'=>$message]);
+    }
+
+    public function removedMaterial($id)
+    {
+        material_damages::findOrFail($id)->delete();
+        $message = 'The damaged material has been deleted!';
         return redirect()->route('materials')->with(['message'=>$message]);
     }
 }

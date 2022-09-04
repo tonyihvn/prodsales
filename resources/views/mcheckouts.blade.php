@@ -8,7 +8,7 @@
             <div class="panel">
                 <div class="panel-heading">
 
-                        <a href="#" class="btn btn-primary pull-right" data-toggle="modal" data-target="#materialcheckout">Add New</a>
+                        <a href="#" class="btn btn-primary pull-right" data-toggle="modal" data-target="#materialcheckout">Collect Materials</a>
 
 
                 </div>

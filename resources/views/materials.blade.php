@@ -34,7 +34,7 @@
                                     <td width="10%">
                                             <img src="/public/images/materials/{{$mat->picture}}" class="img-circle" alt="{{$settings->business_name}}" width="100%" height="auto">
                                     </td>
-                                    <td><a href="/material/{{$mat->id}}"><b>{{$mat->name}}</b></td>
+                                    <td><a href="/material/{{$mat->id}}" target="_blank"><b>{{$mat->name}}</b></a></td>
                                     <td><b>{{$mat->type}}/{{$mat->category}}</b></td>
                                     <td>{{$mat->size}} {{$mat->measurement_unit}}</td>
                                     <td>{{$mat->cost_per}}</td>

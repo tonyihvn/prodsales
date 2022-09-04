@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\products;
 use App\Models\product_stocks;
+use App\Models\finished_products;
+use App\Models\product_sales;
+use App\Models\product_damages;
+use App\Models\product_supplies;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -19,6 +23,12 @@ class ProductsController extends Controller
         return view('products', compact('products'));
     }
 
+    public function damages()
+    {
+        $product_damages = product_damages::paginate(50);
+        return view('product-damages', compact('product_damages'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -27,6 +37,21 @@ class ProductsController extends Controller
     public function create()
     {
         //
+    }
+
+    public function adddProduct(Request $request){
+        product_damages::updateOrCreate(['id'=>$request->id],[
+            'product_id'=>$request->product_id,
+            'invoiceno'=>$request->invoiceno,
+            'batchno'=>$request->batchno,
+            'reason'=>$request->reason,
+            'quantity'=>$request->quantity,
+            'dated'=>$request->dated,
+            'damaged_by'=>$request->damaged_by,
+            'setting_id'=>$request->setting_id
+        ]);
+
+        return redirect()->route('product-damages');
     }
 
     /**
@@ -95,8 +120,11 @@ class ProductsController extends Controller
 
     public function product($product_id)
     {
-        $product = products::where('id',$product_id)->get();
-        return view('product', compact('product'));
+        $product = products::where('id',$product_id)->first();
+        $pfsupplies = finished_products::where('product_name',$product_id)->get();
+        $psupplies = product_supplies::where('product_id',$product_id)->get();
+        $psales = product_sales::where('product_id',$product_id)->get();
+        return view('product', compact('product','pfsupplies','psupplies','psales'));
     }
     /**
      * Display the specified resource.
@@ -104,6 +132,9 @@ class ProductsController extends Controller
      * @param  \App\Models\products  $products
      * @return \Illuminate\Http\Response
      */
+
+
+
     public function show(products $products)
     {
         //
@@ -143,5 +174,12 @@ class ProductsController extends Controller
         products::findOrFail($id)->delete();
         $message = 'The product has been deleted!';
         return redirect()->route('products')->with(['message'=>$message]);
+    }
+
+    public function removedproduct($id)
+    {
+        product_damages::findOrFail($id)->delete();
+        $message = 'The damaged product has been deleted!';
+        return redirect()->route('product-damages')->with(['message'=>$message]);
     }
 }

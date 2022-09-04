@@ -33,7 +33,7 @@
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label for="dob" class="control-label sr-only">Date of Birth</label>
-                                                    <input id="dob" name="dob" type="date" class="form-control" placeholder="Date of Birth">
+                                                    <input id="dob" name="dob" type="text" class="form-control datepicker" placeholder="Date of Birth">
                                             </div>
 
                                             <div class="form-group col-md-6">
@@ -87,7 +87,17 @@
 
                                         <div class="form-group row">
                                             <label for="salary" class="control-label sr-only">Salary</label>
-                                                <input id="salary" name="salary" type="text" class="form-control" placeholder="salary">
+                                                <input id="salary" name="salary" type="text" class="form-control" placeholder="Salary">
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="category"  class="control-label sr-only">Category</label>
+                                            <select class="form-control" name="category" id="category">
+                                                <option value="Category" selected>Category</option>
+                                                <option value="Customer">Customer</option>
+                                                <option value="Staff">Staff</option>
+                                                <option value="Distributor">Distributor</option>
+                                            </select>
                                         </div>
                                     </div>
 
@@ -96,6 +106,7 @@
                                         <div class="form-group row">
                                             <label for="status"  class="control-label sr-only">Status</label>
                                             <select class="form-control" name="status" id="status">
+                                                <option value="Status" selected>Status</option>
                                                 <option value="Staff">Staff</option>
                                                 <option value="Customer">Customer</option>
                                                 <option value="New Customer">New Customer</option>

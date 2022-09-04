@@ -109,8 +109,19 @@
                             </table>
 
                             <div class="row">
-                                <div class="form-group col-md-6" style="margin-top: 20px;">
+                                <div class="form-group col-md-4" style="margin-top: 20px;">
                                     <input type="text" name="group_id" id="group_id" placeholder="Invoice Number" class="form-control">
+                                </div>
+
+                                <div class="form-group col-md-4" style="margin-top: 20px;">
+                                        <select class="form-control" name="pay_method" id="pay_method">
+                                            <option value="Payment Method" selected>Payment Method</option>
+                                            <option value="Cash">Cash</option>
+                                            <option value="POS">POS</option>
+                                            <option value="Transfer">Transfer</option>
+                                            <option value="Cheque">Cheque</option>
+                                            <option value="Not Paid">Not Paid</option>
+                                        </select>
                                 </div>
 
                                 <div class="form-group col-md-6" style="float: right !important; margin-top: 20px;">
