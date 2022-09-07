@@ -28,7 +28,7 @@
 		}
 
 		.left, .right{
-			
+
 			overflow-y: visible !important;
 			height: auto !important;
 			min-height: 500px;
@@ -37,21 +37,21 @@
 		.auth-box .right .overlay{
 			opacity: 0.92;
 			background-color: {{$settings->color}} !important;
-			
+
 		}
 
 		 .logocontainer{
-			display: flex !important; 
-			justify-content: center !important; 
-			align-items: center !important; 
-				
-			
+			display: flex !important;
+			justify-content: center !important;
+			align-items: center !important;
+
+
 		}
 
 		.logo{
 			height: 100px;
-			width: 100px; 
-			border: white 4px solid; 	
+			width: 100px;
+			border: white 4px solid;
 			box-shadow: 2px 2px #ccc;
 			margin-bottom: -20px;
 			z-index: 99999999999999999999999;
@@ -63,17 +63,17 @@
 </head>
 
 <body>
-	
-	
-	
+
+
+
 	<!-- WRAPPER -->
 	<div id="wrapper">
 		<div class="vertical-align-wrap">
-			
-			<div class="vertical-align-middle">	
+
+			<div class="vertical-align-middle">
 
 				<div class="logocontainer">
-					<img  src="/images/{{$settings->logo}}" alt="{{$settings->motto}}" class="logo  img-circle">
+					<img  src="{{assets('/images/'.$settings->logo}}" alt="{{$settings->motto}}" class="logo  img-circle">
 				</div>
 
 				<div class="auth-box ">
@@ -99,7 +99,7 @@
         </div>
         <!-- END WRAPPER -->
     </body>
-    
+
     </html>
 	<script src="{{asset('/assets/vendor/jquery/jquery.min.js')}}"></script>
 	<script src="{{asset('/assets/jquery-ui/jquery-ui.min.js')}}"></script>
@@ -110,11 +110,10 @@
             $('.datepicker').datepicker({
 				yearRange: "-80:+0",
                 changeYear: true,
-                
+
             });
 		});
 
 	</script>
 
-    
-                            
+
