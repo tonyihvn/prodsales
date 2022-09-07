@@ -73,7 +73,7 @@
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand row">
 				<div class="col-lg-3">
-					<img  src="{{asset('images/'.$settings->logo) }}" alt="{{$settings->motto}}" class="img-responsive logo" style="height: auto !important; width: 100%; position: relative; padding: 0px;">
+					<img  src="{{public_path('images/'.$settings->logo) }}" alt="{{$settings->motto}}" class="img-responsive logo" style="height: auto !important; width: 100%; position: relative; padding: 0px;">
 				</div>
 				<div class="col-lg-9">
 					<b style="color: {{$settings->color}};">{{$settings->business_name}}</b><br>
