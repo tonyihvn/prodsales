@@ -229,7 +229,7 @@ class HomeController extends Controller
 
         $creditbalance = ltrim(substr($cbal,3),' ');
 
-        $members = User::select('name','status','ministry','phone_number')->get();
+        $members = User::select('name','status','category','phone_number')->get();
         $allnumbers = "";
         $lastrecord = end($members);
         $lastkey = key($lastrecord);
