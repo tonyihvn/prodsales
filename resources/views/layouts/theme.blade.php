@@ -131,7 +131,7 @@
                         <li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="lnr lnr-sync"></i> <span>Switch Dashboard</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
 							<ul class="dropdown-menu">
-								<li><a href="{{ url('/production')}}"><i class="lnr lnr-store"></i> <span>Production</span></a></li>
+								<li><a href="{{ url('/productionjobs')}}"><i class="lnr lnr-store"></i> <span>Production</span></a></li>
 								<li><a href="{{ url('/sales')}}"><i class="lnr lnr-cart"></i> <span>Sales</span></a></li>
 							</ul>
 						</li>
