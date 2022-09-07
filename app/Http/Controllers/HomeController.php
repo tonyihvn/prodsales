@@ -277,7 +277,7 @@ class HomeController extends Controller
 
       // v20ylRY3Gp6jYEAvpaDtOQQTqwoCqc1n4CUG3IBboIMTciDeVk	  -  Token for smartsms solutions
 
-      $members = User::select('name','status','ministry','phone_number')->get();
+      $members = User::select('name','status','category','phone_number')->get();
       $allnumbers = "";
       $lastrecord = end($members);
       $lastkey = key($lastrecord);
