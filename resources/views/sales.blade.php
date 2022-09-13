@@ -8,7 +8,7 @@
             <div class="panel">
                 <div class="panel-heading">
 
-                        <a href="/newsales" class="btn btn-success pull-right"><i class="lnr lnr-cart"></i> New Sales</a>
+                        <a href="{{url('/newsales')}}" class="btn btn-success pull-right"><i class="lnr lnr-cart"></i> New Sales</a>
 
 
                 </div>
@@ -45,7 +45,7 @@
                                     <td>{{$sale->dated_sold}}</td>
                                     <td>{{$sale->detail}}</td>
                                     <td>
-                                        <a href="/delete-sale/{{$sale->id}}" class="label label-danger" onclick="return confirm('Are you sure you want to delete the Sales checkout record, this will return the {{$sale->product->name}} with quantity {{$sale->quantity}} back to stock?')">Delete</a>
+                                        <a href="{{url('/delete-sale/'.$sale->id)}}" class="label label-danger" onclick="return confirm('Are you sure you want to delete the Sales checkout record, this will return the {{$sale->product->name}} with quantity {{$sale->quantity}} back to stock?')">Delete</a>
                                     </td>
 
                                 </tr>

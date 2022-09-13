@@ -1,7 +1,7 @@
 @extends('layouts.print-theme')
 
 @section('content')
-    <div style="text-align: center;"><img  src="/public/images/{{$settings->logo}}" class="img-responsive logo" style="height: auto !important; width: 100px; position: relative; padding: 0px;"></div>
+    <div style="text-align: center;"><img  src="{{asset('/public/images/'.$settings->logo)}}" class="img-responsive logo" style="height: auto !important; width: 100px; position: relative; padding: 0px;"></div>
 
     <h3 class="page-title" style="font-weight: bold; text-align: center;">{{$settings->business_name}}<br><small>{{$settings->address}} | {{$settings->phone_number}}</small></h3>
 

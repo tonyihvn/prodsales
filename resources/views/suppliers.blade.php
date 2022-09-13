@@ -42,7 +42,7 @@
                                     <td>
 
                                         <button class="label label-primary" id="ach{{$sup->id}}" onclick="supplier({{$sup->id}})"  data-toggle="modal" data-target="#supplier" data-supplier_name="{{$sup->supplier_name}}" data-company_name="{{$sup->company_name}}" data-category="{{$sup->category}}" data-phone_number="{{$sup->phone_number}}"  data-details="{{$sup->details}}"  data-details="{{$sup->details}}"  data-address="{{$sup->address}}"  data-setting_id="{{$sup->setting_id}}" }}">Edit</button>
-                                        <a href="/delete-sup/{{$sup->id}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the supplier: {{$sup->supplier_name}}?')">Delete</a>
+                                        <a href="{{url('/delete-sup/'.$sup->id)}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the supplier: {{$sup->supplier_name}}?')">Delete</a>
                                     </td>
 
                                 </tr>

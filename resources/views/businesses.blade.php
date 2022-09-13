@@ -23,7 +23,7 @@
                                     <td><b>{{$biz->business_name}}</b></td>
 
                                     <td>
-                                        <a href="/delete-biz/{{$biz->id}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the Business: {{$biz->business_name}}?')">Delete</a>
+                                        <a href="{{url('/delete-biz/'.$biz->id)}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the Business: {{$biz->business_name}}?')">Delete</a>
                                     </td>
 
                                 </tr>

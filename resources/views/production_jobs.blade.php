@@ -47,11 +47,11 @@
                                     <td>{{$pjobs->user->name}}</td>
                                     <td>
                                         @if ($pjobs->status=="Completed")
-                                            <a href="/pjob/{{$pjobs->batchno}}" target="_blank" class="label label-primary">More</a>
+                                            <a href="{{url('/pjob/'.$pjobs->batchno)}}" target="_blank" class="label label-primary">More</a>
                                         @else
                                             <button class="label label-primary" id="ach{{$pjobs->id}}" onclick="productionjob({{$pjobs->id}})"  data-toggle="modal" data-target="#productionjob" data-batchno="{{$pjobs->batchno}}"  data-product_id="{{$pjobs->product_id}}" data-staff_incharge="{{$pjobs->staff_incharge}}" data-target_quantity="{{$pjobs->target_quantity}}" data-dated_started="{{$pjobs->dated_started}}"  data-dated_ended="{{$pjobs->dated_ended}}"  data-status="{{$pjobs->status}}"  data-details="{{$pjobs->details}}"  data-estimated_cost_of_production="{{$pjobs->estimated_cost_of_production}}" data-setting_id="{{$pjobs->setting_id}}">Edit</button>
                                         @endif
-                                        <a href="/delete-pjob/{{$pjobs->id}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the Production record : {{$pjobs->product->name}}?')">Delete</a>
+                                        <a href="{{url('/delete-pjob/'.$pjobs->id)}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the Production record : {{$pjobs->product->name}}?')">Delete</a>
                                     </td>
 
                                 </tr>

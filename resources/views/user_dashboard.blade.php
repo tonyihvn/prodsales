@@ -36,7 +36,7 @@
                                 <div class="icon">
                                     <i class="fa fa-tasks"></i>
                                 </div>
-                                <a href="/tasks" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="{{url('/tasks')}}" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>

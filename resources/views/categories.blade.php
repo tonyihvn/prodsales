@@ -33,7 +33,7 @@
                                     <td>{{$cat->description}}</td>
                                     <td>{{$cat->settings->business_name}}</td>
                                     <td><button class="label label-primary" id="ach{{$cat->id}}" onclick="category({{$cat->id}})"  data-toggle="modal" data-target="#category" data-title="{{$cat->title}}" data-category_group="{{$cat->category_group}}" data-description="{{$cat->description}}"  data-setting_id="{{$cat->setting_id}}">Edit</button>
-                                    <a href="/delete-cat/{{$cat->id}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete {{$cat->title}}\'s category?')">Delete</a>
+                                    <a href="{{url('/delete-cat/'.$cat->id)}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete {{$cat->title}}\'s category?')">Delete</a>
                                     </td>
 
                                 </tr>

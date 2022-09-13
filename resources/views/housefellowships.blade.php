@@ -7,10 +7,10 @@
     <div class="row">
             <div class="panel">
                 <div class="panel-heading">
-                    
+
                         <a href="#" class="btn btn-primary pull-right" data-toggle="modal" data-target="#hfellowship">Add New</a>
-                    
-                    
+
+
                 </div>
                 <div class="panel-body">
                     <table class="table  responsive-table">
@@ -20,10 +20,10 @@
                                 <th>Location</th>
                                 <th>Address</th>
                                 <th>About</th>
-                                <th>Leader</th>                                
+                                <th>Leader</th>
                                 <th>Activities</th>
                                 <th>Action</th>
-                                
+
                             </tr>
                         </thead>
                         <tbody>
@@ -37,15 +37,15 @@
                                     <td>{{is_numeric($hf->leader)?$users->where('id',$hf->leader)->first()->name:$hf->leader}}</td>
                                     <td>{{$hf->activities}}</td>
                                     <td>
-                                        
+
                                         <button class="label label-primary" id="ach{{$hf->id}}" onclick="hfellowship({{$hf->id}})"  data-toggle="modal" data-target="#hfellowship" data-name="{{$hf->name}}"  data-location="{{$hf->location}}"  data-address="{{$hf->address}}" data-about="{{$hf->about}}" data-leader="{{$hf->leader}}" data-activities="{{$hf->activities}}">Edit</button>
-                                    <a href="/delete-hfel/{{$hf->id}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the house fellowship {{$hf->name}}?')">Delete</a>
+                                    <a href="{{url('/delete-hfel/'.$hf->id)}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the house fellowship {{$hf->name}}?')">Delete</a>
                                     </td>
-                                    
+
                                 </tr>
                             @endforeach
-                            
-                            
+
+
                         </tbody>
                     </table>
                     <div style="text-align: right">
@@ -53,31 +53,31 @@
                     </div>
                 </div>
             </div>
-        
+
     </div>
-    
+
 
     <!-- Button to Open the Modal -->
 
-  
+
   <!-- The Modal -->
   <div class="modal" id="hfellowship">
     <div class="modal-dialog">
       <div class="modal-content">
-  
+
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Add New House Fellowship</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-  
+
         <!-- Modal body -->
         <div class="modal-body">
-            
+
             <form method="POST" action="{{ route('addhfellowship') }}">
                 @csrf
                 <input type="hidden" name="id" id="id">
-                                
+
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" name="name" id="name" class="form-control">
@@ -104,8 +104,8 @@
                         <option value="" selected>Leader</option>
                         @foreach ($users as $user)
                             <option value="{{$user->id}}">{{$user->name}}</option>
-                        @endforeach                                          
-                    
+                        @endforeach
+
                     </select>
                 </div>
 
@@ -113,9 +113,9 @@
                     <label for="activities"  class="control-label">Activities</label>
                     <textarea name="activities" id="activities" class="form-control" placeholder="Activities" rows="4"></textarea>
                 </div>
-            
 
-                
+
+
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">
@@ -123,18 +123,18 @@
                     </button>
                 </div>
 
-                  
+
             </form>
         </div>
-  
+
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
-  
+
       </div>
     </div>
   </div>
-        
+
 
 @endsection

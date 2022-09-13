@@ -32,9 +32,9 @@
 
                                 <tr>
                                     <td width="10%">
-                                            <img src="/public/images/materials/{{$mat->picture}}" class="img-circle" alt="{{$settings->business_name}}" width="100%" height="auto">
+                                            <img src="{{asset('/images/materials/'.$mat->picture)}}" class="img-circle" alt="{{$settings->business_name}}" width="100%" height="auto">
                                     </td>
-                                    <td><a href="/material/{{$mat->id}}" target="_blank"><b>{{$mat->name}}</b></a></td>
+                                    <td><a href="{{url('/material/'.$mat->id)}}" target="_blank"><b>{{$mat->name}}</b></a></td>
                                     <td><b>{{$mat->type}}/{{$mat->category}}</b></td>
                                     <td>{{$mat->size}} {{$mat->measurement_unit}}</td>
                                     <td>{{$mat->cost_per}}</td>
@@ -43,7 +43,7 @@
                                     <td>
 
                                         <button class="label label-primary" id="ach{{$mat->id}}" onclick="material({{$mat->id}})"  data-toggle="modal" data-target="#material" data-name="{{$mat->name}}" data-type="{{$mat->type}}" data-category="{{$mat->category}}" data-measurement_unit="{{$mat->measurement_unit}}"  data-picture="{{$mat->picture}}"  data-size="{{$mat->size}}"  data-cost_per="{{$mat->cost_per}}"  data-setting_id="{{$mat->setting_id}}" }}">Edit</button>
-                                        <a href="/delete-mat/{{$mat->id}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the material: {{$mat->name}}?')">Delete</a>
+                                        <a href="{{url('/delete-mat/'.$mat->id)}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the material: {{$mat->name}}?')">Delete</a>
                                     </td>
 
                                 </tr>

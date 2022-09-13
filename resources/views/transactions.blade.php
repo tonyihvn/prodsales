@@ -19,7 +19,7 @@
                                 <th>Title</th>
                                 <th>Amount</th>
                                 <th>Account Head</th>
-                                <th>Date</th>
+                                <th>Da{{url('te</th>
                                 <th>Ref. No</th>
                                 <th>Detail</th>
                                 <th>From</th>
@@ -48,11 +48,11 @@
 
                                         <button class="label label-primary" id="ach{{$transact->id}}" onclick="transaction({{$transact->id}})"  data-toggle="modal" data-target="#transaction" data-title="{{$transact->title}}" data-amount="{{$transact->amount}}" data-account_head="{{$transact->account_head}}" data-date="{{$transact->date}}" data-reference_no="{{$transact->reference_no}}" data-detail="{{$transact->detail}}" data-from="{{$transact->from}}" data-to="{{$transact->to}}" data-approved_by="{{$transact->approved_by}}"  data-recorded_by="{{$transact->recorded_by}}">Edit</button>
                                         @if ($transact->account_head==1)
-                                            <a href="/invoice/invoice/{{$transact->id}}" target="_blank" class="label label-success">Invoice</a>
-                                            <a href="/invoice/receipt/{{$transact->id}}" target="_blank" class="label label-warning">Reciept</a>
+                                            <a href="{{url('/invoice/invoice/'.$transact->id)}}" target="_blank" class="label label-success">Invoice</a>
+                                            <a href="{{url('/invoice/receipt/'.$transact->id)}}" target="_blank" class="label label-warning">Reciept</a>
                                         @endif
 
-                                        <a href="/delete-trans/{{$transact->id}}" class="label label-danger Super"  onclick="return confirm('Are you sure you want to delete {{$transact->detail}}\'s Financial Record?')">Delete</a>
+                                        <a href="{{url('/delete-trans/'.$transact->id)}}" class="label label-danger Super"  onclick="return confirm('Are you sure you want to delete {{$transact->detail}}\'s Financial Record?')">Delete</a>
                                     </td>
 
                                 </tr>

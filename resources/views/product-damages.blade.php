@@ -32,7 +32,7 @@
 
                                 <tr>
 
-                                    <td><a href="/product/{{$prd->product_id}}"><b>{{$prd->product->name}}</b></td>
+                                    <td><a href="{{url('/product/'.$prd->product_id)}}"><b>{{$prd->product->name}}</b></td>
                                     <td><b>{{$prd->batchno}}/{{$prd->invoiceno}}</b></td>
                                     <td>{{$prd->reason}}</td>
                                     <td>{{$prd->quantity}}</td>
@@ -42,7 +42,7 @@
                                     <td>
 
                                         <button class="label label-primary" id="ach{{$prd->id}}" onclick="productDamages({{$prd->id}})"  data-toggle="modal" data-target="#productdamages" data-product_id="{{$prd->product_id}}" data-product_name="{{$prd->product->product_name}}" data-invoiceno="{{$prd->invoiceno}}" data-batchno="{{$prd->batchno}}" data-reason="{{$prd->reason}}"  data-quantity="{{$prd->quantity}}"  data-dated="{{$prd->dated}}"  data-damaged_by="{{$prd->damaged_by}}"  data-setting_id="{{$prd->setting_id}}">Edit</button>
-                                        <a href="/delete-dprd/{{$prd->id}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the damaged product : {{$prd->product->name}}?')">Delete</a>
+                                        <a href="{{url('/delete-dprd/'.$prd->id)}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the damaged product : {{$prd->product->name}}?')">Delete</a>
                                     </td>
 
                                 </tr>

@@ -73,10 +73,10 @@
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand row">
 				<div class="col-lg-3">
-					<img  src="{{asset('public/images/'.$settings->logo) }}" alt="{{$settings->motto}}" class="img-responsive logo" style="height: auto !important; width: 100%; position: relative; padding: 0px;">
+					<img  src="{{asset('/images/'.$settings->logo) }}" class="img-responsive logo" style="height: auto !important; width: 100%; position: relative; padding: 0px;">
 				</div>
 				<div class="col-lg-9">
-					<b style="color: {{$settings->color}};">{{$settings->business_name}}</b><br>
+					<b style="color: {{$settings->color}}">{{$settings->business_name}}</b><br>
 					<small>{{$settings->motto}}</small>
 				</div>
 			</div>
@@ -265,7 +265,7 @@
 		<div class="clearfix"></div>
 		<footer>
 			<div class="container-fluid">
-				<p class="copyright">&copy; {{date("Y")}} <a href="https://www.prodsales.com" target="_blank">{{$settings->name}}</a>. All Rights Reserved.</p>
+				<p class="copyright">&copy; {{date("Y")}} <a href="https://www.prosales.com.ng" target="_blank">{{$settings->name}}</a>. All Rights Reserved.</p>
 			</div>
 		</footer>
 	</div>

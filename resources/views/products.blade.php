@@ -32,9 +32,9 @@
 
                                 <tr>
                                     <td width="10%">
-                                            <img src="/images/products/{{$pr->picture}}" class="img-circle" alt="{{$settings->business_name}}" width="100%" height="auto">
+                                            <img src="{{asset('images/products/'.$pr->picture)}}" class="img-circle" alt="{{$settings->business_name}}" width="100%" height="auto">
                                     </td>
-                                    <td><a href="/product/{{$pr->id}}" target="_blank"><b>{{$pr->name}}</b></a></td>
+                                    <td><a href="{{url('/product/'.$pr->id)}}" target="_blank"><b>{{$pr->name}}</b></a></td>
                                     <td><b>{{$pr->type}}/{{$pr->category}}</b></td>
                                     <td>{{$pr->size}} {{$pr->measurement_unit}}</td>
                                     <td>{{$pr->price}}</td>
@@ -43,7 +43,7 @@
                                     <td>
 
                                         <button class="label label-primary" id="ach{{$pr->id}}" onclick="product({{$pr->id}})"  data-toggle="modal" data-target="#product" data-name="{{$pr->name}}" data-type="{{$pr->type}}" data-category="{{$pr->category}}" data-measurement_unit="{{$pr->measurement_unit}}"  data-picture="{{$pr->picture}}"  data-size="{{$pr->size}}"  data-price="{{$pr->price}}"  data-setting_id="{{$pr->setting_id}}">Edit</button>
-                                        <a href="/delete-prd/{{$pr->id}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the product: {{$pr->name}}?')">Delete</a>
+                                        <a href="{{url('/delete-prd/'.$pr->id)}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the product: {{$pr->name}}?')">Delete</a>
                                     </td>
 
                                 </tr>

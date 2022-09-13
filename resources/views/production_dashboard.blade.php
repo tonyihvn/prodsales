@@ -21,7 +21,7 @@
                                 <div class="icon">
                                     <i class="fa fa-users" aria-hidden="true"></i>
                                 </div>
-                                <a href="/materials" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="{{url('/materials')}}" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 
@@ -36,7 +36,7 @@
                                 <div class="icon">
                                     <i class="fa fa-tasks"></i>
                                 </div>
-                                <a href="/products" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="{{url('/products')}}" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 
@@ -49,7 +49,7 @@
                                 <div class="icon">
                                     <i class="fa fa-tasks"></i>
                                 </div>
-                                <a href="/productionjobs" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="{{url('/productionjobs')}}" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 

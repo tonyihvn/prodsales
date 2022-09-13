@@ -32,7 +32,7 @@
 
                                 <tr>
 
-                                    <td><a href="/material/{{$mat->id}}"><b>{{$mat->material->name}}</b></td>
+                                    <td><a href="{{url('/material/'.$mat->id)}}"><b>{{$mat->material->name}}</b></td>
                                     <td><b>{{$mat->batchno}}/{{$mat->invoiceno}}</b></td>
                                     <td>{{$mat->reason}}</td>
                                     <td>{{$mat->quantity}}</td>
@@ -42,7 +42,7 @@
                                     <td>
 
                                         <button class="label label-primary" id="ach{{$mat->id}}" onclick="materialdamages({{$mat->id}})"  data-toggle="modal" data-target="#materialdamages" data-material_id="{{$mat->material_id}}" data-name="{{$mat->material->name}}" data-invoiceno="{{$mat->invoiceno}}" data-batchno="{{$mat->batchno}}" data-reason="{{$mat->reason}}"  data-quantity="{{$mat->quantity}}"  data-dated="{{$mat->dated}}"  data-damaged_by="{{$mat->damaged_by}}"  data-setting_id="{{$mat->setting_id}}">Edit</button>
-                                        <a href="/delete-dmat/{{$mat->id}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the damaged material : {{$mat->material->name}}?')">Delete</a>
+                                        <a href="{{url('/delete-dmat/'.$mat->id)}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the damaged material : {{$mat->material->name}}?')">Delete</a>
                                     </td>
 
                                 </tr>

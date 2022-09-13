@@ -37,7 +37,7 @@
                                     <td>{{$sp->date_supplied}}</td>
                                     <td>
                                         <button class="label label-primary" id="ach{{$sp->id}}" onclick="supply({{$sp->id}})"  data-toggle="modal" data-target="#supply" data-supplier_id="{{$sp->supplier_id}}" data-material_id="{{$sp->material_id}}" data-quantity="{{$sp->quantity}}" data-cost_per="{{$sp->cost_per}}"  data-total_amount="{{$sp->total_amount}}" data-date_supplied="{{$sp->date_supplied}}" data-setting_id="{{$sp->setting_id}}"  data-batchno="{{$sp->batchno}}" data-confirmed_by="{{$sp->confirmed_by}}">Edit</button>
-                                        <a href="/delete-sp/{{$sp->id}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the supply: {{$sp->material->name}}?')">Delete</a>
+                                        <a href="{{url('/delete-sp/'.$sp->id)}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the supply: {{$sp->material->name}}?')">Delete</a>
                                     </td>
 
                                 </tr>

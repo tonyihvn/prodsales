@@ -31,11 +31,11 @@
 
                                 <tr>
                                     <td width="10%">
-                                        <a href="/post/{{$prog->id}}">
+                                        <a href="{{url('/post/'.$prog->id)}}">
                                             <img src="{{asset('/images/'.$prog->picture)}}" class="img-circle" alt="{{$settings->logo}}" width="100%" height="auto">
                                         </a>
                                     </td>
-                                    <td><a href="/post/{{$prog->id}}"><b>{{$prog->title}}</b></td>
+                                    <td><a href="{{url('/post/'.$prog->id)}}"><b>{{$prog->title}}</b></td>
                                     <td><b>{{$prog->from==$prog->to?$prog->from:$prog->from." to ".$prog->to}}</b></td>
                                     <td>{{$prog->type}}</td>
                                     <td>{{$prog->category}}</td>
@@ -43,7 +43,7 @@
                                     <td>
 
                                         <button class="label label-primary" id="ach{{$prog->id}}" onclick="programme({{$prog->id}})"  data-toggle="modal" data-target="#programme" data-title="{{$prog->title}}" data-type="{{$prog->type}}" data-from="{{$prog->from}}" data-from="{{$prog->from}}"  data-to="{{$prog->to}}"  data-details="{{$prog->details}}"  data-category="{{$prog->category}}"  data-picture="{{$prog->picture}}"  data-business="{{$prog->business}}" data-pic="{{$prog->picture}}">Edit</button>
-                                    <a href="/delete-prog/{{$prog->id}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the post: {{$prog->title}}?')">Delete</a>
+                                    <a href="{{url('/delete-prog/'.$prog->id)}}" class="label label-danger"  onclick="return confirm('Are you sure you want to delete the post: {{$prog->title}}?')">Delete</a>
                                     </td>
 
                                 </tr>

@@ -10,7 +10,7 @@
 
             <div class="panel">
                 <div class="panel-heading">
-                    <a href="/add-new" class="btn btn-primary pull-right" style="margin-bottom: 10px;">Add New User</a>
+                    <a href="{{url('/add-new')}}" class="btn btn-primary pull-right" style="margin-bottom: 10px;">Add New User</a>
                 </div>
                 <div class="panel-body">
                     <table class="table  responsive-table" id="products">
@@ -41,8 +41,8 @@
                                     <td>{{$member->location}}</td>
                                     <td width="90">
                                         <div class="btn-group">
-                                            <a href="/edit-member/{{$member->id}}" class="label label-primary left"><i class="lnr lnr-pencil"></i></a>
-                                            <a href="/member/{{$member->id}}/" class="label label-success"><i class="lnr lnr-eye"></i></a>
+                                            <a href="{{url('/edit-member/'.$member->id)}}" class="label label-primary left"><i class="lnr lnr-pencil"></i></a>
+                                            <a href="{{url('/member/'.$member->id)}}/" class="label label-success"><i class="lnr lnr-eye"></i></a>
                                         </div>
                                     </td>
 
