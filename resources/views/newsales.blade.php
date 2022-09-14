@@ -137,7 +137,7 @@
                     <div class="col-md-5">
                         @foreach ($products as $product)
                             <a href="#" data-pid="{{$product->id}}" data-munit="{{$product->measurement_unit}}"  data-price="{{$product->price}}" data-in_stock="{{$product->stock->quantity}}" data-name="{{$product->name}}" onclick="addItem({{$product->id}})" id="item{{$product->id}}">
-                                <div class="square bg img" style="background-image: url('{{asset('images/products/'.$product->picture)}}');">
+                                <div class="square bg img" style="background-image: url('{{asset('public/images/products/'.$product->picture)}}');">
                                     <div class="content">
                                         {{$product->name}}
                                         <br>N{{$product->price}}

@@ -32,7 +32,7 @@
 
                                 <tr>
                                     <td width="10%">
-                                            <img src="{{asset('/images/materials/'.$mat->picture)}}" class="img-circle" alt="{{$settings->business_name}}" width="100%" height="auto">
+                                            <img src="{{asset('public/images/materials/'.$mat->picture)}}" class="img-circle" alt="{{$settings->business_name}}" width="100%" height="auto">
                                     </td>
                                     <td><a href="{{url('/material/'.$mat->id)}}" target="_blank"><b>{{$mat->name}}</b></a></td>
                                     <td><b>{{$mat->type}}/{{$mat->category}}</b></td>

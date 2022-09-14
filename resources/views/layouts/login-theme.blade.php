@@ -73,7 +73,7 @@
 			<div class="vertical-align-middle">
 
 				<div class="logocontainer">
-					<img  src="{{asset('/images/'.$settings->logo)}}" alt="{{$settings->motto}}" class="logo  img-circle">
+					<img  src="{{asset('public/images/'.$settings->logo)}}" alt="{{$settings->motto}}" class="logo  img-circle">
 				</div>
 
 				<div class="auth-box ">
@@ -84,7 +84,7 @@
                                 <!----------------------------END YIELD PAGE CONTENT -->
                             </div>
                         </div>
-                        <div class="right" style="background-image: url('images/{{$settings->background}}'); background-repeat: no-repeat; background-size: cover;">
+                        <div class="right" style="background-image: url('public/images/{{$settings->background}}'); background-repeat: no-repeat; background-size: cover;">
                             <div class="overlay"></div>
                             <div class="content text">
 
