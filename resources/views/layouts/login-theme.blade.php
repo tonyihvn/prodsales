@@ -2,7 +2,7 @@
 <html lang="en" class="fullscreen-bg">
 
 <head>
-	<title>{{$settings->ministry_name}} | Login</title>
+	<title>{{$settings->business_name}} | Login</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -73,7 +73,7 @@
 			<div class="vertical-align-middle">
 
 				<div class="logocontainer">
-					<img  src="{{asset('public/images/'.$settings->logo)}}" alt="{{$settings->motto}}" class="logo  img-circle">
+					<img  src="{{asset('/images/'.$settings->logo)}}" alt="{{$settings->motto}}" class="logo  img-circle">
 				</div>
 
 				<div class="auth-box ">
@@ -84,7 +84,7 @@
                                 <!----------------------------END YIELD PAGE CONTENT -->
                             </div>
                         </div>
-                        <div class="right" style="background-image: url('public/images/{{$settings->background}}'); background-repeat: no-repeat; background-size: cover;">
+                        <div class="right" style="background-image: url('images/{{$settings->background}}'); background-repeat: no-repeat; background-size: cover;">
                             <div class="overlay"></div>
                             <div class="content text">
 
@@ -106,6 +106,19 @@
 
 
 	<script type="text/javascript">
+
+        $('#newbusiness_box').hide();
+
+        $('#setting_id').change(function(){
+            if($(this).val() == 'None'){
+                $('#newbusiness_box').toggle();
+            }else{
+                $('#newbusiness_box').hide();
+
+            }
+        });
+
+
         $(function() {
             $('.datepicker').datepicker({
 				yearRange: "-80:+0",

@@ -23,6 +23,8 @@
                                                     @foreach ($businessgroup->settings as $usrmin)
                                                         <option value="{{$usrmin->id}}">{{$usrmin->business_name}}</option>
                                                     @endforeach
+                                                    <option value="None" style="color: darkOrange;">Not Listed? Add New Business</option>
+
 
                                             @endforeach
 
@@ -30,7 +32,48 @@
                                         </select>
                                     </div>
                                 </div>
+
+
+                                <div id="newbusiness_box">
+                                    <span style="color: darkOrange; font-size: 0.8em;">&Not; Note: This business will undergo verification process</span>
+
+                                    <input type="hidden" name="newbusiness" id="newbusiness" value="Yes">
+
+                                    <div class="form-group col-md-12">
+                                        <label for="businessgroup_id"  class="control-label ">Parent Company</label>
+                                        <select class="form-control" name="businessgroup_id" id="businessgroup_id">
+
+                                            @foreach ($businessgroups as $mg)
+                                                <option value="{{$mg->id}}">{{$mg->businessgroup_name}}</option>
+                                            @endforeach
+                                            <option value="1">Not Applicable</option>
+
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="business_name">Business/Company Name</label>
+                                        <input type="text" name="business_name" id="business_name" class="form-control" value="{{$settings->business_name}}">
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="motto">Motto</label>
+                                        <input type="text" name="motto" id="motto" class="form-control" value="{{$settings->motto}}">
+                                    </div>
+
+                                    <div class="form-group  col-md-12">
+                                        <label for="biz_address">Business Address</label>
+                                        <input type="text" name="biz_address" id="biz_address" class="form-control" value="{{$settings->address}}">
+                                    </div>
+
+                                    <input type="hidden" name="mode" value="InActive">
+
+
+                                </div>
+
                                 <div class="row">
+                                    <h4>User Info</h4>
+
                                     <div class="form-group col-lg-12">
                                         <label for="name" class="control-label sr-only">{{ __('Name') }}</label>
                                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus placeholder="Full Name">
@@ -142,8 +185,10 @@
                                         <button type="submit" class="btn btn-primary">
                                             {{ __('Sign Up') }}
                                         </button>
-
+                                    <br>
+                                    Already had an account? <a href="{{url('login')}}">Login</a>
                                 </div>
+
                             </form>
 
 

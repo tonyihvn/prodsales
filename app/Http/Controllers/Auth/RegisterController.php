@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\settings;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -75,6 +76,22 @@ class RegisterController extends Controller
 
         }
 
+        if(isset($data['business_name'])){
+
+            $setting_id = settings::create([
+                'business_name' => $data['business_name'],
+                'motto' => $data['motto'],
+                'address' => $data['biz_address'],
+                'mode'=>$data['mode'],
+                'businessgroup_id'=>$data['businessgroup_id'],
+                'user_id'=>1
+            ] )->id;
+
+        }else{
+            $setting_id = $data['setting_id'];
+        }
+
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -87,7 +104,7 @@ class RegisterController extends Controller
             'role'=>"Customer",
             'category'=>"Customer",
             'status'=>"InActive",
-            'setting_id' => $data['setting_id']
+            'setting_id' => $setting_id
         ]);
 
         /*

@@ -3,8 +3,10 @@
 @section('content')
     @php $pagename="user_dashboard"; @endphp
 
-    <h3 class="page-title">Dashboard | <small style="color: green">Periodic Performance</small></h3>
     <div class="row">
+        @if ($settings->status=="InActive" || Auth()->user()->status=="InActive")
+            <p style="color: red; font-weight: bold;">This account or business is not yet approved, please contact admin for activation at: <a href="mailto:{{$settings->user->email}}">{{$settings->user->email}}</a></p>
+        @endif
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title">Stats</h3>
@@ -12,33 +14,33 @@
             <div class="panel-body">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-3 col-sm-6">
+                        <div class="col-lg-5 col-sm-6">
                             <div class="card-box bg-blue">
                                 <div class="inner">
-                                    <h3> {{$customers->count()}} </h3>
-                                    <p> Total Customers</p>
+                                    <h3> {{$myinvoices->count()}} </h3>
+                                    <p> Invoices/Orders</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fa fa-users" aria-hidden="true"></i>
                                 </div>
-                                <a href="/customers" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="/myinvoices" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 
 
-
-                        <div class="col-lg-3 col-sm-6">
+                        <div class="col-lg-5 col-sm-6">
                             <div class="card-box bg-red">
                                 <div class="inner">
                                     <h3> {{$mytasks->count()}} </h3>
-                                    <p> Tasks / To Do </p>
+                                    <p> Messages </p>
                                 </div>
                                 <div class="icon">
                                     <i class="fa fa-tasks"></i>
                                 </div>
-                                <a href="{{url('/tasks')}}" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="{{url('/mytickets')}}" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
@@ -47,21 +49,11 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
-            <div class="panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Sales | this year</h3>
-                </div>
-                <div class="panel-body">
 
-                    <div id="sales-chart" style="height: 300px"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Reminders</h3>
+                    <h3 class="panel-title">Messages / Tickets</h3>
                 </div>
                 <div class="panel-body">
                     <table class="table">
@@ -71,18 +63,19 @@
 
                                 <th>Title</th>
                                 <th>Date</th>
-                                <th>Activities</th>
+                                <th>Details</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($mytasks as $ta)
-                                @if ($ta->category=="Reminder")
+                                @if ($ta->category=="Tivket")
 
                                     <tr>
                                         <td>{{$ta->title}}</td>
                                         <td>{{$ta->from==$ta->to?$ta->from:$ta->from." to ".$ta->to}}</td>
                                         <td>{{$ta->activities}}</td>
+                                        <td>{{$ta->status}}</td>
 
                                     </tr>
                                 @endif

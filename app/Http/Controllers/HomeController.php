@@ -14,6 +14,7 @@ use App\Models\settings;
 use App\Models\admintable;
 use App\Models\product;
 use App\Models\production_jobs;
+use App\Models\transactions;
 use Artisan;
 // use Illuminate\Support\Facades\DB;
 
@@ -53,7 +54,7 @@ class HomeController extends Controller
             $setting_id = Auth()->user()->setting_id;
         }
 
-        if($role=="Admin" || $role == "Super"){
+        if(($role=="Admin") || ($role == "Super")){
 
             return $this->productionDashboard($setting_id,$role);
         }else{
@@ -88,7 +89,8 @@ class HomeController extends Controller
     }
 
     public function userDashboard(){
-        return view('user_dashboard');
+        $myinvoices = transactions::where('from',Auth::user()->id)->get();
+        return view('user_dashboard',compact('myinvoices'));
      }
 
     public function logout()

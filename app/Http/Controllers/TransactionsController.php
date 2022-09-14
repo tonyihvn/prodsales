@@ -17,11 +17,16 @@ class TransactionsController extends Controller
      */
     public function index()
     {
-        $transactions = transactions::paginate(50);
-        $accountheads = accountheads::select('title','category')->get();
+        $transactions = transactions::where('setting_id',Auth()->user()->setting_id)->paginate(50);
         $users = User::select('id','name')->get();
 
-        return view('transactions', compact('transactions','accountheads','users'));
+        return view('transactions', compact('transactions','users'));
+    }
+
+    public function myInvoices()
+    {
+        $transactions = transactions::where('from',Auth()->user()->id)->paginate(50);
+        return view('myinvoices', compact('transactions'));
     }
 
     /**
@@ -46,12 +51,12 @@ class TransactionsController extends Controller
             'title' => $request->title,
             'amount' => $request->amount,
             'account_head' => $request->account_head,
-            'date'=>$request->date,     
+            'date'=>$request->date,
             'reference_no' => $request->reference_no,
             'upload'=>'',
             'detail'=>$request->detail,
             'from'=>$request->from,
-            'to'=>$request->to,                    
+            'to'=>$request->to,
             'approved_by'=>$request->approved_by,
             'recorded_by'=>$request->recorded_by,
 
@@ -106,8 +111,8 @@ class TransactionsController extends Controller
      */
     public function destroy($id)
     {
-        transactions::findOrFail($id)->delete();      
-        $message = 'The transaction\'s Record has been deleted!';      
+        transactions::findOrFail($id)->delete();
+        $message = 'The transaction\'s Record has been deleted!';
         return redirect()->route('transactions')->with(['message'=>$message]);
     }
 }

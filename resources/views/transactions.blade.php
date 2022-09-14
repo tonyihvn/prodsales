@@ -19,7 +19,7 @@
                                 <th>Title</th>
                                 <th>Amount</th>
                                 <th>Account Head</th>
-                                <th>Da{{url('te</th>
+                                <th>Date</th>
                                 <th>Ref. No</th>
                                 <th>Detail</th>
                                 <th>From</th>

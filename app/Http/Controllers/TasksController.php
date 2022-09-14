@@ -28,6 +28,16 @@ class TasksController extends Controller
         return view('tasks', compact('tasks','users'));
     }
 
+    public function myTickets()
+    {
+
+        $tasks = tasks::where('assigned_to',Auth::user()->id)->orderBy('status', 'DESC')->paginate(50);
+
+        $users = User::select('id','name')->get();
+
+        return view('myTickets', compact('tasks','users'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

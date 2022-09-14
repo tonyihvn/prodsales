@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>ProdSales | Dashboard</title>
+	<title>{{$settings->business_name}}  | Dashboard</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -84,14 +84,15 @@
 				<div class="navbar-btn">
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
-
-				<form class="navbar-form navbar-left" action="{{ route('searchmembers') }}" method="post">
-					@csrf
-					<div class="input-group">
-						<input type="text" value="" name="keyword" class="form-control" placeholder="Search ...">
-						<span class="input-group-btn"><button type="submit" class="btn btn-primary">Go</button></span>
-					</div>
-				</form>
+                @if(Auth()->user()->role!="Customer")
+                    <form class="navbar-form navbar-left" action="{{ route('searchmembers') }}" method="post">
+                        @csrf
+                        <div class="input-group">
+                            <input type="text" value="" name="keyword" class="form-control" placeholder="Search ...">
+                            <span class="input-group-btn"><button type="submit" class="btn btn-primary">Go</button></span>
+                        </div>
+                    </form>
+                @endif
 				<!--
                 <div class="navbar-btn navbar-btn-right">
 					<a class="btn btn-success update-pro" href="{{ url('/add-new')}}" title="New Member" target="_blank"><span class="fa fa-user-plus"></span> <span>New Member</span></a>
@@ -120,21 +121,25 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="lnr lnr-user"></i> <span>@auth {{ Auth::user()->name }} @endauth </span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
 							<ul class="dropdown-menu">
-								<li><a href="{{ url('/member/'.$login_user->id)}}"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
-								<li><a href="{{ url('/tasks')}}"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
-								<li><a href="#"  data-toggle="modal" data-target="#settings"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
-                                <li><a href="#"  data-toggle="modal" data-target="#switchbusiness"><i class="lnr lnr-sync"></i> <span>Switch Business</span></a></li>
-                                <li><a href="{{ url('/members')}}"><i class="lnr lnr-user"></i> <span>Users</span></a></li>
+                                @if(Auth()->user()->role!="Customer")
+                                    <li><a href="{{ url('/member/'.$login_user->id)}}"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+                                    <li><a href="{{ url('/tasks')}}"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
+                                    <li><a href="#"  data-toggle="modal" data-target="#settings"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
+                                    <li><a href="#"  data-toggle="modal" data-target="#switchbusiness"><i class="lnr lnr-sync"></i> <span>Switch Business</span></a></li>
+                                    <li><a href="{{ url('/members')}}"><i class="lnr lnr-user"></i> <span>Users</span></a></li>
+                                @endif
                                 <li><a href="{{ url('/logout')}}"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
 							</ul>
 						</li>
-                        <li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="lnr lnr-sync"></i> <span>Switch Dashboard</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
-							<ul class="dropdown-menu">
-								<li><a href="{{ url('/productionjobs')}}"><i class="lnr lnr-store"></i> <span>Production</span></a></li>
-								<li><a href="{{ url('/sales')}}"><i class="lnr lnr-cart"></i> <span>Sales</span></a></li>
-							</ul>
-						</li>
+                        @if(Auth()->user()->role!="Customer")
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="lnr lnr-sync"></i> <span>Switch Dashboard</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ url('/productionjobs')}}"><i class="lnr lnr-store"></i> <span>Production</span></a></li>
+                                    <li><a href="{{ url('/sales')}}"><i class="lnr lnr-cart"></i> <span>Sales</span></a></li>
+                                </ul>
+                            </li>
+                        @endif
 
 					</ul>
 				</div>
@@ -145,99 +150,116 @@
 		<div id="sidebar-nav" class="sidebar" style="margin-top: 10px">
 			<div class="sidebar-scroll">
 				<nav>
-					<ul class="nav">
-						<li><a href="{{ url('/home')}}" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+                    @if(Auth()->user()->role!="Customer")
+                        <ul class="nav">
+                            <li><a href="{{ url('/home')}}" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
 
 
-                        <li class="roledlink Staff Admin Finance Super" style="visibility:hidden;">
-							<a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="lnr lnr-settings"></i> <span>Production</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="subPages2" class="collapse ">
-								<ul class="nav">
-									<li><a href="{{ url('/productionjobs')}}" class="">Production Jobs</a></li>
-								</ul>
-							</div>
-						</li>
+                            <li class="roledlink Staff Admin Finance Super" style="visibility:hidden;">
+                                <a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="lnr lnr-settings"></i> <span>Production</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subPages2" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href="{{ url('/productionjobs')}}" class="">Production Jobs</a></li>
+                                    </ul>
+                                </div>
+                            </li>
 
-                        <li class="roledlink Staff Admin Finance Super" style="visibility:hidden;">
-							<a href="#subPages3" data-toggle="collapse" class="collapsed"><i class="lnr lnr-settings"></i> <span>Materials</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="subPages3" class="collapse ">
-								<ul class="nav">
-									<li><a href="{{ url('/materials')}}" class="">Production Materials</a></li>
-                                    <li><a href="{{ url('/supplies')}}" class="">Material Supplies</a></li>
-                                    <li><a href="{{ url('/mcheckouts')}}" class="">Material Checkouts</a></li>
-                                    <li><a href="{{ url('/material-damages')}}" class="">Damages</a></li>
-								</ul>
-							</div>
-						</li>
+                            <li class="roledlink Staff Admin Finance Super" style="visibility:hidden;">
+                                <a href="#subPages3" data-toggle="collapse" class="collapsed"><i class="lnr lnr-settings"></i> <span>Materials</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subPages3" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href="{{ url('/materials')}}" class="">Production Materials</a></li>
+                                        <li><a href="{{ url('/supplies')}}" class="">Material Supplies</a></li>
+                                        <li><a href="{{ url('/mcheckouts')}}" class="">Material Checkouts</a></li>
+                                        <li><a href="{{ url('/material-damages')}}" class="">Damages</a></li>
+                                    </ul>
+                                </div>
+                            </li>
 
-                        <li class="roledlink Staff Admin Finance Super" style="visibility:hidden;">
-							<a href="#subPages4" data-toggle="collapse" class="collapsed"><i class="lnr lnr-items"></i> <span>Products</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="subPages4" class="collapse ">
-								<ul class="nav">
-									<li><a href="{{ url('/products')}}" class="">Product List</a></li>
-                                    <li><a href="{{ url('/psupplies')}}" class="">Product Supplies</a></li>
-                                    <li><a href="{{ url('/product-damages')}}" class="">Damages</a></li>
-								</ul>
-							</div>
-						</li>
+                            <li class="roledlink Staff Admin Finance Super" style="visibility:hidden;">
+                                <a href="#subPages4" data-toggle="collapse" class="collapsed"><i class="lnr lnr-items"></i> <span>Products</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subPages4" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href="{{ url('/products')}}" class="">Product List</a></li>
+                                        <li><a href="{{ url('/psupplies')}}" class="">Product Supplies</a></li>
+                                        <li><a href="{{ url('/product-damages')}}" class="">Damages</a></li>
+                                    </ul>
+                                </div>
+                            </li>
 
-						<li class="roledlink Admin Super Staff" style="visibility:hidden;">
-							<a href="#subPages5" data-toggle="collapse" class="collapsed"><i class="lnr lnr-cart"></i> <span>Sales</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="subPages5" class="collapse ">
-								<ul class="nav">
-									<li><a href="{{ url('/newsales')}}" class="roledlink Admin Super Staff">New Sales</a></li>
-                                    <li><a href="{{ url('/sales')}}" class="roledlink Admin Super Staff">Product Sales Records</a></li>
+                            <li class="roledlink Admin Super Staff" style="visibility:hidden;">
+                                <a href="#subPages5" data-toggle="collapse" class="collapsed"><i class="lnr lnr-cart"></i> <span>Sales</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subPages5" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href="{{ url('/newsales')}}" class="roledlink Admin Super Staff">New Sales</a></li>
+                                        <li><a href="{{ url('/sales')}}" class="roledlink Admin Super Staff">Product Sales Records</a></li>
 
-								</ul>
-							</div>
-						</li>
+                                    </ul>
+                                </div>
+                            </li>
 
-						<li class="roledlink Staff Admin Finance Super" style="visibility:hidden;">
-							<a href="#subPages6" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i> <span>Users</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="subPages6" class="collapse ">
-								<ul class="nav">
-									<li><a href="{{ url('/members')}}')}}" class="">Personnel</a></li>
-                                    <li><a href="{{ url('/customers')}}')}}" class="">Customers</a></li>
-                                    <li><a href="{{ url('/suppliers')}}')}}" class="">Suppliers</a></li>
+                            <li class="roledlink Staff Admin Finance Super" style="visibility:hidden;">
+                                <a href="#subPages6" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i> <span>Users</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subPages6" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href="{{ url('/members')}}')}}" class="">Personnel</a></li>
+                                        <li><a href="{{ url('/customers')}}')}}" class="">Customers</a></li>
+                                        <li><a href="{{ url('/suppliers')}}')}}" class="">Suppliers</a></li>
 
-								</ul>
-							</div>
-						</li>
+                                    </ul>
+                                </div>
+                            </li>
 
-						<li class="roledlink Admin Super Staff" style="visibility:hidden;">
-							<a href="#subPages8" data-toggle="collapse" class="collapsed"><i class="lnr lnr-flag"></i> <span>Management</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="subPages8" class="collapse ">
-								<ul class="nav">
-                                    <li><a href="{{ url('/tasks')}}" class="">Manage Tasks/TODOs</a></li>
-									<li><a href="{{ url('/programmes')}}" class="">Manage Programmes</a></li>
-                                    <li><a href="{{ url('/attendance')}}" class="">Manage Attendance</a></li>
-                                    <li><a href="{{ url('/businesses')}}" class="roledlink Super">Manage Businesses</a></li>
-                                    <li><a href="{{ url('/help')}}">Basic Use</a></li>
-								    <li><a href="{{ url('/security')}}">Security</a></li>
-								</ul>
-							</div>
-						</li>
+                            <li class="roledlink Admin Super Staff" style="visibility:hidden;">
+                                <a href="#subPages8" data-toggle="collapse" class="collapsed"><i class="lnr lnr-flag"></i> <span>Management</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subPages8" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href="{{ url('/tasks')}}" class="">Manage Tasks/TODOs</a></li>
+                                        <li><a href="{{ url('/programmes')}}" class="">Manage Programmes</a></li>
+                                        <li><a href="{{ url('/attendance')}}" class="">Manage Attendance</a></li>
+                                        <li><a href="{{ url('/businesses')}}" class="roledlink Super">Manage Businesses</a></li>
+                                        <li><a href="{{ url('/help')}}">Basic Use</a></li>
+                                        <li><a href="{{ url('/security')}}">Security</a></li>
+                                    </ul>
+                                </div>
+                            </li>
 
-						<li class="roledlink Admin Super Super" style="visibility:hidden;">
-							<a href="#subPages9" data-toggle="collapse" class="collapsed"><i class="lnr lnr-list"></i> <span>Finance</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="subPages9" class="collapse ">
-								<ul class="nav">
-									<li><a href="{{ url('/transactions')}}" class="">Transactions</a></li>
-									<li><a href="{{ url('/account-heads')}}" class="">Manage Account Heads</a></li>
+                            <li class="roledlink Admin Super Super" style="visibility:hidden;">
+                                <a href="#subPages9" data-toggle="collapse" class="collapsed"><i class="lnr lnr-list"></i> <span>Finance</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subPages9" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href="{{ url('/transactions')}}" class="">Transactions</a></li>
+                                        <li><a href="{{ url('/account-heads')}}" class="">Manage Account Heads</a></li>
 
-								</ul>
-							</div>
-						</li>
-						<li class="roledlink Admin Super Staff" style="visibility:hidden;">
-							<a href="#subPages10" data-toggle="collapse" class="collapsed"><i class="lnr lnr-envelope"></i> <span>Communication</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="subPages10" class="collapse ">
-								<ul class="nav">
-									<li><a href="{{ url('/communications')}}" class="">Send Bulk SMS</a></li>
-									<li><a href="{{ url('/sentmessages')}}" class="">Sent Messages</a></li>
-								</ul>
-							</div>
-						</li>
-					</ul>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="roledlink Admin Super Staff" style="visibility:hidden;">
+                                <a href="#subPages10" data-toggle="collapse" class="collapsed"><i class="lnr lnr-envelope"></i> <span>Communication</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subPages10" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href="{{ url('/communications')}}" class="">Send Bulk SMS</a></li>
+                                        <li><a href="{{ url('/sentmessages')}}" class="">Sent Messages</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    @else
+                        <ul class="nav">
+                            <li><a href="{{ url('/home')}}" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+
+                            <li class="roledlink Customer Supplier Driver Distributor" style="visibility:hidden;">
+                                <a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="lnr lnr-settings"></i> <span>Menu</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subPages2" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href="{{ url('/myinvoices')}}" class="">Invoices / Orders</a></li>
+                                        <li><a href="{{ url('/mytickets')}}" class="">Tickets</a></li>
+                                        <li><a href="{{ url('/logout')}}" class="">Logout</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    @endif
 				</nav>
 			</div>
 		</div>

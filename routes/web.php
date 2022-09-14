@@ -82,6 +82,9 @@ Route::get('/inprogresstask/{id}', [App\Http\Controllers\TasksController::class,
 Route::get('/delete-task/{id}', [App\Http\Controllers\TasksController::class, 'destroy'])->name('destroy')->middleware('role:Super');
 Route::get('/delete-followup/{id}', [App\Http\Controllers\TasksController::class, 'deletefollowup'])->name('delete-followup')->middleware('role:Worker,Admin,Followup,Staff,Super');
 
+Route::get('/mytickets', [App\Http\Controllers\TasksController::class, 'myTickets'])->name('mytickets')->middleware('role:Customer,Supplier,Distributor,Drivers');
+
+
 // ACCOUNT HEADS
 Route::get('/account-heads', [App\Http\Controllers\AccountheadsController::class, 'index'])->name('account-heads')->middleware('role:Finance,Admin,Super');
 Route::post('/addaccounthead', [App\Http\Controllers\AccountheadsController::class, 'store'])->name('addaccounthead')->middleware('role:Finance,Admin,Super');
@@ -125,6 +128,8 @@ Route::get('/delete-attd/{id}', [App\Http\Controllers\AttendanceController::clas
 Route::get('/transactions', [App\Http\Controllers\TransactionsController::class, 'index'])->name('transactions')->middleware('role:Finance,Admin,Super');
 Route::post('/addtransaction', [App\Http\Controllers\TransactionsController::class, 'store'])->name('addtransaction')->middleware('role:Finance,Admin,Super');
 Route::get('/delete-trans/{id}', [App\Http\Controllers\TransactionsController::class, 'destroy'])->name('delete-trans')->middleware('role:Finance,Super');
+Route::get('/myinvoices', [App\Http\Controllers\TransactionsController::class, 'myInvoices'])->name('transactions')->middleware('role:Customer,Supplier,Distributor,Drivers');
+
 
 // PROGRAMMES
 Route::get('/programmes', [App\Http\Controllers\ProgrammesController::class, 'index'])->name('programmes')->middleware('role:Admin,Super,Staff');
@@ -136,8 +141,6 @@ Route::get('/delete-prog/{id}', [App\Http\Controllers\ProgrammesController::clas
 Route::get('/communications', [App\Http\Controllers\HomeController::class, 'communications'])->name('communications')->middleware('role:Admin,Super,Staff');
 Route::post('/sendsms', [App\Http\Controllers\HomeController::class, 'sendSMS'])->name('sendsms')->middleware('role:Admin,Super,Staff');
 Route::get('/sentmessages', [App\Http\Controllers\HomeController::class, 'sentSMS'])->name('sentmessages')->middleware('role:Admin,Super,Staff');
-
-
 
 // ARTISAN COMMANDS
 Route::get('/artisan1/{command}', [App\Http\Controllers\HomeController::class, 'Artisan1']);
