@@ -26,7 +26,7 @@ class AccountheadsController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -37,12 +37,13 @@ class AccountheadsController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         accountheads::updateOrCreate(['id'=>$request->id],[
             'title' => $request->title,
             'category' => $request->category,
             'type' => $request->type,
-            'description'=>$request->description,                       
+            'description'=>$request->description,
+
         ]);
         $accountheads = accountheads::all();
 
@@ -58,7 +59,7 @@ class AccountheadsController extends Controller
      */
     public function show(accountheads $accountheads)
     {
-        
+
     }
 
     /**
@@ -92,11 +93,11 @@ class AccountheadsController extends Controller
      */
     public function destroy($id)
     {
-        
-      accountheads::findOrFail($id)->delete();      
-      $message = 'The Account Head has been deleted!';      
+
+      accountheads::findOrFail($id)->delete();
+      $message = 'The Account Head has been deleted!';
       return redirect()->route('account-heads')->with(['message'=>$message]);
 
-    
+
     }
 }

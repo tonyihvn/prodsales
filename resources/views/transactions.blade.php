@@ -114,7 +114,7 @@
                         <select class="form-control" name="account_head" id="account_head">
 
                             @foreach ($accountheads as $account)
-                                <option value="{{$account->title}}">{{$account->title}} - ({{$account->category}})</option>
+                                <option value="{{$account->id}}">{{$account->title}} - ({{$account->category}})</option>
                             @endforeach
 
                         </select>

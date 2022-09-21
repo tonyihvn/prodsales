@@ -17,10 +17,12 @@ class TransactionsController extends Controller
      */
     public function index()
     {
+        $accountheads = accountheads::where('setting_id',Auth()->user()->setting_id)->get();
+
         $transactions = transactions::where('setting_id',Auth()->user()->setting_id)->paginate(50);
         $users = User::select('id','name')->get();
 
-        return view('transactions', compact('transactions','users'));
+        return view('transactions', compact('transactions','users','accountheads'));
     }
 
     public function myInvoices()
@@ -51,7 +53,7 @@ class TransactionsController extends Controller
             'title' => $request->title,
             'amount' => $request->amount,
             'account_head' => $request->account_head,
-            'date'=>$request->date,
+            'dated'=>$request->date,
             'reference_no' => $request->reference_no,
             'upload'=>'',
             'detail'=>$request->detail,
