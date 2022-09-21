@@ -116,7 +116,6 @@
                             @foreach ($accountheads as $account)
                                 <option value="{{$account->id}}">{{$account->title}} - ({{$account->category}})</option>
                             @endforeach
-
                         </select>
                     </div>
                 </div>
