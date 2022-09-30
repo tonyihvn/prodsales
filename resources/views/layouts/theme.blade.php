@@ -202,9 +202,9 @@
                                 <a href="#subPages6" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i> <span>Users</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                                 <div id="subPages6" class="collapse ">
                                     <ul class="nav">
-                                        <li><a href="{{ url('/members')}}')}}" class="">Personnel</a></li>
-                                        <li><a href="{{ url('/customers')}}')}}" class="">Customers</a></li>
-                                        <li><a href="{{ url('/suppliers')}}')}}" class="">Suppliers</a></li>
+                                        <li><a href="{{ url('/members')}}" class="">Personnel</a></li>
+                                        <li><a href="{{ url('/customers')}}" class="">Customers</a></li>
+                                        <li><a href="{{ url('/suppliers')}}" class="">Suppliers</a></li>
 
                                     </ul>
                                 </div>
