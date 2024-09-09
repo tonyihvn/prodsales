@@ -94,7 +94,6 @@ class ProductsController extends Controller
 
         product_stocks::updateOrCreate(['product_id'=>$product_id],[
             'product_id'=>$product_id,
-            'quantity' => 0,
             'added_by' => Auth()->user()->id,
             'facility_location'=>$request->setting_id,
             'setting_id'=>$request->setting_id

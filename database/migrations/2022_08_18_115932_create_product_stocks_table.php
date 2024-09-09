@@ -18,7 +18,7 @@ class CreateProductStocksTable extends Migration
             $table->unsignedBigInteger('product_id')->index()->nullable();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 
-            $table->double('quantity',10,2)->nullable();
+            $table->double('quantity',10,2)->nullable()->default(0);
 
             $table->unsignedBigInteger('added_by')->index()->nullable();
             $table->foreign('added_by')->references('id')->on('users')->onDelete('cascade');
