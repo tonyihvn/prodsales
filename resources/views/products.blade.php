@@ -63,7 +63,6 @@
 
     <!-- Button to Open the Modal -->
 
-
   <!-- The Modal -->
   <div class="modal" id="product">
     <div class="modal-dialog"  style="width: 90%">
