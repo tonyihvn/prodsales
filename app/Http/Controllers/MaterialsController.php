@@ -78,16 +78,19 @@ class MaterialsController extends Controller
 
         material_stock::updateOrCreate(['material_id'=>$material_id],[
             'material_id'=>$material_id,
-            'quantity' => 0,
+
             'added_by' => Auth()->user()->id,
             'facility_location'=>$request->setting_id,
             'setting_id'=>$request->setting_id
 
         ]);
 
-        $materials = materials::paginate(50);
+        // $materials = materials::paginate(50);
 
-        return view('materials', compact('materials'));
+        $message = "Item saved successfully.";
+        return redirect()->back()->with(['message'=>$message]);
+
+        // return view('materials', compact('materials'));
     }
 
     public function adddMaterial(Request $request){

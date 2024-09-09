@@ -99,9 +99,11 @@ class ProductsController extends Controller
             'setting_id'=>$request->setting_id
         ]);
 
-        $products = products::paginate(50);
+        // $products = products::paginate(50);
 
-        return view('products', compact('products'));
+        $message = "Item saved successfully.";
+        return redirect()->back()->with(['message'=>$message]);
+        // return view('products', compact('products'));
     }
 
 
