@@ -132,7 +132,7 @@
 
                         <label for="setting_id" class="control-label">Facility / Location</label>
                         <select class="form-control" name="setting_id" id="setting_id">
-                            <option value="1" selected>Select Location</option>
+                            <option value="1" selected>NORINCO</option>
                             @foreach ($userbusinesses as $set)
                                 <option value="{{$set->id}}">{{$set->business_name}}</option>
                             @endforeach

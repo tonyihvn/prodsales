@@ -38,6 +38,26 @@ class MaterialSuppliesController extends Controller
      */
     public function store(Request $request)
     {
+        // Update Stock
+        $stockid = material_stock::updateOrCreate(['material_id'=>$request->material_id],[
+            'material_id'=>$request->material_id,
+            'added_by' => Auth()->user()->id,
+            'facility_location'=>$request->facility_location,
+            'internal_location'=>$request->internal_location,
+            'dated_added'=>$request->date_supplied,
+            'setting_id'=>$request->setting_id
+
+        ]);
+
+        if($request->updating=="Yes"){
+            $oldQuantity = material_supplies::select('quantity')->where('id',$request->id)->first()->quantity;
+
+            if($oldQuantity > $request->quantity){
+                $stockid->decrement('quantity',$request->quantity);
+            }else if($oldQuantity < $request->quantity){
+                $stockid->increment('quantity',$request->quantity);
+            }
+        }
 
 
         material_supplies::updateOrCreate(['id'=>$request->id],[
@@ -53,23 +73,13 @@ class MaterialSuppliesController extends Controller
 
         ]);
 
-        // Update Stock
-        $stockid = material_stock::updateOrCreate(['material_id'=>$request->material_id],[
-            'material_id'=>$request->material_id,
-            'added_by' => Auth()->user()->id,
-            'facility_location'=>$request->facility_location,
-            'internal_location'=>$request->internal_location,
-            'dated_added'=>$request->date_supplied,
-            'setting_id'=>$request->setting_id
 
-        ]);
+        // $supplies = material_supplies::paginate(50);
 
-        if($request->updating=="Yes"){
-            $stockid->increment('quantity',$request->quantity);
-        }
-        $supplies = material_supplies::paginate(50);
+        // return view('supplies', compact('supplies'));
 
-        return view('supplies', compact('supplies'));
+        $message = "Action Saved Successfully";
+        return redirect()->back()->with(['message'=>$message]);
     }
 
     /**
