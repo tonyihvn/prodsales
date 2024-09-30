@@ -984,7 +984,7 @@
 
             var date_supplied = $('#ach'+accid).attr("data-date_supplied");
 
-            $('#updating').val("No");
+            $('#updating').val("Yes");
 
             $('#id').val(accid);
             $('#supplier_id').val(supplier_id).attr("selected", "selected").change();;

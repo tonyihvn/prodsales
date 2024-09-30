@@ -75,7 +75,7 @@
             <form method="POST" action="{{ route('addsupply') }}" id="supplyform" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="id" id="id">
-                <input type="hidden" name="updating" id="updating" value="Yes">
+                <input type="hidden" name="updating" id="updating" value="No">
                 <div class="row">
 
                     <div class="form-group col-md-4">

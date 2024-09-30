@@ -16,6 +16,7 @@
                     <table class="table responsive-table">
                         <thead>
                             <tr style="color: ">
+                                <th>ID</th>
                                 <th>Image</th>
                                 <th>Name</th>
                                 <th>type/Category</th>
@@ -31,6 +32,7 @@
                             @foreach ($materials as $mat)
 
                                 <tr>
+                                    <td>{{$mat->id}}</td>
                                     <td width="10%">
                                             <img src="{{asset('public/images/materials/'.$mat->picture)}}" class="img-circle" alt="{{$settings->business_name}}" width="100%" height="auto">
                                     </td>

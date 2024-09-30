@@ -50,7 +50,14 @@ class MaterialSuppliesController extends Controller
         ]);
 
         if($request->updating=="Yes"){
-            $oldQuantity = material_supplies::select('quantity')->where('id',$request->id)->first()->quantity;
+            $oldQuantityCheck = material_supplies::select('quantity')->where('id',$request->id);
+
+            if(!empty($oldQuantityCheck)){
+                $oldQuantity = $oldQuantityCheck->first()->quantity;
+            }else{
+                $oldQuantity = 0;
+            }
+
 
             if($oldQuantity > $request->quantity){
                 $stockid->decrement('quantity',$request->quantity);
