@@ -50,7 +50,7 @@ class MaterialSuppliesController extends Controller
         ]);
 
         if($request->updating=="Yes"){
-            $oldQuantityCheck = material_supplies::select('quantity')->where('id',$request->id);
+            $oldQuantityCheck = material_supplies::select('quantity')->where('id',$request->id)->get();
 
             if(!empty($oldQuantityCheck)){
                 $oldQuantity = $oldQuantityCheck->first()->quantity;
